@@ -46,6 +46,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        setResizable(false);
 
         usernameLabel.setText("Username:");
 
@@ -71,7 +72,9 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        loginButton.setMnemonic('L');
         loginButton.setText("LOGIN");
+        loginButton.setToolTipText("");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
