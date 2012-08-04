@@ -7,6 +7,10 @@ package schedulepro;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -43,9 +47,21 @@ public class Utilfunctions {
             JOptionPane.showMessageDialog(null,"Unexpected Error. Exiting application");
         }
     }
-    
+    public static ResultSet executeQuery(String query) {
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro","root","");
+            PreparedStatement statement = con.prepareStatement(query);
+            result = statement.executeQuery();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+        return result;
+    }
     private static Toolkit toolkit;
     private static Dimension dim;
     private static int width;
     private static int height;
+    private static ResultSet result;
 }
