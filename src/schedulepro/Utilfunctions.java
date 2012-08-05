@@ -6,7 +6,7 @@ package schedulepro;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.File;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -41,7 +41,7 @@ public class Utilfunctions {
         try{
             String path = directory.getCanonicalPath();
             String s = File.separator;
-            jf.setIconImage(Toolkit.getDefaultToolkit().getImage(path + s + "src" + s + "schedulepro" + s + "logo.gif"));
+            jf.setIconImage(Toolkit.getDefaultToolkit().getImage(path + s + "src" + s + "images" + s + "logo.gif"));
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,"Unexpected Error. Exiting application");
@@ -50,7 +50,24 @@ public class Utilfunctions {
     public static ResultSet executeQuery(String query) {
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro","root","");
+            File directory = new File(".");
+            String path = directory.getCanonicalPath();
+            String s = File.separator;
+            FileInputStream fstream = new FileInputStream(path + s + "src" + s + "config" + s + "dbconfig.cfg");
+            
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            String dbpwd="";
+            
+            while ((strLine = br.readLine()) != null)   {
+                if(strLine.indexOf("password") >= 0 ) {
+                    dbpwd = strLine.substring(strLine.indexOf('\t')+1);
+                    break;
+                }
+            }
+            
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro","root",dbpwd);
             PreparedStatement statement = con.prepareStatement(query);
             result = statement.executeQuery();
         }
