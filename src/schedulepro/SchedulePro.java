@@ -24,12 +24,8 @@ public class SchedulePro {
         Utilfunctions.setLocation(lf);
         Utilfunctions.setIconImage(lf);
         
-        //Thread.sleep(1000);
-        //sf.setVisible(false);
-        //lf.setVisible(true);
-        
-        UserCSVUpload uc = new UserCSVUpload();
-        uc.setVisible(true);
-        
+        Thread.sleep(1000);
+        sf.setVisible(false);
+        lf.setVisible(true);
     }
 }
