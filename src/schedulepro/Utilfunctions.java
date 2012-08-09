@@ -7,6 +7,9 @@ package schedulepro;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -75,6 +78,13 @@ public class Utilfunctions {
             JOptionPane.showMessageDialog(null,e);
         }
         return result;
+    }
+    public static BigInteger MD5(String input) throws NoSuchAlgorithmException
+    {
+            MessageDigest MD5 = MessageDigest.getInstance("MD5");
+            MD5.update(input.getBytes());
+            BigInteger output = new BigInteger(1, MD5.digest());
+            return output;
     }
     private static Toolkit toolkit;
     private static Dimension dim;
