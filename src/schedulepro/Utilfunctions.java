@@ -99,14 +99,13 @@ public class Utilfunctions {
         }
         return result;
     }
-<<<<<<< HEAD
     public static BigInteger MD5(String input) throws NoSuchAlgorithmException
     {
             MessageDigest MD5 = MessageDigest.getInstance("MD5");
             MD5.update(input.getBytes());
             BigInteger output = new BigInteger(1, MD5.digest());
             return output;
-=======
+    }
     
     public static int executeUpdate(String query){
         int rowsAffected = 0;
@@ -149,7 +148,6 @@ public class Utilfunctions {
         else {
             fopen.setVisible(false);
         }
->>>>>>> a38608ebb45645b48fbcbc16dc386877e637a900
     }
     private static Toolkit toolkit;
     private static Dimension dim;

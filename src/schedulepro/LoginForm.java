@@ -140,15 +140,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void LoginAuthentication()
     {
         try {
-<<<<<<< HEAD
             ResultSet result = Utilfunctions.executeQuery("SELECT * FROM  `login`WHERE  `id` ='"+usernameText.getText()+"' AND  `password` =  '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"'");
-=======
-            MessageDigest MD5 = MessageDigest.getInstance("MD5");
-            MD5.update(passwordText.getText().getBytes());
-            BigInteger pass = new BigInteger(1, MD5.digest());
-            
-            ResultSet result = Utilfunctions.executeQuery("SELECT * FROM  `login` WHERE  `id` ='"+usernameText.getText()+"' AND  `password` =  '"+pass.toString(16)+"'");
->>>>>>> a38608ebb45645b48fbcbc16dc386877e637a900
             result.next();
             GlobalVars.loginId = result.getString(1);
             GlobalVars.userCode=result.getString(2);
