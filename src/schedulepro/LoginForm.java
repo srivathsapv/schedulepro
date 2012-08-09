@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -134,21 +135,40 @@ public class LoginForm extends javax.swing.JFrame {
  *Checks for valid username and password.And returns the usercode of the user.
  * Invalid username and password, displays a messagebox "Invalid Username and Password",
  * clears the username and passwords text field and sets focus on username.
- * USes MD5 for password encryption.
+ * Uses MD5 for password encryption.
  */
     private void LoginAuthentication()
     {
         try {
+<<<<<<< HEAD
             ResultSet result = Utilfunctions.executeQuery("SELECT * FROM  `login`WHERE  `id` ='"+usernameText.getText()+"' AND  `password` =  '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"'");
+=======
+            MessageDigest MD5 = MessageDigest.getInstance("MD5");
+            MD5.update(passwordText.getText().getBytes());
+            BigInteger pass = new BigInteger(1, MD5.digest());
+            
+            ResultSet result = Utilfunctions.executeQuery("SELECT * FROM  `login` WHERE  `id` ='"+usernameText.getText()+"' AND  `password` =  '"+pass.toString(16)+"'");
+>>>>>>> a38608ebb45645b48fbcbc16dc386877e637a900
             result.next();
-            usercode=result.getString(2);
+            GlobalVars.loginId = result.getString(1);
+            GlobalVars.userCode=result.getString(2);
+            GlobalVars.userRole = result.getString(4);
+            
+            result = Utilfunctions.executeQuery("SELECT * FROM user WHERE userCode = '" + GlobalVars.userCode + "'");
+            result.next();
+            GlobalVars.userName = result.getString(2);
+            GlobalVars.userSalutation = result.getString(3);
+            GlobalVars.userDept = result.getString(4);
+            
             this.setVisible(false);
-            testform tf =new testform();
+            
+            DashboardForm tf =new DashboardForm();
             Utilfunctions.setIconImage(tf);
             Utilfunctions.setLocation(tf);
             tf.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ivalid Username and Password");
+            //JOptionPane.showMessageDialog(null, "Invalid Username and Password");
+            JOptionPane.showMessageDialog(null, e.getMessage());
             usernameText.setText("");
             passwordText.setText("");
             usernameText.requestFocus();
@@ -172,11 +192,7 @@ public class LoginForm extends javax.swing.JFrame {
        if(evt.getKeyCode()==KeyEvent.VK_ENTER)
             LoginAuthentication();
     }//GEN-LAST:event_loginButtonKeyPressed
-    //returns usercode of a valid user.
-    public String getusercode()
-    {
-        return usercode;
-    }
+    
     /**
      * @param args the command line arguments
      */
@@ -220,5 +236,5 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
-    public String usercode="";
+    
 }
