@@ -176,6 +176,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu15.add(jMenuItem13);
 
         jMenuItem14.setText("Upload CSV File");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
         jMenu15.add(jMenuItem14);
 
         jMenu3.add(jMenu15);
@@ -271,8 +276,18 @@ public class DashboardForm extends javax.swing.JFrame {
         ClassDetailsForm cdf = new ClassDetailsForm();
         Utilfunctions.setIconImage(cdf);
         Utilfunctions.setLocation(cdf);
+        cdf.setTitle("Class Detail");
         cdf.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        // TODO add your handling code here:
+        ClassDetailsCSVUpload cdCSV = new ClassDetailsCSVUpload();
+        Utilfunctions.setIconImage(cdCSV);
+        Utilfunctions.setLocation(cdCSV);
+        cdCSV.setTitle("Class Detail CSV Upload");
+        cdCSV.setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     /**
      * @param args the command line arguments

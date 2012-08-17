@@ -45,7 +45,7 @@ public class ClassDetailsForm extends javax.swing.JFrame {
         yearComboBox = new javax.swing.JComboBox();
         saveButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         roomNoLabel.setText("Room No.:");
 
