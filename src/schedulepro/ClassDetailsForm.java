@@ -179,15 +179,7 @@ public class ClassDetailsForm extends javax.swing.JFrame {
 
     private void courseComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_courseComboBoxItemStateChanged
         // TODO add your handling code here:
-        departmentComboBox.removeAllItems();
-        ResultSet result = Utilfunctions.executeQuery("SELECT `dept` FROM `dept` WHERE `Course`=\"" + courseComboBox.getSelectedItem() + "\"");
-        try {
-            while (result.next() != false) {
-                departmentComboBox.addItem(result.getString(1));
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT `dept` FROM `dept` WHERE `Course`=\"" + courseComboBox.getSelectedItem() + "\"");
         yearComboBox.removeAllItems();
         if(courseComboBox.getSelectedItem()=="B.E"||courseComboBox.getSelectedItem()=="B.Tech")
             yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));

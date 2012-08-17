@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -148,6 +149,19 @@ public class Utilfunctions {
         else {
             fopen.setVisible(false);
         }
+    }
+    public static void populateComboBoxwithQuery(JComboBox ComboBox,String Query)
+    {
+        ComboBox.removeAllItems();
+        ResultSet result = Utilfunctions.executeQuery(Query);
+        try {
+            while (result.next() != false) {
+                ComboBox.addItem(result.getString(1));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
     }
     private static Toolkit toolkit;
     private static Dimension dim;
