@@ -240,6 +240,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu21.add(jMenuItem18);
 
         jMenuItem19.setText("Change Password");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
         jMenu21.add(jMenuItem19);
 
         jMenuItem7.setText("Logout");
@@ -308,17 +313,29 @@ public class DashboardForm extends javax.swing.JFrame {
         Utilfunctions.setIconImage(cdf);
         Utilfunctions.setLocation(cdf);
         cdf.setTitle("Class Detail");
+        this.setVisible(false);
         cdf.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
-        ClassDetailsCSVUpload cdCSV = new ClassDetailsCSVUpload();
+        ClassDetailsCSVUploadForm cdCSV = new ClassDetailsCSVUploadForm();
         Utilfunctions.setIconImage(cdCSV);
         Utilfunctions.setLocation(cdCSV);
         cdCSV.setTitle("Class Detail CSV Upload");
+        this.setVisible(false);
         cdCSV.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        // TODO add your handling code here:
+        ChangePasswordForm cpf = new ChangePasswordForm();
+        Utilfunctions.setIconImage(cpf);
+        Utilfunctions.setLocation(cpf);
+        this.setVisible(false);
+        cpf.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     /**
      * @param args the command line arguments

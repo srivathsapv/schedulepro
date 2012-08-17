@@ -319,14 +319,14 @@ public class UserSignupForm extends javax.swing.JFrame {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         try{
-        for(int i=0;i<7;i++)
-            if(testValidity[i]==1)
-            {
-                errorLocation=i;
-                i=6/0;              
-            }
-        Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`user` (`userCode`, `name`, `salutation`, `dept`, `grade`, `email`, `phone`) VALUES ('"+idnumberText.getText()+"', '"+nameText.getText()+"', '"+salutation+"', '"+department+"', '', '"+emailidText.getText()+"', '"+phonenumberText.getText()+"');");
-        Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`login` (`id`, `userCode`, `password`, `role`) VALUES ('"+usernameText.getText()+"', '"+idnumberText.getText()+"', '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"', '');");
+            for(int i=0;i<7;i++)
+                if(testValidity[i]==1)
+                {
+                    errorLocation=i;
+                    i=6/0;              
+                }
+            Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`user` (`userCode`, `name`, `salutation`, `dept`, `grade`, `email`, `phone`) VALUES ('"+idnumberText.getText()+"', '"+nameText.getText()+"', '"+salutation+"', '"+department+"', '', '"+emailidText.getText()+"', '"+phonenumberText.getText()+"');");
+            Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`login` (`id`, `userCode`, `password`, `role`) VALUES ('"+usernameText.getText()+"', '"+idnumberText.getText()+"', '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"', '');");
         }
         catch(Exception e)
         {

@@ -4,6 +4,8 @@
  */
 package schedulepro;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -12,13 +14,23 @@ import javax.swing.JOptionPane;
  *
  * @author Home
  */
-public class ClassDetailsCSVUpload extends javax.swing.JFrame {
+public class ClassDetailsCSVUploadForm extends javax.swing.JFrame {
 
     /**
      * Creates new form ClassDetailsCSVUpload
      */
-    public ClassDetailsCSVUpload() {
+    public ClassDetailsCSVUploadForm() {
         initComponents();
+        addWindowListener(new WindowAdapter() { 
+            @Override
+            public void windowClosing(WindowEvent e) { 
+                DashboardForm df = new DashboardForm();
+                Utilfunctions.setIconImage(df);
+                Utilfunctions.setLocation(df);
+                e.getWindow().setVisible(false);
+                df.setVisible(true);
+            } 
+        });
     }
 
     /**
@@ -33,7 +45,8 @@ public class ClassDetailsCSVUpload extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("Choose CSV file");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -55,7 +68,7 @@ public class ClassDetailsCSVUpload extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,20 +112,20 @@ public class ClassDetailsCSVUpload extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClassDetailsCSVUpload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClassDetailsCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClassDetailsCSVUpload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClassDetailsCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClassDetailsCSVUpload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClassDetailsCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClassDetailsCSVUpload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClassDetailsCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClassDetailsCSVUpload().setVisible(true);
+                new ClassDetailsCSVUploadForm().setVisible(true);
             }
         });
     }

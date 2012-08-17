@@ -96,13 +96,13 @@ public class Utilfunctions {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro","root",dbpwd);
             PreparedStatement statement = con.prepareStatement(query);
             result = statement.executeQuery();
-            
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
         return result;
     }
+    
     public static BigInteger MD5(String input) throws NoSuchAlgorithmException
     {
             MessageDigest MD5 = MessageDigest.getInstance("MD5");

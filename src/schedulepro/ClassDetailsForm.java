@@ -1,4 +1,6 @@
 package schedulepro;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +22,16 @@ public class ClassDetailsForm extends javax.swing.JFrame {
      */
     public ClassDetailsForm() {
         initComponents();
+        addWindowListener(new WindowAdapter() { 
+            @Override
+            public void windowClosing(WindowEvent e) { 
+                DashboardForm df = new DashboardForm();
+                Utilfunctions.setIconImage(df);
+                Utilfunctions.setLocation(df);
+                e.getWindow().setVisible(false);
+                df.setVisible(true);
+            } 
+        });
     }
 
     /**
@@ -47,7 +59,8 @@ public class ClassDetailsForm extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         sectionComboBox = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         roomNoLabel.setText("Room No.:");
 
