@@ -4,20 +4,32 @@
  */
 package schedulepro;
 
-import java.sql.ResultSet;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Sasipraveen
  */
-public class UserSignup extends javax.swing.JFrame {
+public class UserSignupForm extends javax.swing.JFrame {
 
     /**
      * Creates new form UserSignup
      */
-    public UserSignup() {
+    public UserSignupForm() {
         initComponents();
+        addWindowListener(new WindowAdapter() { 
+            @Override
+            public void windowClosing(WindowEvent e) { 
+                AdministerAccountForm af = new AdministerAccountForm();
+                Utilfunctions.setIconImage(af);
+                Utilfunctions.setLocation(af);
+                e.getWindow().setVisible(false);
+                af.setVisible(true);
+                
+            } 
+        });
     }
 
     /**
@@ -60,7 +72,8 @@ public class UserSignup extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         nameLabel.setText("*Name:");
 
@@ -192,13 +205,13 @@ public class UserSignup extends javax.swing.JFrame {
                     .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(departmentLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(phonenumberLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(retypepasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                    .addComponent(retypepasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addComponent(idnumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +235,7 @@ public class UserSignup extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(retypepasswordText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(retypepasswordValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                                .addComponent(retypepasswordValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(salutationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -236,8 +249,8 @@ public class UserSignup extends javax.swing.JFrame {
                                         .addComponent(passwordValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
-                                        .addComponent(usernameValidateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap())))
+                                        .addComponent(usernameValidateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +326,7 @@ public class UserSignup extends javax.swing.JFrame {
                 i=6/0;              
             }
         Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`user` (`userCode`, `name`, `salutation`, `dept`, `grade`, `email`, `phone`) VALUES ('"+idnumberText.getText()+"', '"+nameText.getText()+"', '"+salutation+"', '"+department+"', '', '"+emailidText.getText()+"', '"+phonenumberText.getText()+"');");
-        Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`login` (`id`, `userCode`, `password`, `role`) VALUES ('"+usernameText.getText()+"', '"+idnumberText.getText()+"', '"+Utilfunctions.MD5(passwordText.getText())+"', '');");
+        Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`login` (`id`, `userCode`, `password`, `role`) VALUES ('"+usernameText.getText()+"', '"+idnumberText.getText()+"', '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"', '');");
         }
         catch(Exception e)
         {
@@ -458,20 +471,20 @@ public class UserSignup extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserSignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserSignupForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserSignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserSignupForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserSignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserSignupForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserSignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserSignupForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserSignup().setVisible(true);
+                new UserSignupForm().setVisible(true);
             }
         });
     }

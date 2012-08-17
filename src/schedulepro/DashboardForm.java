@@ -4,6 +4,8 @@
  */
 package schedulepro;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Home
@@ -16,6 +18,7 @@ public class DashboardForm extends javax.swing.JFrame {
     public DashboardForm() {
         initComponents();
         jLabel1.setText("Welcome " + GlobalVars.userSalutation + GlobalVars.userName);
+        Utilfunctions.setClosePrompt(this);
     }
 
     /**
@@ -47,6 +50,9 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuBar4 = new javax.swing.JMenuBar();
         jMenu13 = new javax.swing.JMenu();
         jMenu14 = new javax.swing.JMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -57,10 +63,6 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenu12 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu15 = new javax.swing.JMenu();
@@ -83,7 +85,7 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu21 = new javax.swing.JMenu();
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
-        jMenu26 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -114,7 +116,16 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu14.setText("Edit");
         jMenuBar4.add(jMenu14);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+
+        jCheckBoxMenuItem2.setSelected(true);
+        jCheckBoxMenuItem2.setText("jCheckBoxMenuItem2");
+
+        jMenuItem24.setText("jMenuItem24");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("SchedulePro - Dashboard");
         setResizable(false);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/schedulepro/logo.png"))); // NOI18N
@@ -144,19 +155,6 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Faculty");
-
-        jMenu12.setText("Add Faculty Details");
-
-        jMenuItem9.setText("Manual");
-        jMenu12.add(jMenuItem9);
-
-        jMenuItem10.setText("Upload CSV File");
-        jMenu12.add(jMenuItem10);
-
-        jMenu2.add(jMenu12);
-
-        jMenuItem7.setText("View");
-        jMenu2.add(jMenuItem7);
 
         jMenuItem8.setText("Constraints");
         jMenu2.add(jMenuItem8);
@@ -218,23 +216,33 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenu7.setText("Manage Account");
 
-        jMenuItem17.setText("Administer Account");
+        jMenuItem17.setText("Administer Accounts");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem17);
 
         jMenu21.setText("My Account");
 
-        jMenuItem18.setText("Administer Account");
+        jMenuItem18.setText("Personal Details");
         jMenu21.add(jMenuItem18);
 
         jMenuItem19.setText("Change Password");
         jMenu21.add(jMenuItem19);
 
+        jMenuItem7.setText("Logout");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu21.add(jMenuItem7);
+
         jMenu7.add(jMenu21);
 
         jMenuBar1.add(jMenu7);
-
-        jMenu26.setText("Logout");
-        jMenuBar1.add(jMenu26);
 
         setJMenuBar(jMenuBar1);
 
@@ -255,12 +263,34 @@ public class DashboardForm extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        // TODO add your handling code here:
+        AdministerAccountForm adm = new AdministerAccountForm();
+        Utilfunctions.setLocation(adm);
+        Utilfunctions.setIconImage(adm);
+        this.setVisible(false);
+        adm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        int opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to logoff?","SchedulePro - Logoff",JOptionPane.YES_NO_OPTION);
+        if(opt == JOptionPane.YES_OPTION){
+            this.setVisible(false);
+            LoginForm lf = new LoginForm();
+            Utilfunctions.setLocation(lf);
+            Utilfunctions.setLocation(lf);
+            lf.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -296,12 +326,13 @@ public class DashboardForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
-    private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu15;
@@ -311,7 +342,6 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu21;
     private javax.swing.JMenu jMenu24;
     private javax.swing.JMenu jMenu25;
-    private javax.swing.JMenu jMenu26;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -324,7 +354,6 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
@@ -339,13 +368,13 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;

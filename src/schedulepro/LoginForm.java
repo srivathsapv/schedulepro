@@ -5,10 +5,7 @@
 package schedulepro;
 
 import java.awt.event.KeyEvent;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +19,7 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        Utilfunctions.setClosePrompt(this);
     }
 
     /**
@@ -45,8 +43,8 @@ public class LoginForm extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("SchedulePro - Login");
         setResizable(false);
 
         usernameLabel.setText("Username:");
@@ -159,8 +157,7 @@ public class LoginForm extends javax.swing.JFrame {
             Utilfunctions.setLocation(tf);
             tf.setVisible(true);
         } catch (Exception e) {
-            //JOptionPane.showMessageDialog(null, "Invalid Username and Password");
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Invalid Username and Password");
             usernameText.setText("");
             passwordText.setText("");
             usernameText.requestFocus();

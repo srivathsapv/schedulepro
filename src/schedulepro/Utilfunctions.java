@@ -6,14 +6,13 @@ package schedulepro;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -85,17 +84,21 @@ public class Utilfunctions {
         
     }
     
-    public static ResultSet executeQuery(String query) {
+    public static ResultSet executeQuery(String query) throws IOException {
         try{        
-            Class.forName("com.mysql.jdbc.Driver");
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
             String dbpwd = Utilfunctions.getDbConfig("password");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro","root",dbpwd);
             PreparedStatement statement = con.prepareStatement(query);
             result = statement.executeQuery();
             
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
         }
         return result;
     }
@@ -123,6 +126,17 @@ public class Utilfunctions {
         return rowsAffected;
     }
     
+    public static void setClosePrompt(JFrame jf){
+        jf.addWindowListener(new WindowAdapter() { 
+            @Override
+            public void windowClosing(WindowEvent e) { 
+                int opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to exit SchedulePro?","SchedulePro - Exit",JOptionPane.YES_NO_OPTION);
+                if(opt == JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
+            } 
+        });
+    }
     
     public static void showCSVFileOpenDialog(String tablename) throws FileNotFoundException, IOException {
         JFileChooser fopen = new JFileChooser();
@@ -149,9 +163,13 @@ public class Utilfunctions {
             fopen.setVisible(false);
         }
     }
+    
+    
     private static Toolkit toolkit;
     private static Dimension dim;
     private static int width;
     private static int height;
     private static ResultSet result;
+
+    
 }

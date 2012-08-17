@@ -4,6 +4,8 @@
  */
 package schedulepro;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -12,13 +14,25 @@ import javax.swing.JOptionPane;
  *
  * @author srivathsa
  */
-public class UserCSVUpload extends javax.swing.JFrame {
+public class UserCSVUploadForm extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginCSVUpload
      */
-    public UserCSVUpload() {
+    public UserCSVUploadForm() {
         initComponents();
+        addWindowListener(new WindowAdapter() { 
+            @Override
+            public void windowClosing(WindowEvent e) { 
+                AdministerAccountForm af = new AdministerAccountForm();
+                Utilfunctions.setIconImage(af);
+                Utilfunctions.setLocation(af);
+                e.getWindow().setVisible(false);
+                af.setVisible(true);
+                
+            } 
+        });
+    
     }
 
     /**
@@ -33,7 +47,8 @@ public class UserCSVUpload extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("Choose CSV File");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -104,13 +119,13 @@ public class UserCSVUpload extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserCSVUpload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserCSVUpload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserCSVUpload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserCSVUpload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         
@@ -120,7 +135,7 @@ public class UserCSVUpload extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new UserCSVUpload().setVisible(true);
+                new UserCSVUploadForm().setVisible(true);
             }
         });
         
