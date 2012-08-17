@@ -27,8 +27,5 @@ public class SchedulePro {
         Thread.sleep(1000);
         sf.setVisible(false);
         lf.setVisible(true);
-        
-        ClassDetailsForm cdf = new ClassDetailsForm();
-        cdf.setVisible(true);
     }
 }
