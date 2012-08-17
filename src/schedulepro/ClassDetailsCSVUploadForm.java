@@ -8,6 +8,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -87,7 +90,11 @@ public class ClassDetailsCSVUploadForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tablename = "class";
         try {
-            Utilfunctions.showCSVFileOpenDialog(tablename);
+            try {
+                Utilfunctions.showCSVFileOpenDialog(tablename,null,0,0);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassDetailsCSVUploadForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null,"File not found");
         } catch (IOException ex) {

@@ -113,7 +113,6 @@ public class Utilfunctions {
     
     public static int executeUpdate(String query){
         int rowsAffected = 0;
-        JOptionPane.showMessageDialog(null, query);
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String dbpwd = Utilfunctions.getDbConfig("password");
@@ -139,7 +138,7 @@ public class Utilfunctions {
         });
     }
     
-    public static void showCSVFileOpenDialog(String tablename) throws FileNotFoundException, IOException {
+    public static void showCSVFileOpenDialog(String tablename,String parentTable,int parentKeyColumn,int passwordField) throws FileNotFoundException, IOException, SQLException {
         JFileChooser fopen = new JFileChooser();
         
         javax.swing.filechooser.FileFilter filter = new FileNameExtensionFilter("Comma Separated Values(CSV) Files", "csv");
@@ -150,6 +149,12 @@ public class Utilfunctions {
             CSVRead loginCSV = new CSVRead();
             loginCSV.setFilename(fopen.getSelectedFile().toString());
             loginCSV.setTablename(tablename);
+            if(parentTable != null)
+                loginCSV.setParentTable(parentTable);
+            if(parentKeyColumn != 0)
+                loginCSV.setParentKeyColumn(parentKeyColumn);
+            if(passwordField != 0)
+                loginCSV.setPasswordField(passwordField);
             try{
                 loginCSV.insertRows();
             }
