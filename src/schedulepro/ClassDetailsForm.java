@@ -37,13 +37,13 @@ public class ClassDetailsForm extends javax.swing.JFrame {
         sectionLabel = new javax.swing.JLabel();
         classCodeLabel = new javax.swing.JLabel();
         roomNoText = new javax.swing.JTextField();
-        sectionText = new javax.swing.JTextField();
         strengthText = new javax.swing.JTextField();
         classCodeText = new javax.swing.JTextField();
         courseComboBox = new javax.swing.JComboBox();
         departmentComboBox = new javax.swing.JComboBox();
         yearComboBox = new javax.swing.JComboBox();
         saveButton = new javax.swing.JButton();
+        sectionComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -61,9 +61,15 @@ public class ClassDetailsForm extends javax.swing.JFrame {
 
         classCodeLabel.setText("Class Code:");
 
-        roomNoText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomNoTextActionPerformed(evt);
+        roomNoText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                roomNoTextFocusLost(evt);
+            }
+        });
+
+        strengthText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                strengthTextFocusLost(evt);
             }
         });
 
@@ -72,8 +78,13 @@ public class ClassDetailsForm extends javax.swing.JFrame {
                 classCodeTextActionPerformed(evt);
             }
         });
+        classCodeText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                classCodeTextFocusLost(evt);
+            }
+        });
 
-        courseComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "B.E", "B.Tech", "M.E", "M.Tech" }));
+        courseComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "B.E", "B.Tech", "M.E", "M.Tech" }));
         courseComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 courseComboBoxItemStateChanged(evt);
@@ -87,6 +98,8 @@ public class ClassDetailsForm extends javax.swing.JFrame {
             }
         });
 
+        sectionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,7 +108,7 @@ public class ClassDetailsForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(strengthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -105,10 +118,6 @@ public class ClassDetailsForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(classCodeText))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(sectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(sectionText))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(roomNoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(roomNoText))
@@ -117,18 +126,24 @@ public class ClassDetailsForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(yearComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(courseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(departmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(departmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(departmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(sectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(sectionComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(courseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 91, Short.MAX_VALUE))
+                .addGap(0, 77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +167,7 @@ public class ClassDetailsForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sectionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(strengthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,10 +183,6 @@ public class ClassDetailsForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void roomNoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomNoTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roomNoTextActionPerformed
 
     private void classCodeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classCodeTextActionPerformed
         // TODO add your handling code here:
@@ -191,9 +202,9 @@ public class ClassDetailsForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         int test=0;
         if(!classCodeText.getText().isEmpty())
-            test=Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES ("+classCodeText.getText()+", '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionText.getText()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
+            test=Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES ("+classCodeText.getText()+", '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionComboBox.getSelectedItem()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
         else
-            test=Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (NULL, '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionText.getText()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
+            test=Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (NULL, '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionComboBox.getSelectedItem()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
         if(test==1)
         {
             JOptionPane.showMessageDialog(null, "Saved");
@@ -202,6 +213,36 @@ public class ClassDetailsForm extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(null, "Error");
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void roomNoTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_roomNoTextFocusLost
+        // TODO add your handling code here:
+        if(!Validation.isalphanumeric(roomNoText.getText()))
+        {
+            JOptionPane.showMessageDialog(null, "Please Enter a valid Room No.");
+            roomNoText.setText("");
+            roomNoText.requestFocus();
+        }
+    }//GEN-LAST:event_roomNoTextFocusLost
+
+    private void strengthTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_strengthTextFocusLost
+        // TODO add your handling code here:
+        if(!Validation.isNumber(strengthText.getText()))
+        {
+            JOptionPane.showMessageDialog(null, "Please Enter a numeric value");
+            strengthText.setText("");
+            strengthText.requestFocus();
+        }
+    }//GEN-LAST:event_strengthTextFocusLost
+
+    private void classCodeTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_classCodeTextFocusLost
+        // TODO add your handling code here:
+        if(!Validation.isalphanumeric(classCodeText.getText()))
+        {
+            JOptionPane.showMessageDialog(null, "Class Code should contain alphanumeric characters");
+            classCodeText.setText("");
+            classCodeText.requestFocus();
+        }
+    }//GEN-LAST:event_classCodeTextFocusLost
 
     /**
      * @param args the command line arguments
@@ -247,8 +288,8 @@ public class ClassDetailsForm extends javax.swing.JFrame {
     private javax.swing.JLabel roomNoLabel;
     private javax.swing.JTextField roomNoText;
     private javax.swing.JButton saveButton;
+    private javax.swing.JComboBox sectionComboBox;
     private javax.swing.JLabel sectionLabel;
-    private javax.swing.JTextField sectionText;
     private javax.swing.JLabel strengthLabel;
     private javax.swing.JTextField strengthText;
     private javax.swing.JComboBox yearComboBox;

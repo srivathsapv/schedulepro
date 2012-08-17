@@ -39,5 +39,9 @@ public class Validation {
     {
         return input.matches("[\\W*\\w*]{6,16}");
     }
+    public static boolean isalphanumeric(String input)
+    {
+        return input.matches("([a-zA-Z0-9])+");
+    }
 }
 
