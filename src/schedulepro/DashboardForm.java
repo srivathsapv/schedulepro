@@ -168,6 +168,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu15.setText("Add Class Details");
 
         jMenuItem13.setText("Manual");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         jMenu15.add(jMenuItem13);
 
         jMenuItem14.setText("Upload CSV File");
@@ -260,6 +265,14 @@ public class DashboardForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+        ClassDetailsForm cdf = new ClassDetailsForm();
+        Utilfunctions.setIconImage(cdf);
+        Utilfunctions.setLocation(cdf);
+        cdf.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -197,10 +197,18 @@ public class ClassDetailsForm extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
+        int test=0;
         if(!classCodeText.getText().isEmpty())
-            Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES ("+classCodeText.getText()+", '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionText.getText()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
+            test=Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES ("+classCodeText.getText()+", '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionText.getText()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
         else
-            Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (NULL, '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionText.getText()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
+            test=Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (NULL, '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionText.getText()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
+        if(test==1)
+        {
+            JOptionPane.showMessageDialog(null, "Saved");
+            this.setVisible(false);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Error");
     }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
