@@ -13,6 +13,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -163,8 +164,23 @@ public class Utilfunctions {
             fopen.setVisible(false);
         }
     }
+
     
     
+
+    public static void populateComboBoxwithQuery(JComboBox ComboBox,String Query) throws IOException
+    {
+        ComboBox.removeAllItems();
+        ResultSet result = Utilfunctions.executeQuery(Query);
+        try {
+            while (result.next() != false) {
+                ComboBox.addItem(result.getString(1));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     private static Toolkit toolkit;
     private static Dimension dim;
     private static int width;
