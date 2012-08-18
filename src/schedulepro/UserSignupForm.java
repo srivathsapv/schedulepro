@@ -57,18 +57,11 @@ public class UserSignupForm extends javax.swing.JFrame {
         retypepasswordText = new javax.swing.JPasswordField();
         submitButton = new javax.swing.JButton();
         retypepasswordLabel = new javax.swing.JLabel();
-        nameValidateLabel = new javax.swing.JLabel();
-        idnumberValidateLabel = new javax.swing.JLabel();
-        emailidValidateLabel = new javax.swing.JLabel();
-        phonenumberValidateLabel = new javax.swing.JLabel();
-        passwordValidateLabel = new javax.swing.JLabel();
-        retypepasswordValidateLabel = new javax.swing.JLabel();
         mandotaryfieldLabel = new javax.swing.JLabel();
         departmentCombobox = new javax.swing.JComboBox();
         salutationComboBox = new javax.swing.JComboBox();
         usernameLabel = new javax.swing.JLabel();
         usernameText = new javax.swing.JTextField();
-        usernameValidateLabel = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -146,18 +139,6 @@ public class UserSignupForm extends javax.swing.JFrame {
 
         retypepasswordLabel.setText("*Retype Password:");
 
-        nameValidateLabel.setText("*");
-
-        idnumberValidateLabel.setText("*");
-
-        emailidValidateLabel.setText("*");
-
-        phonenumberValidateLabel.setText("*");
-
-        passwordValidateLabel.setText("*");
-
-        retypepasswordValidateLabel.setText("*");
-
         mandotaryfieldLabel.setText("* mandotary fileds");
 
         departmentCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BME", "CIV", "CSE", "ECE", "EEE", "IT" }));
@@ -188,14 +169,12 @@ public class UserSignupForm extends javax.swing.JFrame {
             }
         });
 
-        usernameValidateLabel.setText("*");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(mandotaryfieldLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -205,103 +184,69 @@ public class UserSignupForm extends javax.swing.JFrame {
                     .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(departmentLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(phonenumberLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(retypepasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(retypepasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                     .addComponent(idnumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(idnumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(idnumberValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(phonenumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(phonenumberValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(departmentCombobox, javax.swing.GroupLayout.Alignment.LEADING, 0, 179, Short.MAX_VALUE)
-                                    .addComponent(emailidText, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameText, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(emailidValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nameValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(retypepasswordText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(retypepasswordValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(salutationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(usernameText)
-                                    .addComponent(passwordText, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(passwordValidateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(usernameValidateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap())
+                    .addComponent(retypepasswordText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(usernameText)
+                        .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phonenumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(departmentCombobox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(emailidText, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nameText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(salutationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idnumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameValidateLabel))
-                .addGap(18, 18, 18)
+                    .addComponent(idnumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idnumberText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salutationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(salutationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idnumberText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idnumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idnumberValidateLabel))
-                .addGap(19, 19, 19)
+                    .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(departmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(departmentCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailidText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailidValidateLabel))
+                    .addComponent(emailidText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(phonenumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(phonenumberText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(phonenumberValidateLabel)))
+                    .addComponent(phonenumberText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameValidateLabel))
+                    .addComponent(usernameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordValidateLabel))
+                    .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(retypepasswordText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(retypepasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(retypepasswordValidateLabel))
-                .addGap(12, 12, 12)
+                    .addComponent(retypepasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(submitButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(mandotaryfieldLabel)
                 .addContainerGap())
         );
@@ -360,73 +305,80 @@ public class UserSignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void nameTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameTextFocusLost
-        if(!Validation.isStringWithSpace(nameText.getText()))
-        {
-            nameValidateLabel.setText("Name should no contain 0-9,#$%^...");
-            testValidity[0]=1;
-        }   
-        else
-        {
-            testValidity[0]=0;
-            nameValidateLabel.setText("");
+        if (!nameText.getText().isEmpty()) {
+            if (!Validation.isStringWithSpace(nameText.getText())) {
+                JOptionPane.showMessageDialog(null, "Name should no contain 0-9,#$%^...");
+                nameText.setText("");
+                nameText.requestFocus();
+                testValidity[0] = 1;
+            } else {
+                testValidity[0] = 0;
+            }
         }
     }//GEN-LAST:event_nameTextFocusLost
 
     private void idnumberTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idnumberTextFocusLost
-        if (!Validation.isNumber(idnumberText.getText())) {
-            idnumberValidateLabel.setText("Invalid Id number");
-            testValidity[1] = 1;
-        } else {
-            testValidity[1] = 0;
-            idnumberValidateLabel.setText("");
+        if (!idnumberText.getText().isEmpty()) {
+            if (!Validation.isNumber(idnumberText.getText())) {
+                JOptionPane.showMessageDialog(null, "Invalid ID number");
+                idnumberText.setText("");
+                idnumberText.requestFocus();
+                testValidity[1] = 1;
+            } else {
+                testValidity[1] = 0;
+            }
         }
     }//GEN-LAST:event_idnumberTextFocusLost
 
     private void emailidTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailidTextFocusLost
-        if(!Validation.isEmailId(emailidText.getText()))
-        {
-            emailidValidateLabel.setText("Invalid Email-Id");
-            testValidity[2]=1;
-        }
-        else{
-            testValidity[2]=0;
-            emailidValidateLabel.setText("");
+        if (!emailidText.getText().isEmpty()) {
+            if (!Validation.isEmailId(emailidText.getText())) {
+                JOptionPane.showMessageDialog(null, "Invalid E-mail Id");
+                emailidText.setText("");
+                emailidText.requestFocus();
+                testValidity[2] = 1;
+            } else {
+                testValidity[2] = 0;
+            }
         }
     }//GEN-LAST:event_emailidTextFocusLost
 
     private void phonenumberTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phonenumberTextFocusLost
-        if(!Validation.isPhoneNumber(phonenumberText.getText()))
-        {
-            phonenumberValidateLabel.setText("Invalid Phone number");
-            testValidity[3]=1;
-        }
-        else{
-            testValidity[3]=0;
-            phonenumberValidateLabel.setText("");
+        if (!phonenumberText.getText().isEmpty()) {
+            if (!Validation.isPhoneNumber(phonenumberText.getText())) {
+                JOptionPane.showMessageDialog(null, "Invaid phone number");
+                phonenumberText.setText("");
+                phonenumberText.requestFocus();
+                testValidity[3] = 1;
+            } else {
+                testValidity[3] = 0;
+            }
         }
     }//GEN-LAST:event_phonenumberTextFocusLost
 
     private void passwordTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordTextFocusLost
-       if(!Validation.isPassword(passwordText.getText()))
-        {
-            passwordValidateLabel.setText("Password must be atleast 6 characters long");
-            testValidity[5]=1;
+        if (!passwordText.getText().isEmpty()) {
+            if (!Validation.isPassword(passwordText.getText())) {
+                JOptionPane.showMessageDialog(null, "Password must be atleast 6 characters long");
+                passwordText.setText("");
+                passwordText.requestFocus();
+                testValidity[5] = 1;
+            } else {
+                testValidity[5] = 0;
+            }
         }
-       else{
-            testValidity[5]=0;
-            passwordValidateLabel.setText("");
-       }
     }//GEN-LAST:event_passwordTextFocusLost
 
     private void retypepasswordTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_retypepasswordTextFocusLost
-        if(!retypepasswordText.getText().equals(passwordText.getText()))
-        {
-            retypepasswordValidateLabel.setText("Password doesn't match");
-            testValidity[6]=1;
-        }
-        else{
-            testValidity[6]=0;
-            retypepasswordValidateLabel.setText("");
+        if (!retypepasswordText.getText().isEmpty()) {
+            if (!retypepasswordText.getText().equals(passwordText.getText())) {
+                JOptionPane.showMessageDialog(null, "Password doesn't match");
+                retypepasswordText.setText("");
+                retypepasswordText.requestFocus();
+                testValidity[6] = 1;
+            } else {
+                testValidity[6] = 0;
+            }
         }
     }//GEN-LAST:event_retypepasswordTextFocusLost
 
@@ -443,14 +395,15 @@ public class UserSignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameTextActionPerformed
 
     private void usernameTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameTextFocusLost
-        if(!Validation.isUsername(usernameText.getText()))
-        {
-            usernameValidateLabel.setText("Invalid Username");
-            testValidity[4]=1;
-        }
-        else{
-            testValidity[4]=0;
-            usernameValidateLabel.setText("");
+        if (!usernameText.getText().isEmpty()) {
+            if (!Validation.isUsername(usernameText.getText())) {
+                JOptionPane.showMessageDialog(null, "Invalid username");
+                usernameText.setText("");
+                usernameText.requestFocus();
+                testValidity[4] = 1;
+            } else {
+                testValidity[4] = 0;
+            }
         }
     }//GEN-LAST:event_usernameTextFocusLost
 
@@ -493,30 +446,23 @@ public class UserSignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel departmentLabel;
     private javax.swing.JLabel emailidLabel;
     private javax.swing.JTextField emailidText;
-    private javax.swing.JLabel emailidValidateLabel;
     private javax.swing.JLabel idnumberLabel;
     private javax.swing.JTextField idnumberText;
-    private javax.swing.JLabel idnumberValidateLabel;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel mandotaryfieldLabel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameText;
-    private javax.swing.JLabel nameValidateLabel;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JPasswordField passwordText;
-    private javax.swing.JLabel passwordValidateLabel;
     private javax.swing.JLabel phonenumberLabel;
     private javax.swing.JTextField phonenumberText;
-    private javax.swing.JLabel phonenumberValidateLabel;
     private javax.swing.JLabel retypepasswordLabel;
     private javax.swing.JPasswordField retypepasswordText;
-    private javax.swing.JLabel retypepasswordValidateLabel;
     private javax.swing.JComboBox salutationComboBox;
     private javax.swing.JLabel salutationLabel;
     private javax.swing.JButton submitButton;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameText;
-    private javax.swing.JLabel usernameValidateLabel;
     // End of variables declaration//GEN-END:variables
     private int testValidity[] ={1,1,1,1,1,1,1};
     private int errorLocation;

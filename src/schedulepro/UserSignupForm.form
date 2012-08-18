@@ -38,7 +38,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="usernameLabel" max="32767" attributes="0"/>
                   <Component id="mandotaryfieldLabel" max="32767" attributes="0"/>
@@ -48,93 +48,53 @@
                   <Component id="nameLabel" alignment="1" max="32767" attributes="0"/>
                   <Component id="departmentLabel" alignment="0" max="32767" attributes="0"/>
                   <Component id="phonenumberLabel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="retypepasswordLabel" pref="186" max="32767" attributes="0"/>
+                  <Component id="retypepasswordLabel" pref="140" max="32767" attributes="0"/>
                   <Component id="idnumberLabel" max="32767" attributes="0"/>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="submitButton" min="-2" pref="74" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="idnumberText" min="-2" pref="109" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="idnumberValidateLabel" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="phonenumberText" min="-2" pref="140" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="phonenumberValidateLabel" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="departmentCombobox" alignment="0" pref="179" max="32767" attributes="0"/>
-                                  <Component id="emailidText" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="nameText" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="emailidValidateLabel" max="32767" attributes="0"/>
-                                  <Component id="nameValidateLabel" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="retypepasswordText" min="-2" pref="152" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="retypepasswordValidateLabel" pref="239" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="salutationComboBox" min="-2" pref="73" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="usernameText" max="32767" attributes="0"/>
-                                  <Component id="passwordText" pref="152" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="passwordValidateLabel" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                      <Component id="usernameValidateLabel" min="-2" pref="212" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="retypepasswordText" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="usernameText" max="32767" attributes="0"/>
+                      <Component id="passwordText" min="-2" pref="152" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="phonenumberText" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="departmentCombobox" alignment="0" max="32767" attributes="0"/>
+                      <Component id="emailidText" alignment="0" max="32767" attributes="0"/>
+                      <Component id="nameText" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="salutationComboBox" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                  <Component id="idnumberText" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
+              <Component id="submitButton" min="-2" pref="74" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nameLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="nameText" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nameValidateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="idnumberLabel" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="idnumberText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="salutationLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="salutationComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="idnumberText" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idnumberLabel" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                  <Component id="idnumberValidateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nameLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="nameText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="departmentLabel" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="departmentCombobox" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -143,37 +103,30 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="emailidLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="emailidText" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="emailidValidateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="phonenumberLabel" min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="phonenumberText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="phonenumberValidateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="phonenumberText" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="usernameLabel" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
                   <Component id="usernameText" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="usernameValidateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="passwordText" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="passwordLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="passwordValidateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="retypepasswordText" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="retypepasswordLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="retypepasswordValidateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
               <Component id="submitButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="mandotaryfieldLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -267,36 +220,6 @@
         <Property name="text" type="java.lang.String" value="*Retype Password:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nameValidateLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="idnumberValidateLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="emailidValidateLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="phonenumberValidateLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="passwordValidateLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="retypepasswordValidateLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="mandotaryfieldLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="* mandotary fileds"/>
@@ -346,11 +269,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameTextActionPerformed"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="usernameTextFocusLost"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="usernameValidateLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
