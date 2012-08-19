@@ -138,34 +138,34 @@ public class Utilfunctions {
         });
     }
     
-    public static void showCSVFileOpenDialog(String tablename,String parentTable,int parentKeyColumn,int passwordField) throws FileNotFoundException, IOException, SQLException {
+    public static void showCSVFileOpenDialog(String tablename, String parentTable, int parentKeyColumn, int passwordField) throws FileNotFoundException, IOException, SQLException, NoSuchAlgorithmException {
         JFileChooser fopen = new JFileChooser();
-        
+
         javax.swing.filechooser.FileFilter filter = new FileNameExtensionFilter("Comma Separated Values(CSV) Files", "csv");
         fopen.addChoosableFileFilter(filter);
-        
+
         int ret = fopen.showDialog(null, "Open File");
-        if(ret == JFileChooser.APPROVE_OPTION){
+        if (ret == JFileChooser.APPROVE_OPTION) {
             CSVRead loginCSV = new CSVRead();
             loginCSV.setFilename(fopen.getSelectedFile().toString());
             loginCSV.setTablename(tablename);
-            if(parentTable != null)
+            if (parentTable != null) {
                 loginCSV.setParentTable(parentTable);
-            if(parentKeyColumn != 0)
+            }
+            if (parentKeyColumn != 0) {
                 loginCSV.setParentKeyColumn(parentKeyColumn);
-            if(passwordField != 0)
+            }
+            if (passwordField != 0) {
                 loginCSV.setPasswordField(passwordField);
-            try{
+            }
+            try {
                 loginCSV.insertRows();
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid File");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid Data");
             }
-            catch(FileNotFoundException ex){
-                JOptionPane.showMessageDialog(null,"Invalid File");
-            }
-            catch(IOException ex){
-                JOptionPane.showMessageDialog(null,"Invalid Data");
-            }
-        }
-        else {
+        } else {
             fopen.setVisible(false);
         }
     }

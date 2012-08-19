@@ -170,9 +170,6 @@ public class ChangePasswordForm extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Invalid old password");
                             oldPassword.setText("");
                             oldPassword.requestFocus();
-                            passwordmatch = 0;
-                        } else {
-                            passwordmatch = 1;
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,26 +186,49 @@ public class ChangePasswordForm extends javax.swing.JFrame {
     }//GEN-LAST:event_oldPasswordFocusLost
 
     private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
-        if (passwordmatch == 1) {
+            if (!oldPassword.getText().isEmpty()) {
             try {
-                int n = Utilfunctions.executeUpdate("UPDATE login SET password = '"
-                        + Utilfunctions.MD5(newPassword.getText()).toString(16)
-                        + "' WHERE userCode = '" + GlobalVars.userCode + "'");
-                if (n >= 1) {
-                    JOptionPane.showMessageDialog(null, "Password Updated Successfully");
-                    this.setVisible(false);
-                    DashboardForm df = new DashboardForm();
-                    Utilfunctions.setIconImage(df);
-                    Utilfunctions.setLocation(df);
-                    df.setVisible(true);
+                String oldPwd = Utilfunctions.MD5(oldPassword.getText()).toString(16);
+                try {
+                    ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '"
+                            + GlobalVars.userCode + "'");
+                    try {
+                        rs.next();
+                        String dbOldPwd = rs.getString(3);
+                        if (oldPwd.equals(dbOldPwd)) {
+                            /*JOptionPane.showMessageDialog(null, "Invalid old password");
+                            oldPassword.setText("");
+                            oldPassword.requestFocus();
+                        } else {*/
+                            int n = Utilfunctions.executeUpdate("UPDATE login SET password = '"
+                                    + Utilfunctions.MD5(newPassword.getText()).toString(16)
+                                    + "' WHERE userCode = '" + GlobalVars.userCode + "'");
+                            if (n >= 1) {
+                                JOptionPane.showMessageDialog(null, "Password Updated Successfully");
+                                this.setVisible(false);
+                                DashboardForm df = new DashboardForm();
+                                Utilfunctions.setIconImage(df);
+                                Utilfunctions.setLocation(df);
+                                df.setVisible(true);
+                            }
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        else {
-            JOptionPane.showMessageDialog(null,"Invalid old password");
-        }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Please Enter  your Old password");
+            }
+                
     }//GEN-LAST:event_changePasswordButtonActionPerformed
 
     /**
@@ -261,5 +281,4 @@ public class ChangePasswordForm extends javax.swing.JFrame {
     private javax.swing.JPasswordField oldPassword;
     private javax.swing.JLabel oldPasswordLabel;
     // End of variables declaration//GEN-END:variables
-    private  static int passwordmatch=0;
 }
