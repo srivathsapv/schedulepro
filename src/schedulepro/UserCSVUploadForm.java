@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,18 +25,18 @@ public class UserCSVUploadForm extends javax.swing.JFrame {
      */
     public UserCSVUploadForm() {
         initComponents();
-        addWindowListener(new WindowAdapter() { 
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) { 
+            public void windowClosing(WindowEvent e) {
                 AdministerAccountForm af = new AdministerAccountForm();
                 Utilfunctions.setIconImage(af);
                 Utilfunctions.setLocation(af);
                 e.getWindow().setVisible(false);
                 af.setVisible(true);
-                
-            } 
+
+            }
         });
-    
+
     }
 
     /**
@@ -94,19 +95,23 @@ public class UserCSVUploadForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String tablename = "login";        
+        String tablename = "login";
         String parentTable = "login";
         int parentKeyColumn = 2;
         try {
             try {
-                Utilfunctions.showCSVFileOpenDialog(tablename,parentTable,parentKeyColumn,3);
+                try {
+                    Utilfunctions.showCSVFileOpenDialog(tablename, parentTable, parentKeyColumn, 3);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(UserCSVUploadForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(UserCSVUploadForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null,"File not found");
+            JOptionPane.showMessageDialog(null, "File not found");
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Invalid data");
+            JOptionPane.showMessageDialog(null, "Invalid data");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -115,14 +120,18 @@ public class UserCSVUploadForm extends javax.swing.JFrame {
         String tablename = "user";
         try {
             try {
-                Utilfunctions.showCSVFileOpenDialog(tablename,null,0,0);
+                try {
+                    Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(UserCSVUploadForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(UserCSVUploadForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null,"File not found");
+            JOptionPane.showMessageDialog(null, "File not found");
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Invalid data");
+            JOptionPane.showMessageDialog(null, "Invalid data");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -156,17 +165,16 @@ public class UserCSVUploadForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(UserCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /*
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new UserCSVUploadForm().setVisible(true);
             }
         });
-        
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

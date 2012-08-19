@@ -24,38 +24,37 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author srivathsa
  */
 public class Utilfunctions {
-    
+
     public static void setLocation(JFrame jf) {
-        toolkit =  Toolkit.getDefaultToolkit ();
+        toolkit = Toolkit.getDefaultToolkit();
         dim = toolkit.getScreenSize();
-        
+
         width = dim.width;
-        height  = dim.height;
-        
+        height = dim.height;
+
         Dimension dm = jf.getContentPane().getSize();
-        
-        int x = (width - dm.width)/2;
-        int y = (height - dm.height)/2;
-        
-        jf.setLocation(x,y);
-        
+
+        int x = (width - dm.width) / 2;
+        int y = (height - dm.height) / 2;
+
+        jf.setLocation(x, y);
+
     }
-    
-    public static void setIconImage(JFrame jf){
+
+    public static void setIconImage(JFrame jf) {
         File directory = new File(".");
-        try{
+        try {
             String path = directory.getCanonicalPath();
             String s = File.separator;
             jf.setIconImage(Toolkit.getDefaultToolkit().getImage(path + s + "src" + s + "images" + s + "logo.gif"));
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Unexpected Error. Exiting application");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Unexpected Error. Exiting application");
         }
     }
-    
-    public static String getDbConfig(String field) throws IOException {
-        String value ="";
-        try{
+
+    public static String getDbConfig(String field) {
+        String value = "";
+        try {
             File directory = new File(".");
             String path = directory.getCanonicalPath();
             String s = File.separator;
@@ -64,80 +63,76 @@ public class Utilfunctions {
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
-            
-            while ((strLine = br.readLine()) != null)   {
-                if(strLine.indexOf("password") >= 0 && field.equals("password") == true) {
-                    value = strLine.substring(strLine.indexOf('\t')+1);
+
+            while ((strLine = br.readLine()) != null) {
+                if (strLine.indexOf("password") >= 0 && field.equals("password") == true) {
+                    value = strLine.substring(strLine.indexOf('\t') + 1);
                     break;
                 }
-                
-                if(strLine.indexOf("username") >= 0 && field.equals("username") == true) {
-                    value = strLine.substring(strLine.indexOf('\t')+1);
+
+                if (strLine.indexOf("username") >= 0 && field.equals("username") == true) {
+                    value = strLine.substring(strLine.indexOf('\t') + 1);
                 }
             }
-            
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(null,e);
-        }
-        
+
         return value;
-        
+
     }
-    
-    public static ResultSet executeQuery(String query) throws IOException {
-        try{        
+
+    public static ResultSet executeQuery(String query) {
+        try {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
             String dbpwd = Utilfunctions.getDbConfig("password");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro","root",dbpwd);
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
             PreparedStatement statement = con.prepareStatement(query);
             result = statement.executeQuery();
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null,e.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return result;
     }
-    
-    public static BigInteger MD5(String input) throws NoSuchAlgorithmException
-    {
-            MessageDigest MD5 = MessageDigest.getInstance("MD5");
-            MD5.update(input.getBytes());
-            BigInteger output = new BigInteger(1, MD5.digest());
-            return output;
+
+    public static BigInteger MD5(String input) throws NoSuchAlgorithmException {
+        MessageDigest MD5 = MessageDigest.getInstance("MD5");
+        MD5.update(input.getBytes());
+        BigInteger output = new BigInteger(1, MD5.digest());
+        return output;
     }
-    
-    public static int executeUpdate(String query){
+
+    public static int executeUpdate(String query) {
         int rowsAffected = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String dbpwd = Utilfunctions.getDbConfig("password");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro","root",dbpwd);
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
             PreparedStatement statement = con.prepareStatement(query);
             rowsAffected = statement.executeUpdate();
-        }
-        catch(Exception e) {
-            JOptionPane.showMessageDialog(null,e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
         return rowsAffected;
     }
-    
-    public static void setClosePrompt(JFrame jf){
-        jf.addWindowListener(new WindowAdapter() { 
+
+    public static void setClosePrompt(JFrame jf) {
+        jf.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) { 
-                int opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to exit SchedulePro?","SchedulePro - Exit",JOptionPane.YES_NO_OPTION);
-                if(opt == JOptionPane.YES_OPTION){
+            public void windowClosing(WindowEvent e) {
+                int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit SchedulePro?", "SchedulePro - Exit", JOptionPane.YES_NO_OPTION);
+                if (opt == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
-            } 
+            }
         });
     }
-    
+
     public static void showCSVFileOpenDialog(String tablename, String parentTable, int parentKeyColumn, int passwordField) throws FileNotFoundException, IOException, SQLException, NoSuchAlgorithmException {
         JFileChooser fopen = new JFileChooser();
 
@@ -170,11 +165,7 @@ public class Utilfunctions {
         }
     }
 
-    
-    
-
-    public static void populateComboBoxwithQuery(JComboBox ComboBox,String Query) throws IOException
-    {
+    public static void populateComboBoxwithQuery(JComboBox ComboBox, String Query) {
         ComboBox.removeAllItems();
         ResultSet result = Utilfunctions.executeQuery(Query);
         try {
@@ -185,12 +176,9 @@ public class Utilfunctions {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
     private static Toolkit toolkit;
     private static Dimension dim;
     private static int width;
     private static int height;
     private static ResultSet result;
-
-    
 }

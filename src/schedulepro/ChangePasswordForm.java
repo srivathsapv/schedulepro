@@ -25,16 +25,16 @@ public class ChangePasswordForm extends javax.swing.JFrame {
      */
     public ChangePasswordForm() {
         initComponents();
-        addWindowListener(new WindowAdapter() { 
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) { 
+            public void windowClosing(WindowEvent e) {
                 DashboardForm df = new DashboardForm();
                 Utilfunctions.setIconImage(df);
                 Utilfunctions.setLocation(df);
                 e.getWindow().setVisible(false);
                 df.setVisible(true);
-                
-            } 
+
+            }
         });
     }
 
@@ -160,25 +160,19 @@ public class ChangePasswordForm extends javax.swing.JFrame {
         if (!oldPassword.getText().isEmpty()) {
             try {
                 String oldPwd = Utilfunctions.MD5(oldPassword.getText()).toString(16);
+                ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '"
+                        + GlobalVars.userCode + "'");
                 try {
-                    ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '"
-                            + GlobalVars.userCode + "'");
-                    try {
-                        rs.next();
-                        String dbOldPwd = rs.getString(3);
-                        if (!oldPwd.equals(dbOldPwd)) {
-                            JOptionPane.showMessageDialog(null, "Invalid old password");
-                            oldPassword.setText("");
-                            oldPassword.requestFocus();
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
+                    rs.next();
+                    String dbOldPwd = rs.getString(3);
+                    if (!oldPwd.equals(dbOldPwd)) {
+                        JOptionPane.showMessageDialog(null, "Invalid old password");
+                        oldPassword.setText("");
+                        oldPassword.requestFocus();
                     }
-
-                } catch (IOException ex) {
+                } catch (SQLException ex) {
                     Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -186,49 +180,38 @@ public class ChangePasswordForm extends javax.swing.JFrame {
     }//GEN-LAST:event_oldPasswordFocusLost
 
     private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
-            if (!oldPassword.getText().isEmpty()) {
+        if (!oldPassword.getText().isEmpty()) {
             try {
                 String oldPwd = Utilfunctions.MD5(oldPassword.getText()).toString(16);
+                ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '"
+                        + GlobalVars.userCode + "'");
                 try {
-                    ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '"
-                            + GlobalVars.userCode + "'");
-                    try {
-                        rs.next();
-                        String dbOldPwd = rs.getString(3);
-                        if (oldPwd.equals(dbOldPwd)) {
-                            /*JOptionPane.showMessageDialog(null, "Invalid old password");
-                            oldPassword.setText("");
-                            oldPassword.requestFocus();
-                        } else {*/
-                            int n = Utilfunctions.executeUpdate("UPDATE login SET password = '"
-                                    + Utilfunctions.MD5(newPassword.getText()).toString(16)
-                                    + "' WHERE userCode = '" + GlobalVars.userCode + "'");
-                            if (n >= 1) {
-                                JOptionPane.showMessageDialog(null, "Password Updated Successfully");
-                                this.setVisible(false);
-                                DashboardForm df = new DashboardForm();
-                                Utilfunctions.setIconImage(df);
-                                Utilfunctions.setLocation(df);
-                                df.setVisible(true);
-                            }
+                    rs.next();
+                    String dbOldPwd = rs.getString(3);
+                    if (oldPwd.equals(dbOldPwd)) {
+                        int n = Utilfunctions.executeUpdate("UPDATE login SET password = '"
+                                + Utilfunctions.MD5(newPassword.getText()).toString(16)
+                                + "' WHERE userCode = '" + GlobalVars.userCode + "'");
+                        if (n >= 1) {
+                            JOptionPane.showMessageDialog(null, "Password Updated Successfully");
+                            this.setVisible(false);
+                            DashboardForm df = new DashboardForm();
+                            Utilfunctions.setIconImage(df);
+                            Utilfunctions.setLocation(df);
+                            df.setVisible(true);
                         }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
-                } catch (IOException ex) {
+                } catch (SQLException ex) {
                     Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please Enter  your Old password");
         }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Please Enter  your Old password");
-            }
-                
+
     }//GEN-LAST:event_changePasswordButtonActionPerformed
 
     /**
@@ -266,7 +249,6 @@ public class ChangePasswordForm extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new ChangePasswordForm().setVisible(true);
             }

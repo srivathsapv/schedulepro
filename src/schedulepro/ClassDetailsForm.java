@@ -1,4 +1,5 @@
 package schedulepro;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -10,7 +11,6 @@ import javax.swing.JOptionPane;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Home
@@ -22,15 +22,15 @@ public class ClassDetailsForm extends javax.swing.JFrame {
      */
     public ClassDetailsForm() {
         initComponents();
-        addWindowListener(new WindowAdapter() { 
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) { 
+            public void windowClosing(WindowEvent e) {
                 DashboardForm df = new DashboardForm();
                 Utilfunctions.setIconImage(df);
                 Utilfunctions.setLocation(df);
                 e.getWindow().setVisible(false);
                 df.setVisible(true);
-            } 
+            }
         });
     }
 
@@ -201,33 +201,32 @@ public class ClassDetailsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_classCodeTextActionPerformed
 
     private void courseComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_courseComboBoxItemStateChanged
-        try {
-            // TODO add your handling code here:
-            Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT `dept` FROM `dept` WHERE `Course`=\"" + courseComboBox.getSelectedItem() + "\"");
-        } catch (IOException ex) {
-            Logger.getLogger(ClassDetailsForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        // TODO add your handling code here:
+        Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT `dept` FROM `dept` WHERE `Course`=\"" + courseComboBox.getSelectedItem() + "\"");
         yearComboBox.removeAllItems();
-        if(courseComboBox.getSelectedItem()=="B.E"||courseComboBox.getSelectedItem()=="B.Tech")
-            yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
-        if(courseComboBox.getSelectedItem()=="M.E"||courseComboBox.getSelectedItem()=="M.Tech")
-            yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2" }));
+        if (courseComboBox.getSelectedItem() == "B.E" || courseComboBox.getSelectedItem() == "B.Tech") {
+            yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"1", "2", "3", "4"}));
+        }
+        if (courseComboBox.getSelectedItem() == "M.E" || courseComboBox.getSelectedItem() == "M.Tech") {
+            yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"1", "2"}));
+        }
     }//GEN-LAST:event_courseComboBoxItemStateChanged
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
-        int test=0;
-        if(!classCodeText.getText().isEmpty())
-            test=Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES ("+classCodeText.getText()+", '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionComboBox.getSelectedItem()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
-        else
-            test=Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (NULL, '"+departmentComboBox.getSelectedItem()+"', '"+yearComboBox.getSelectedItem()+"', '"+courseComboBox.getSelectedItem()+"', '"+sectionComboBox.getSelectedItem()+"', '"+roomNoText.getText()+"', "+strengthText.getText()+")");
-        if(test==1)
-        {
+        int test = 0;
+        if (!classCodeText.getText().isEmpty()) {
+            test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (" + classCodeText.getText() + ", '" + departmentComboBox.getSelectedItem() + "', '" + yearComboBox.getSelectedItem() + "', '" + courseComboBox.getSelectedItem() + "', '" + sectionComboBox.getSelectedItem() + "', '" + roomNoText.getText() + "', " + strengthText.getText() + ")");
+        } else {
+            test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (NULL, '" + departmentComboBox.getSelectedItem() + "', '" + yearComboBox.getSelectedItem() + "', '" + courseComboBox.getSelectedItem() + "', '" + sectionComboBox.getSelectedItem() + "', '" + roomNoText.getText() + "', " + strengthText.getText() + ")");
+        }
+        if (test == 1) {
             JOptionPane.showMessageDialog(null, "Saved");
             this.setVisible(false);
-        }
-        else
+        } else {
             JOptionPane.showMessageDialog(null, "Error");
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void roomNoTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_roomNoTextFocusLost
