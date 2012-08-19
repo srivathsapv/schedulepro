@@ -47,46 +47,46 @@ public class ChangePasswordForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jPasswordField3 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        oldPasswordLabel = new javax.swing.JLabel();
+        newPasswordLabel = new javax.swing.JLabel();
+        confirmPasswordLabel = new javax.swing.JLabel();
+        oldPassword = new javax.swing.JPasswordField();
+        newPassword = new javax.swing.JPasswordField();
+        confirmPassword = new javax.swing.JPasswordField();
+        changePasswordButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - Change Password");
         setResizable(false);
 
-        jLabel1.setText("Old Password");
+        oldPasswordLabel.setText("Old Password");
 
-        jLabel2.setText("New Password");
+        newPasswordLabel.setText("New Password");
 
-        jLabel3.setText("Confirm Password");
+        confirmPasswordLabel.setText("Confirm Password");
 
-        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        oldPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jPasswordField1FocusLost(evt);
+                oldPasswordFocusLost(evt);
             }
         });
 
-        jPasswordField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        newPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jPasswordField2FocusLost(evt);
+                newPasswordFocusLost(evt);
             }
         });
 
-        jPasswordField3.addFocusListener(new java.awt.event.FocusAdapter() {
+        confirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jPasswordField3FocusLost(evt);
+                confirmPasswordFocusLost(evt);
             }
         });
 
-        jButton1.setText("Change Password");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        changePasswordButton.setText("Change Password");
+        changePasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                changePasswordButtonActionPerformed(evt);
             }
         });
 
@@ -99,17 +99,17 @@ public class ChangePasswordForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(oldPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(confirmPasswordLabel)
+                            .addComponent(newPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jPasswordField2)
-                            .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(oldPassword)
+                            .addComponent(newPassword)
+                            .addComponent(confirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(changePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -117,91 +117,99 @@ public class ChangePasswordForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(oldPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(oldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(newPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(confirmPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(jButton1)
+                .addComponent(changePasswordButton)
                 .addGap(41, 41, 41))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField2FocusLost
-        if(jPasswordField2.getText().equals("")) return;
-        if(!Validation.isPassword(jPasswordField2.getText())){
-            JOptionPane.showMessageDialog(null,"Passwords should be of at least 6 characters");
-            jPasswordField2.setText("");
-            jPasswordField2.requestFocus();
+    private void newPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newPasswordFocusLost
+        if (!newPassword.getText().isEmpty()) {
+            if (!Validation.isPassword(newPassword.getText())) {
+                JOptionPane.showMessageDialog(null, "Passwords should be of at least 6 characters");
+                newPassword.setText("");
+                newPassword.requestFocus();
+            }
         }
-    }//GEN-LAST:event_jPasswordField2FocusLost
+    }//GEN-LAST:event_newPasswordFocusLost
 
-    private void jPasswordField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField3FocusLost
-        if(jPasswordField3.getText().equals("")) return;
-        if(!jPasswordField3.getText().equals(jPasswordField2.getText())){
-            JOptionPane.showMessageDialog(null,"Passwords do not match");
-            jPasswordField2.setText("");
-            jPasswordField3.setText("");
-            jPasswordField2.requestFocus();
+    private void confirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmPasswordFocusLost
+        if (!confirmPassword.getText().isEmpty()) {
+            if (!confirmPassword.getText().equals(newPassword.getText())) {
+                JOptionPane.showMessageDialog(null, "Passwords do not match");
+                newPassword.setText("");
+                confirmPassword.setText("");
+                newPassword.requestFocus();
+            }
         }
-    }//GEN-LAST:event_jPasswordField3FocusLost
+    }//GEN-LAST:event_confirmPasswordFocusLost
 
-    private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
-        if(jPasswordField1.getText().equals("")) return;
-        try {
-            String oldPwd = Utilfunctions.MD5(jPasswordField1.getText()).toString(16);
+    private void oldPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_oldPasswordFocusLost
+        if (!oldPassword.getText().isEmpty()) {
             try {
-                ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '" 
-                                                           + GlobalVars.userCode + "'");
+                String oldPwd = Utilfunctions.MD5(oldPassword.getText()).toString(16);
                 try {
-                    rs.next();
-                    String dbOldPwd = rs.getString(3);
-                    if(!oldPwd.equals(dbOldPwd)) {
-                        JOptionPane.showMessageDialog(null,"Invalid old password");
-                        jPasswordField1.setText("");
-                        jPasswordField1.requestFocus();
+                    ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '"
+                            + GlobalVars.userCode + "'");
+                    try {
+                        rs.next();
+                        String dbOldPwd = rs.getString(3);
+                        if (!oldPwd.equals(dbOldPwd)) {
+                            JOptionPane.showMessageDialog(null, "Invalid old password");
+                            oldPassword.setText("");
+                            oldPassword.requestFocus();
+                            passwordmatch = 0;
+                        } else {
+                            passwordmatch = 1;
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                } catch (SQLException ex) {
+
+                } catch (IOException ex) {
                     Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-            } catch (IOException ex) {
+
+            } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_jPasswordField1FocusLost
+    }//GEN-LAST:event_oldPasswordFocusLost
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            int n = Utilfunctions.executeUpdate("UPDATE login SET password = '" + 
-                                                Utilfunctions.MD5(jPasswordField2.getText()).toString(16) 
-                                                + "' WHERE userCode = '" + GlobalVars.userCode + "'");
-            if(n >= 1){
-                JOptionPane.showMessageDialog(null,"Password Updated Successfully");
-                this.setVisible(false);
-                DashboardForm df = new DashboardForm();
-                Utilfunctions.setIconImage(df);
-                Utilfunctions.setLocation(df);
-                df.setVisible(true);
+    private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
+        if (passwordmatch == 1) {
+            try {
+                int n = Utilfunctions.executeUpdate("UPDATE login SET password = '"
+                        + Utilfunctions.MD5(newPassword.getText()).toString(16)
+                        + "' WHERE userCode = '" + GlobalVars.userCode + "'");
+                if (n >= 1) {
+                    JOptionPane.showMessageDialog(null, "Password Updated Successfully");
+                    this.setVisible(false);
+                    DashboardForm df = new DashboardForm();
+                    Utilfunctions.setIconImage(df);
+                    Utilfunctions.setLocation(df);
+                    df.setVisible(true);
+                }
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ChangePasswordForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        else {
+            JOptionPane.showMessageDialog(null,"Invalid old password");
+        }
+    }//GEN-LAST:event_changePasswordButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,12 +253,13 @@ public class ChangePasswordForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
+    private javax.swing.JButton changePasswordButton;
+    private javax.swing.JPasswordField confirmPassword;
+    private javax.swing.JLabel confirmPasswordLabel;
+    private javax.swing.JPasswordField newPassword;
+    private javax.swing.JLabel newPasswordLabel;
+    private javax.swing.JPasswordField oldPassword;
+    private javax.swing.JLabel oldPasswordLabel;
     // End of variables declaration//GEN-END:variables
+    private  static int passwordmatch=0;
 }
