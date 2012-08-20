@@ -398,11 +398,6 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void addEquipmentsCSVUploadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEquipmentsCSVUploadMenuActionPerformed
         // TODO add your handling code here:
-        EquipmentCSVUploadForm aecsvf = new EquipmentCSVUploadForm();
-        Utilfunctions.setIconImage(aecsvf);
-        Utilfunctions.setLocation(aecsvf);
-        aecsvf.setVisible(true);
-
         String tablename = "equipment";
         try {
             try {
