@@ -397,7 +397,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void addEquipmentsCSVUploadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEquipmentsCSVUploadMenuActionPerformed
         // TODO add your handling code here:
-        
+
         String tablename = "equipment";
         try {
             try {

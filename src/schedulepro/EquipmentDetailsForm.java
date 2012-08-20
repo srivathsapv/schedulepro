@@ -183,11 +183,14 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
         if (test[0] == 0 && test[1] == 0) {
             try {
                 ResultSet result = Utilfunctions.executeQuery("SELECT `equipId`, `quantity` FROM `equipment` WHERE `equipName` = '" + equipmentNameText.getText().toUpperCase() + "' AND `dept` = '" + departmentComboBox.getSelectedItem() + "'");
-                result.next();
-                JOptionPane.showMessageDialog(null, "Equipment already exists, Please make the the changes in 'View'");
-                /*existingqty = Integer.parseInt(result.getString(2));
-                netqty = existingqty + Integer.parseInt(quantityText.getText());
-                n = Utilfunctions.executeUpdate("UPDATE `equipment` SET `quantity`=" + netqty + " WHERE `equipId`=" + result.getString(1));*/
+                if (result.next()) {
+                    JOptionPane.showMessageDialog(null, "Equipment already exists, Please make the the changes in 'View'");
+                } else {
+                    throw new Exception();
+                }
+                //existingqty = Integer.parseInt(result.getString(2));
+                //netqty = existingqty + Integer.parseInt(quantityText.getText());
+                //n = Utilfunctions.executeUpdate("UPDATE `equipment` SET `quantity`=" + netqty + " WHERE `equipId`=" + result.getString(1));
             } catch (Exception e) {
                 n = Utilfunctions.executeUpdate("INSERT INTO `equipment`(`equipId`, `equipName`, `dept`, `quantity`) VALUES (" + equipId + ",'" + equipmentNameText.getText().toUpperCase() + "', '" + departmentComboBox.getSelectedItem() + "'," + quantityText.getText() + ")");
             }
