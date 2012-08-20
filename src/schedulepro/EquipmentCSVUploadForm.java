@@ -16,12 +16,12 @@ import javax.swing.JOptionPane;
  *
  * @author Home
  */
-public class AddEquipmentCSVUploadForm extends javax.swing.JFrame {
+public class EquipmentCSVUploadForm extends javax.swing.JFrame {
 
     /**
      * Creates new form AddEquipmentCSVUploadForm
      */
-    public AddEquipmentCSVUploadForm() {
+    public EquipmentCSVUploadForm() {
         initComponents();
     }
 
@@ -112,20 +112,20 @@ public class AddEquipmentCSVUploadForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddEquipmentCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddEquipmentCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddEquipmentCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddEquipmentCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentCSVUploadForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddEquipmentCSVUploadForm().setVisible(true);
+                new EquipmentCSVUploadForm().setVisible(true);
             }
         });
     }

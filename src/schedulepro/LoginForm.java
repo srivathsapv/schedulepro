@@ -138,7 +138,8 @@ public class LoginForm extends javax.swing.JFrame {
     private void LoginAuthentication()
     {
         try {
-            ResultSet result = Utilfunctions.executeQuery("SELECT * FROM  `login`WHERE  `id` ='"+usernameText.getText()+"' AND  `password` =  '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"'");
+            String query = "SELECT * FROM `login` WHERE  `id` = '" + usernameText.getText() + "' AND  `password` =  '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"'";
+            ResultSet result = Utilfunctions.executeQuery(query);
             result.next();
             GlobalVars.loginId = result.getString(1);
             GlobalVars.userCode=result.getString(2);
@@ -157,7 +158,7 @@ public class LoginForm extends javax.swing.JFrame {
             Utilfunctions.setLocation(tf);
             tf.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid Username and Password");
+            JOptionPane.showMessageDialog(null, "Invalid Username or Password");
             usernameText.setText("");
             passwordText.setText("");
             usernameText.requestFocus();

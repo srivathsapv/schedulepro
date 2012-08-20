@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author Home
  */
-public class AddEquipmentDetailsForm extends javax.swing.JFrame {
+public class EquipmentDetailsForm extends javax.swing.JFrame {
 
     private int existingqty;
     private int netqty;
@@ -20,7 +20,7 @@ public class AddEquipmentDetailsForm extends javax.swing.JFrame {
     /**
      * Creates new form AddEquipmentDetailsForm
      */
-    public AddEquipmentDetailsForm() {
+    public EquipmentDetailsForm() {
         initComponents();
         Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT distinct(`dept`) FROM `dept`");
     }
@@ -216,20 +216,20 @@ public class AddEquipmentDetailsForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddEquipmentDetailsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentDetailsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddEquipmentDetailsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentDetailsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddEquipmentDetailsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentDetailsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddEquipmentDetailsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentDetailsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddEquipmentDetailsForm().setVisible(true);
+                new EquipmentDetailsForm().setVisible(true);
             }
         });
     }

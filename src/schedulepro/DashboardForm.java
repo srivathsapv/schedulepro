@@ -4,6 +4,9 @@
  */
 package schedulepro;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -84,6 +87,7 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu12 = new javax.swing.JMenu();
         addEquipmentManualMenu = new javax.swing.JMenuItem();
         addEquipmentsCSVUploadMenu = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenu21 = new javax.swing.JMenu();
@@ -132,6 +136,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - Dashboard");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/schedulepro/logo.png"))); // NOI18N
@@ -249,6 +254,9 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenu5.add(jMenu12);
 
+        jMenuItem10.setText("View");
+        jMenu5.add(jMenuItem10);
+
         jMenuBar1.add(jMenu5);
 
         jMenu7.setText("Manage Account");
@@ -264,6 +272,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu21.setText("My Account");
 
         jMenuItem18.setText("Personal Details");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
         jMenu21.add(jMenuItem18);
 
         jMenuItem19.setText("Change Password");
@@ -366,7 +379,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void addEquipmentManualMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEquipmentManualMenuActionPerformed
         // TODO add your handling code here:
-        AddEquipmentDetailsForm aedf = new AddEquipmentDetailsForm();
+        EquipmentDetailsForm aedf = new EquipmentDetailsForm();
         Utilfunctions.setIconImage(aedf);
         Utilfunctions.setLocation(aedf);
         aedf.setVisible(true);
@@ -374,11 +387,26 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void addEquipmentsCSVUploadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEquipmentsCSVUploadMenuActionPerformed
         // TODO add your handling code here:
-        AddEquipmentCSVUploadForm aecsvf = new AddEquipmentCSVUploadForm();
+        EquipmentCSVUploadForm aecsvf = new EquipmentCSVUploadForm();
         Utilfunctions.setIconImage(aecsvf);
         Utilfunctions.setLocation(aecsvf);
         aecsvf.setVisible(true);
     }//GEN-LAST:event_addEquipmentsCSVUploadMenuActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        // TODO add your handling code here:
+        PersonalDetailsForm pd;
+        try {
+            pd = new PersonalDetailsForm();
+            Utilfunctions.setIconImage(pd);
+            Utilfunctions.setLocation(pd);
+            this.setVisible(false);
+            pd.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -446,6 +474,7 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;

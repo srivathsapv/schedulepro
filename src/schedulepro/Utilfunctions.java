@@ -80,7 +80,6 @@ public class Utilfunctions {
         }
 
         return value;
-
     }
 
     public static ResultSet executeQuery(String query) {
@@ -88,7 +87,7 @@ public class Utilfunctions {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,ex.getMessage());
             }
             String dbpwd = Utilfunctions.getDbConfig("password");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
