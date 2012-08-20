@@ -183,9 +183,10 @@ public class AddEquipmentDetailsForm extends javax.swing.JFrame {
             try {
                 ResultSet result = Utilfunctions.executeQuery("SELECT `equipId`, `quantity` FROM `equipment` WHERE `equipName` = '" + equipmentNameText.getText().toUpperCase() + "' AND `dept` = '" + departmentComboBox.getSelectedItem() + "'");
                 result.next();
-                existingqty = Integer.parseInt(result.getString(2));
+                JOptionPane.showMessageDialog(null, "Equipment already exists, Please make the the changes in 'View'");
+                /*existingqty = Integer.parseInt(result.getString(2));
                 netqty = existingqty + Integer.parseInt(quantityText.getText());
-                n = Utilfunctions.executeUpdate("UPDATE `equipment` SET `quantity`=" + netqty + " WHERE `equipId`=" + result.getString(1));
+                n = Utilfunctions.executeUpdate("UPDATE `equipment` SET `quantity`=" + netqty + " WHERE `equipId`=" + result.getString(1));*/
             } catch (Exception e) {
                 n = Utilfunctions.executeUpdate("INSERT INTO `equipment`(`equipId`, `equipName`, `dept`, `quantity`) VALUES (" + equipId + ",'" + equipmentNameText.getText().toUpperCase() + "', '" + departmentComboBox.getSelectedItem() + "'," + quantityText.getText() + ")");
             }
