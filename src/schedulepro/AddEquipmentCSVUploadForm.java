@@ -38,6 +38,7 @@ public class AddEquipmentCSVUploadForm extends javax.swing.JFrame {
         addEquipmentsCSVUploadButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         addEquipmentsCSVUploadLabel.setText("Add Equipments CSV file:");
 
@@ -60,7 +61,7 @@ public class AddEquipmentCSVUploadForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(addEquipmentsCSVUploadLabel)))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,7 +70,7 @@ public class AddEquipmentCSVUploadForm extends javax.swing.JFrame {
                 .addComponent(addEquipmentsCSVUploadLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addEquipmentsCSVUploadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         pack();

@@ -48,6 +48,7 @@ public class AddEquipmentDetailsForm extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         equipmentIdLabel.setText("Equipment Id:");
 
@@ -151,7 +152,7 @@ public class AddEquipmentDetailsForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!equipmentIdText.getText().isEmpty()) {
             if (!Validation.isNumber(equipmentIdText.getText())) {
-                JOptionPane.showMessageDialog(null, "The Equipment Id should be alpha-numeric");
+                JOptionPane.showMessageDialog(null, "Please enter a numeric value");
                 equipmentIdText.setText("");
                 equipmentIdText.requestFocus();
             } else {
