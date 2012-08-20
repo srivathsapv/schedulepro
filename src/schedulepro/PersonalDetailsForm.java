@@ -27,15 +27,17 @@ public class PersonalDetailsForm extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() { 
             @Override
             public void windowClosing(WindowEvent e) { 
-                int n = JOptionPane.showConfirmDialog(null,"Are you sure you want to save the details?","SchedulePro - Confirmation",JOptionPane.YES_NO_OPTION);
-                if(n==JOptionPane.YES_OPTION){
-                    updateDetails();
+                if(edited) {
+                    int n = JOptionPane.showConfirmDialog(null,"Are you sure you want to save the details?","SchedulePro - Confirmation",JOptionPane.YES_NO_OPTION);
+                    if(n==JOptionPane.YES_OPTION){
+                        updateDetails();
+                    }
+                    DashboardForm df = new DashboardForm();
+                    Utilfunctions.setIconImage(df);
+                    Utilfunctions.setLocation(df);
+                    e.getWindow().setVisible(false);
+                    df.setVisible(true);
                 }
-                DashboardForm df = new DashboardForm();
-                Utilfunctions.setIconImage(df);
-                Utilfunctions.setLocation(df);
-                e.getWindow().setVisible(false);
-                df.setVisible(true);
             } 
         });
         

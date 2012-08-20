@@ -43,12 +43,6 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu24 = new javax.swing.JMenu();
         jMenu25 = new javax.swing.JMenu();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
-        jPopupMenu3 = new javax.swing.JPopupMenu();
-        jPopupMenu4 = new javax.swing.JPopupMenu();
-        jPopupMenu5 = new javax.swing.JPopupMenu();
-        jPopupMenu6 = new javax.swing.JPopupMenu();
         jMenuItem20 = new javax.swing.JMenuItem();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jMenuBar3 = new javax.swing.JMenuBar();
@@ -259,6 +253,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu5.add(jMenu12);
 
         jMenuItem10.setText("View");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem10);
 
         jMenuBar1.add(jMenu5);
@@ -309,11 +308,11 @@ public class DashboardForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(151, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(58, 58, 58))
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,11 +397,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void addEquipmentsCSVUploadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEquipmentsCSVUploadMenuActionPerformed
         // TODO add your handling code here:
-        EquipmentCSVUploadForm aecsvf = new EquipmentCSVUploadForm();
-        Utilfunctions.setIconImage(aecsvf);
-        Utilfunctions.setLocation(aecsvf);
-        aecsvf.setVisible(true);
-
+        
         String tablename = "equipment";
         try {
             try {
@@ -433,6 +428,21 @@ public class DashboardForm extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        EquipmentViewForm evf;
+        try {
+            evf = new EquipmentViewForm();
+            Utilfunctions.setIconImage(evf);
+            Utilfunctions.setLocation(evf);
+            this.setVisible(false);
+            evf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,12 +533,6 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JPopupMenu jPopupMenu2;
-    private javax.swing.JPopupMenu jPopupMenu3;
-    private javax.swing.JPopupMenu jPopupMenu4;
-    private javax.swing.JPopupMenu jPopupMenu5;
-    private javax.swing.JPopupMenu jPopupMenu6;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     // End of variables declaration//GEN-END:variables
 }
