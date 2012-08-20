@@ -303,7 +303,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="addEquipmentsCSVUploadMenu">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="CSV Upload"/>
+                    <Property name="text" type="java.lang.String" value="Upload CSV File"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addEquipmentsCSVUploadMenuActionPerformed"/>
