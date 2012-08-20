@@ -83,10 +83,10 @@ public class EquipmentCSVUploadForm extends javax.swing.JFrame {
                 try {
                     Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
                 } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(ClassDetailsCSVUploadForm.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ClassDetailsCSVUploadForm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null,ex.getMessage());
             }
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "File not found");

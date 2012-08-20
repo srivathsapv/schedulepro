@@ -4,6 +4,10 @@
  */
 package schedulepro;
 
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -244,7 +248,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu12.add(addEquipmentManualMenu);
 
-        addEquipmentsCSVUploadMenu.setText("CSV Upload");
+        addEquipmentsCSVUploadMenu.setText("Upload CSV File");
         addEquipmentsCSVUploadMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addEquipmentsCSVUploadMenuActionPerformed(evt);
@@ -324,7 +328,6 @@ public class DashboardForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         // TODO add your handling code here:
         AdministerAccountForm adm = new AdministerAccountForm();
@@ -337,8 +340,8 @@ public class DashboardForm extends javax.swing.JFrame {
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
         // TODO add your handling code here:
-        int opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to logoff?","SchedulePro - Logoff",JOptionPane.YES_NO_OPTION);
-        if(opt == JOptionPane.YES_OPTION){
+        int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to logoff?", "SchedulePro - Logoff", JOptionPane.YES_NO_OPTION);
+        if (opt == JOptionPane.YES_OPTION) {
             this.setVisible(false);
             LoginForm lf = new LoginForm();
             Utilfunctions.setLocation(lf);
@@ -346,7 +349,7 @@ public class DashboardForm extends javax.swing.JFrame {
             lf.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
-    
+
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         // TODO add your handling code here:
         ClassDetailsForm cdf = new ClassDetailsForm();
@@ -359,12 +362,20 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
-        ClassDetailsCSVUploadForm cdCSV = new ClassDetailsCSVUploadForm();
-        Utilfunctions.setIconImage(cdCSV);
-        Utilfunctions.setLocation(cdCSV);
-        cdCSV.setTitle("Class Detail CSV Upload");
-        this.setVisible(false);
-        cdCSV.setVisible(true);
+        String tablename = "class";
+        try {
+            try {
+                Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
+            } catch (SQLException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid data");
+        }
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
@@ -374,7 +385,7 @@ public class DashboardForm extends javax.swing.JFrame {
         Utilfunctions.setLocation(cpf);
         this.setVisible(false);
         cpf.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     private void addEquipmentManualMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEquipmentManualMenuActionPerformed
@@ -391,6 +402,21 @@ public class DashboardForm extends javax.swing.JFrame {
         Utilfunctions.setIconImage(aecsvf);
         Utilfunctions.setLocation(aecsvf);
         aecsvf.setVisible(true);
+
+        String tablename = "equipment";
+        try {
+            try {
+                Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
+            } catch (SQLException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid data");
+        }
     }//GEN-LAST:event_addEquipmentsCSVUploadMenuActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed

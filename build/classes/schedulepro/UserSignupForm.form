@@ -37,9 +37,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="gradeLabel" max="32767" attributes="0"/>
                   <Component id="usernameLabel" max="32767" attributes="0"/>
                   <Component id="mandotaryfieldLabel" max="32767" attributes="0"/>
                   <Component id="passwordLabel" max="32767" attributes="0"/>
@@ -50,27 +51,28 @@
                   <Component id="phonenumberLabel" alignment="0" max="32767" attributes="0"/>
                   <Component id="retypepasswordLabel" pref="140" max="32767" attributes="0"/>
                   <Component id="idnumberLabel" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="retypepasswordText" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Component id="usernameText" max="32767" attributes="0"/>
                       <Component id="passwordText" min="-2" pref="152" max="-2" attributes="0"/>
                   </Group>
                   <Component id="phonenumberText" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="departmentCombobox" alignment="0" max="32767" attributes="0"/>
-                      <Component id="emailidText" alignment="0" max="32767" attributes="0"/>
-                      <Component id="nameText" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="departmentCombobox" alignment="0" max="32767" attributes="0"/>
+                  <Component id="emailidText" alignment="0" max="32767" attributes="0"/>
+                  <Component id="nameText" alignment="0" pref="179" max="32767" attributes="0"/>
                   <Component id="salutationComboBox" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
                   <Component id="idnumberText" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                  <Component id="roleComboBox" alignment="0" max="32767" attributes="0"/>
+                  <Component id="gradeText" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
               <Component id="submitButton" min="-2" pref="74" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -99,15 +101,25 @@
                   <Component id="departmentLabel" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="departmentCombobox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="roleComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="gradeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="gradeText" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="emailidLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="emailidText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="phonenumberLabel" min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="phonenumberText" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="phonenumberLabel" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="phonenumberText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -116,19 +128,19 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="passwordText" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="passwordLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="passwordText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="retypepasswordText" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="retypepasswordLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
-              <Component id="submitButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="retypepasswordLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="retypepasswordText" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="submitButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="mandotaryfieldLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -269,6 +281,32 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameTextActionPerformed"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="usernameTextFocusLost"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Role:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="roleComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Head of the Department"/>
+            <StringItem index="1" value="Faculty Member"/>
+            <StringItem index="2" value="Department Secretary"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="roleComboBoxFocusLost"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="gradeLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Grade:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="gradeText">
     </Component>
   </SubComponents>
 </Form>
