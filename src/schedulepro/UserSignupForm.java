@@ -19,16 +19,16 @@ public class UserSignupForm extends javax.swing.JFrame {
      */
     public UserSignupForm() {
         initComponents();
-        addWindowListener(new WindowAdapter() { 
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) { 
+            public void windowClosing(WindowEvent e) {
                 AdministerAccountForm af = new AdministerAccountForm();
                 Utilfunctions.setIconImage(af);
                 Utilfunctions.setLocation(af);
                 e.getWindow().setVisible(false);
                 af.setVisible(true);
-                
-            } 
+
+            }
         });
     }
 
@@ -263,21 +263,18 @@ public class UserSignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_nameTextActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        try{
-            for(int i=0;i<7;i++)
-                if(testValidity[i]==1)
-                {
-                    errorLocation=i;
-                    i=6/0;              
+        try {
+            for (int i = 0; i < 7; i++) {
+                if (testValidity[i] == 1) {
+                    errorLocation = i;
+                    throw new Exception();
                 }
-            Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`user` (`userCode`, `name`, `salutation`, `dept`, `grade`, `email`, `phone`) VALUES ('"+idnumberText.getText()+"', '"+nameText.getText()+"', '"+salutation+"', '"+department+"', '', '"+emailidText.getText()+"', '"+phonenumberText.getText()+"');");
-            Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`login` (`id`, `userCode`, `password`, `role`) VALUES ('"+usernameText.getText()+"', '"+idnumberText.getText()+"', '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"', '');");
-        }
-        catch(Exception e)
-        {
+            }
+            Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`user` (`userCode`, `name`, `salutation`, `dept`, `grade`, `email`, `phone`) VALUES ('" + idnumberText.getText() + "', '" + nameText.getText() + "', '" + salutation + "', '" + department + "', '', '" + emailidText.getText() + "', '" + phonenumberText.getText() + "');");
+            Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`login` (`id`, `userCode`, `password`, `role`) VALUES ('" + usernameText.getText() + "', '" + idnumberText.getText() + "', '" + Utilfunctions.MD5(passwordText.getText()).toString(16) + "', '');");
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please Check the errors");
-            switch(errorLocation)
-            {
+            switch (errorLocation) {
                 case 0:
                     nameText.setText("");
                     break;
@@ -383,11 +380,11 @@ public class UserSignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_retypepasswordTextFocusLost
 
     private void departmentComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentComboboxActionPerformed
-        department=departmentCombobox.getSelectedItem().toString();
+        department = departmentCombobox.getSelectedItem().toString();
     }//GEN-LAST:event_departmentComboboxActionPerformed
 
     private void salutationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salutationComboBoxActionPerformed
-        salutation=salutationComboBox.getSelectedItem().toString();
+        salutation = salutationComboBox.getSelectedItem().toString();
     }//GEN-LAST:event_salutationComboBoxActionPerformed
 
     private void usernameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextActionPerformed
@@ -464,7 +461,7 @@ public class UserSignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
-    private int testValidity[] ={1,1,1,1,1,1,1};
+    private int testValidity[] = {1, 1, 1, 1, 1, 1, 1};
     private int errorLocation;
     private String salutation;
     private String department;
