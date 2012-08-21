@@ -65,10 +65,8 @@
                       <Component id="idnumberText" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
                       <Component id="roleComboBox" alignment="0" max="32767" attributes="0"/>
                       <Component id="gradeText" max="32767" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="passwordText" alignment="0" max="32767" attributes="0"/>
-                          <Component id="retypepasswordText" alignment="0" pref="152" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="passwordText" alignment="0" max="32767" attributes="0"/>
+                      <Component id="retypepasswordText" alignment="0" pref="152" max="32767" attributes="0"/>
                       <Component id="phonenumberText" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -288,10 +286,11 @@
     <Component class="javax.swing.JComboBox" name="roleComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
+          <StringArray count="4">
             <StringItem index="0" value="Head of the Department"/>
             <StringItem index="1" value="Faculty Member"/>
             <StringItem index="2" value="Department Secretary"/>
+            <StringItem index="3" value="System Adminstrator"/>
           </StringArray>
         </Property>
       </Properties>
