@@ -57,8 +57,9 @@ public class CSVRead {
                     if(parentTable != null && parentKeyColumn != 0){  
                         String query = "SELECT * FROM "+parentTable + " WHERE " + parentKeyColumnName + " = '" + dataArray[parentKeyColumn-1] + "'";
                         ResultSet rs = Utilfunctions.executeQuery(query);
-                        rs.next();
-                        if(rs.getRow() == 0) {
+                        int cnt=0;
+                        while(rs.next()) cnt++;
+                        if(cnt == 0) {
                             JOptionPane.showMessageDialog(null,"Invalid data found. Skipping insertion of this row");
                             dataRow = csv.readLine();
                             continue;
