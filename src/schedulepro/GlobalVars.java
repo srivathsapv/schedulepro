@@ -20,4 +20,6 @@ public class GlobalVars {
     
     public static int pConfigId;
     public static JFrame pConfigChooseInvoker;
+    
+    public static String temp;
 }
