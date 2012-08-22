@@ -4,6 +4,8 @@
  */
 package schedulepro;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author srivathsa
@@ -15,4 +17,7 @@ public class GlobalVars {
     public static String userName;
     public static String userDept;
     public static String userSalutation;
+    
+    public static int pConfigId;
+    public static JFrame pConfigChooseInvoker;
 }

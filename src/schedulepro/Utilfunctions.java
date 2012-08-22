@@ -40,7 +40,7 @@ public class Utilfunctions {
         jf.setLocation(x, y);
 
     }
-
+    
     public static void setIconImage(JFrame jf) {
         File directory = new File(".");
         try {

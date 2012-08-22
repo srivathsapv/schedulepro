@@ -73,6 +73,8 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem25 = new javax.swing.JMenuItem();
+        jMenuItem26 = new javax.swing.JMenuItem();
         jMenu16 = new javax.swing.JMenu();
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenu17 = new javax.swing.JMenu();
@@ -201,6 +203,23 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Periods");
+
+        jMenuItem25.setText("Add Period Configuration");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem25ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem25);
+
+        jMenuItem26.setText("View Period Configuration");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem26);
+
         jMenuBar1.add(jMenu4);
 
         jMenu16.setText("Academic Schedule");
@@ -444,6 +463,30 @@ public class DashboardForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        // TODO add your handling code here:
+        PeriodConfigForm pcf = new PeriodConfigForm();
+        Utilfunctions.setIconImage(pcf);
+        Utilfunctions.setLocation(pcf);
+        this.setVisible(false);
+        pcf.setVisible(true);
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
+
+    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+        // TODO add your handling code here:
+        PeriodConfigViewForm pvf;
+        try {
+            pvf = new PeriodConfigViewForm();
+            Utilfunctions.setIconImage(pvf);
+            Utilfunctions.setLocation(pvf);
+            this.setVisible(false);
+            pvf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem26ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -526,6 +569,8 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem25;
+    private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
