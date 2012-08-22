@@ -1,3 +1,8 @@
+
+import javax.swing.JOptionPane;
+import schedulepro.Utilfunctions;
+import schedulepro.Validation;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -61,18 +66,42 @@ public class Subjectform extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField2FocusLost(evt);
+            }
+        });
+
         jLabel9.setText("Subject Code");
 
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField3FocusLost(evt);
+            }
+        });
+
         jLabel6.setText("Department");
+
+        jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField4FocusLost(evt);
+            }
+        });
 
         jLabel5.setText("Sub Credits");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "4", "3", "2" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,14 +128,14 @@ public class Subjectform extends javax.swing.JFrame {
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,13 +147,10 @@ public class Subjectform extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(25, 25, 25)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,17 +169,68 @@ public class Subjectform extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+      int test = 0;
+        if (!jTextField3.getText().isEmpty()) {
+            test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`subject` (`subCode`, 'subName`, `subShortName`, `dept`, 'credits') VALUES ('" + jTextField3.getText() + "', '" +jTextField1.getText() + "', '" +jTextField2.getText()  + "', '" + jTextField4.getText() + "', '" +jComboBox2.getSelectedItem()  + "')");
+        } else {
+            test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`subject` (`subCode`, 'subName`, `subShortName`, `dept`, 'credits') VALUES (NULL, '" +jTextField1.getText() + "', '" +jTextField2.getText()  + "', '" + jTextField4.getText() + "', '" +jComboBox2.getSelectedItem() + "')");
+        }
+        if (test == 1) {
+            JOptionPane.showMessageDialog(null, "Inserted");
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error");
+        }  // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_formInputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_formInputMethodTextChanged
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+        // TODO aif (!classCodeText.getText().isEmpty()) {
+                if (!Validation.isalphanumericOrNull(jTextField3.getText())) {
+                    JOptionPane.showMessageDialog(null, "subject Code should contain alphanumeric characters");
+                    jTextField3.setText("");
+                   jTextField3.requestFocus();
+                }
+            //}dd your handling code here:
+    }//GEN-LAST:event_jTextField3FocusLost
+
+    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
+        if (!jTextField2.getText().isEmpty()) {
+                if (!Validation.isNumber(jTextField2.getText())) {
+                    JOptionPane.showMessageDialog(null, "Please Enter a text value");
+                    jTextField2.setText("");
+                    jTextField2.requestFocus();
+                }
+            }// TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2FocusLost
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        if (!jTextField1.getText().isEmpty()) {
+                if (!Validation.isStringWithSpace(jTextField1.getText())) {
+                    JOptionPane.showMessageDialog(null, "Please Enter a text value");
+                    jTextField1.setText("");
+                    jTextField1.requestFocus();
+                }
+            }// TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1FocusLost
+
+    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+        if (!jTextField4.getText().isEmpty()) {
+                if (!Validation.isStringWithSpace(jTextField4.getText())) {
+                    JOptionPane.showMessageDialog(null, "Please Enter a text value");
+                    jTextField4.setText("");
+                    jTextField4.requestFocus();
+                }
+            }// TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4FocusLost
 
     /**
      * @param args the command line arguments
