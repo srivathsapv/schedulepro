@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
@@ -84,6 +85,11 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
         jTable1.setPreferredSize(new java.awt.Dimension(400, 400));
         jTable1.setRequestFocusEnabled(false);
         jTable1.setRowHeight(80);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,6 +111,19 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        JTable source = (JTable)evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        int col = source.columnAtPoint(evt.getPoint());
+        
+        PeriodConfigTableModel model = (PeriodConfigTableModel)source.getModel();
+        GlobalVars.pConfigId = model.getPeriodConfigId(row, col);
+       
+        this.setVisible(false);
+        GlobalVars.pConfigChooseInvoker.setVisible(true);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -163,6 +182,8 @@ class PeriodConfigTableModel extends AbstractTableModel {
     
     private Object[][] data;
     
+    private int[][] pConfig;
+    
     public PeriodConfigTableModel() throws SQLException{
         
         String query = "SELECT COUNT(*) as cnt FROM periodconfig GROUP BY day ORDER BY cnt DESC LIMIT 0,1";
@@ -170,6 +191,7 @@ class PeriodConfigTableModel extends AbstractTableModel {
         rs.next();
         int rows = rs.getInt(1);
         data = new Object[rows][7];
+        pConfig = new int[rows][7];
         
         for(int i=0;i<columnNames.length;i++){
             int k=0;
@@ -182,7 +204,8 @@ class PeriodConfigTableModel extends AbstractTableModel {
                     ptype = "Period";
                 else
                     ptype = "Recess";
-                data[k++][i] = rs.getString(3) + "\n to \n" + rs.getString(4) + "\n(" + ptype + ")";
+                data[k][i] = rs.getString(3) + "\n to \n" + rs.getString(4) + "\n(" + ptype + ")";
+                pConfig[k++][i] = Integer.parseInt(rs.getString(1));
             }
         }
         
@@ -218,6 +241,10 @@ class PeriodConfigTableModel extends AbstractTableModel {
     public void setValueAt(Object value,int row,int column){
         data[row][column] = value;
     }
+    
+    public int getPeriodConfigId(int row,int column){
+        return pConfig[row][column];
+    }
 }
 
 class PeriodConfigCellRenderer extends JTextPane implements TableCellRenderer {
@@ -232,6 +259,7 @@ class PeriodConfigCellRenderer extends JTextPane implements TableCellRenderer {
     
   }
  
+    @Override
   public Component getTableCellRendererComponent(JTable table, Object value,
                boolean isSelected, boolean hasFocus, int row, int column) {
     if (isSelected) {
