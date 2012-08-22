@@ -5,6 +5,7 @@
 package schedulepro;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,4 +21,5 @@ public class GlobalVars {
     
     public static int pConfigId;
     public static JFrame pConfigChooseInvoker;
+    public static JTextField pConfigTextField;
 }

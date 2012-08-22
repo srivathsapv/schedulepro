@@ -57,6 +57,8 @@ public class EquipmentViewForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -64,6 +66,17 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+
+        jMenuItem5.setText("Book");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem5);
+
+        jMenuItem6.setText("View Booking Details");
+        jPopupMenu1.add(jMenuItem6);
 
         jMenuItem1.setText("Edit Equipment");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -198,6 +211,19 @@ public class EquipmentViewForm extends javax.swing.JFrame {
             model.removeRow(selectedRow);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        EquipmentIssueForm eif = new EquipmentIssueForm();
+        Utilfunctions.setIconImage(eif);
+        Utilfunctions.setLocation(eif);
+        
+        EquipmentTableModel emodel = (EquipmentTableModel)jTable1.getModel();
+        EquipmentIssueForm.chosenEquipId = emodel.getEquipId(selectedRow);
+        
+        eif.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
     
     
     /**
@@ -251,6 +277,8 @@ public class EquipmentViewForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -264,6 +292,8 @@ class EquipmentTableModel extends AbstractTableModel {
     
     private Vector<String[]> data;
     
+    private int[] equipId;
+    
     public EquipmentTableModel() throws SQLException{
         ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM equipment WHERE dept = '" + GlobalVars.userDept + "'");
         rs_cnt.next();
@@ -271,11 +301,13 @@ class EquipmentTableModel extends AbstractTableModel {
         String query = "SELECT equipId,equipName,quantity FROM equipment WHERE dept = '" + GlobalVars.userDept + "'";
         ResultSet rs = Utilfunctions.executeQuery(query);
         data = new Vector<String[]>();
+        equipId = new int[cnt];
         
         int i=0;
         while(rs.next()){
             String[] values = {rs.getString(1),rs.getString(2),rs.getString(3)};
             data.add(values);
+            equipId[i++] = Integer.parseInt(rs.getString(1));
         }
     }
 
@@ -318,5 +350,9 @@ class EquipmentTableModel extends AbstractTableModel {
             System.out.println(data.get(i));
         }
         this.fireTableDataChanged();
+    }
+    
+    public int getEquipId(int row){
+        return equipId[row];
     }
 }

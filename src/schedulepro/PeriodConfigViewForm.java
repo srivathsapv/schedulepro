@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
@@ -120,7 +119,14 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
         
         PeriodConfigTableModel model = (PeriodConfigTableModel)source.getModel();
         GlobalVars.pConfigId = model.getPeriodConfigId(row, col);
-       
+        ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM periodconfig WHERE pconfigId = " + GlobalVars.pConfigId);
+        try {
+            rs.next();
+            GlobalVars.pConfigTextField.setText(rs.getString(3) + " to " + rs.getString(4));
+        } catch (SQLException ex) {
+            Logger.getLogger(PeriodConfigViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         this.setVisible(false);
         GlobalVars.pConfigChooseInvoker.setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
