@@ -20,6 +20,7 @@ public class GlobalVars {
     public static String userSalutation;
     
     public static int pConfigId;
+    public static int equipmentId;
     public static JFrame pConfigChooseInvoker;
     public static JTextField pConfigTextField;
 
