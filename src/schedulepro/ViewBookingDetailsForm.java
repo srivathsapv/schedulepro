@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class ViewBookingDetailsForm extends javax.swing.JFrame {
 
@@ -25,6 +25,17 @@ public class ViewBookingDetailsForm extends javax.swing.JFrame {
     public ViewBookingDetailsForm() throws SQLException {
         initComponents();
         bookingDetailsTable.setModel(new BookingDetailsTableModel());
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                DashboardForm df = new DashboardForm();
+                Utilfunctions.setIconImage(df);
+                Utilfunctions.setLocation(df);
+                e.getWindow().setVisible(false);
+                df.setVisible(true);
+
+            }
+        });
     }
 
     /**
@@ -40,6 +51,7 @@ public class ViewBookingDetailsForm extends javax.swing.JFrame {
         bookingDetailsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         bookingDetailsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -61,7 +73,7 @@ public class ViewBookingDetailsForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
         );
 
         pack();
