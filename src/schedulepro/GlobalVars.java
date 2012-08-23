@@ -22,4 +22,6 @@ public class GlobalVars {
     public static int pConfigId;
     public static JFrame pConfigChooseInvoker;
     public static JTextField pConfigTextField;
+
+    public static String temp;
 }

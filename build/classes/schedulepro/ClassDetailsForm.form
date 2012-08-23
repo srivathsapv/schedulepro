@@ -70,7 +70,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="78" max="32767" attributes="0"/>
+              <EmptySpace pref="228" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,12 +82,12 @@
                   <Component id="classCodeLabel" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   <Component id="classCodeText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="courseLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="courseComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="departmentLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="departmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -114,7 +114,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="saveButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

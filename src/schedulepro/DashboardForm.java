@@ -291,6 +291,8 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItem17);
 
+        jMenuBar1.add(jMenu7);
+
         jMenu21.setText("My Account");
 
         jMenuItem18.setText("Personal Details");
@@ -317,9 +319,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu21.add(jMenuItem7);
 
-        jMenu7.add(jMenu21);
-
-        jMenuBar1.add(jMenu7);
+        jMenuBar1.add(jMenu21);
 
         setJMenuBar(jMenuBar1);
 

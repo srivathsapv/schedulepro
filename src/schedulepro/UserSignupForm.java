@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Sasipraveen
+ * @author Sasi praveen
  */
 public class UserSignupForm extends javax.swing.JFrame {
 
@@ -175,7 +175,7 @@ public class UserSignupForm extends javax.swing.JFrame {
 
         jLabel1.setText("Role:");
 
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Head of the Department", "Faculty Member", "Department Secretary" }));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Head of the Department", "Faculty Member", "Department Secretary", "System Adminstrator" }));
         roleComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 roleComboBoxFocusLost(evt);
@@ -215,9 +215,8 @@ public class UserSignupForm extends javax.swing.JFrame {
                         .addComponent(idnumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(roleComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(gradeText)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(passwordText, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(retypepasswordText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                        .addComponent(passwordText)
+                        .addComponent(retypepasswordText, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                         .addComponent(phonenumberText)))
                 .addGap(67, 67, 67))
         );
@@ -436,6 +435,8 @@ public class UserSignupForm extends javax.swing.JFrame {
             role = "staff";
         } else if (roleComboBox.getSelectedIndex() == 2) {
             role = "ds";
+        }else if (roleComboBox.getSelectedIndex() == 3) {
+            role = "sa";
         }
     }//GEN-LAST:event_roleComboBoxFocusLost
 

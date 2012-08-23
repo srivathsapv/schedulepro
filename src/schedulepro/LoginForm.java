@@ -158,6 +158,7 @@ public class LoginForm extends javax.swing.JFrame {
             Utilfunctions.setLocation(tf);
             tf.setVisible(true);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e.getMessage());
             JOptionPane.showMessageDialog(null, "Invalid Username or Password");
             usernameText.setText("");
             passwordText.setText("");
