@@ -6,7 +6,7 @@ package schedulepro;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class Validation {
     //Returns true if string contains only character words and has one space betwwen each word;

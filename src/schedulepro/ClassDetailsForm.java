@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  */
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class ClassDetailsForm extends javax.swing.JFrame {
 

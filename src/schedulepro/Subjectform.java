@@ -1,8 +1,7 @@
+package schedulepro;
+
 
 import javax.swing.JOptionPane;
-import schedulepro.Utilfunctions;
-import schedulepro.Validation;
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

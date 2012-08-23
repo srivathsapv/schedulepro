@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class EquipmentDetailsForm extends javax.swing.JFrame {
 

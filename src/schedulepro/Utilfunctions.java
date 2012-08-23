@@ -14,6 +14,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Random;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -175,6 +176,15 @@ public class Utilfunctions {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+    
+    public static String randomStringGenerator(String refer,int length)
+    {
+        Random random = new Random();
+        char output[]=new char[length];
+        for(int i=0;i<length;i++)
+            output[i]=refer.charAt(random.nextInt(refer.length()));
+        return new String(output);
     }
     private static Toolkit toolkit;
     private static Dimension dim;

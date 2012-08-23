@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class ChangeRoleForm extends javax.swing.JFrame {
     private String role;
