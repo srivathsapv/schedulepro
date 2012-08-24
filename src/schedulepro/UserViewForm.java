@@ -92,7 +92,8 @@ public class UserViewForm extends javax.swing.JFrame {
         });
         userPopupMenu.add(deleteMenuItem);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         usersLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         usersLabel.setText("Users");

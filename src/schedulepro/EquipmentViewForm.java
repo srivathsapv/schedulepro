@@ -76,6 +76,11 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem5);
 
         jMenuItem6.setText("View Booking Details");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(jMenuItem6);
 
         jMenuItem1.setText("Edit Equipment");
@@ -138,7 +143,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(179, 179, 179)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(104, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,6 +229,18 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         eif.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        GlobalVars.equipmentId=Integer.parseInt(jTable1.getValueAt(selectedRow,0).toString());
+        ViewBookingDetailsForm vb = null;
+        try {
+            vb = new ViewBookingDetailsForm();
+        } catch (SQLException ex) {
+            Logger.getLogger(EquipmentViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        vb.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
     
     
     /**

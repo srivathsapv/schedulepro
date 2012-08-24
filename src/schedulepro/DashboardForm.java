@@ -89,6 +89,9 @@ public class DashboardForm extends javax.swing.JFrame {
         addEquipmentsCSVUploadMenu = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
+        jMenu18 = new javax.swing.JMenu();
+        jMenuItem27 = new javax.swing.JMenuItem();
+        jMenuItem28 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenu21 = new javax.swing.JMenu();
         jMenuItem18 = new javax.swing.JMenuItem();
@@ -288,13 +291,33 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenu7.setText("Manage Account");
 
-        jMenuItem17.setText("Administer Accounts");
+        jMenu18.setText("Administer Accounts");
+
+        jMenuItem27.setText("Add User Manually");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        jMenu18.add(jMenuItem27);
+
+        jMenuItem28.setText("Add User CSV");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        jMenu18.add(jMenuItem28);
+
+        jMenuItem17.setText("View Users");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem17ActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem17);
+        jMenu18.add(jMenuItem17);
+
+        jMenu7.add(jMenu18);
 
         jMenuBar1.add(jMenu7);
 
@@ -350,15 +373,6 @@ public class DashboardForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        // TODO add your handling code here:
-        AdministerAccountForm adm = new AdministerAccountForm();
-        Utilfunctions.setLocation(adm);
-        Utilfunctions.setIconImage(adm);
-        this.setVisible(false);
-        adm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
@@ -501,6 +515,38 @@ public class DashboardForm extends javax.swing.JFrame {
         sj.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        // TODO add your handling code here:
+        UserSignupForm newUserForm = new UserSignupForm();
+        Utilfunctions.setLocation(newUserForm);
+        Utilfunctions.setIconImage(newUserForm);
+        this.setVisible(false);
+        newUserForm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+        // TODO add your handling code here:
+        UserCSVUploadForm ucsv = new UserCSVUploadForm();
+        Utilfunctions.setIconImage(ucsv);
+        Utilfunctions.setLocation(ucsv);
+        this.setVisible(false);
+        ucsv.setVisible(true);
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        // TODO add your handling code here:
+        UserViewForm uv = null;
+        try {
+            uv = new UserViewForm();
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Utilfunctions.setIconImage(uv);
+        Utilfunctions.setLocation(uv);
+        this.setVisible(false);
+        uv.setVisible(true);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -551,6 +597,7 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu15;
     private javax.swing.JMenu jMenu16;
     private javax.swing.JMenu jMenu17;
+    private javax.swing.JMenu jMenu18;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu21;
     private javax.swing.JMenu jMenu24;
@@ -585,6 +632,8 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
