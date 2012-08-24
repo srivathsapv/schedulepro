@@ -34,6 +34,7 @@ public class ChangeRoleForm extends javax.swing.JFrame {
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SchedulePro - Select Role");
 
         roleLabel.setText("Select Role:");
 

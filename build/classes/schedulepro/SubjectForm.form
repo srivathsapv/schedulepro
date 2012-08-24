@@ -2,9 +2,14 @@
 
 <Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
+<<<<<<< HEAD:build/classes/schedulepro/Subjectform.form
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="SchedulePro - Add Subject"/>
+=======
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" value="Subject"/>
     <Property name="resizable" type="boolean" value="false"/>
+>>>>>>> b941cf90fa2c52f39f0fc10c77103e9cb907393b:src/schedulepro/SubjectForm.form
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -27,9 +32,38 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="41" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+<<<<<<< HEAD:build/classes/schedulepro/Subjectform.form
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel1" min="-2" pref="67" max="-2" attributes="0"/>
+                          <Component id="jLabel9" min="-2" pref="68" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" pref="67" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="1" min="-2" pref="68" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextField1" min="-2" pref="166" max="-2" attributes="0"/>
+                          <Component id="jTextField2" min="-2" pref="166" max="-2" attributes="0"/>
+                          <Component id="jTextField3" min="-2" pref="166" max="-2" attributes="0"/>
+                          <Component id="jTextField4" min="-2" pref="166" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" pref="80" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Component id="jButton1" min="-2" pref="91" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jComboBox2" min="-2" pref="79" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+=======
                       <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                       <Component id="jLabel8" min="-2" pref="96" max="-2" attributes="0"/>
                   </Group>
@@ -66,28 +100,47 @@
                           </Group>
                       </Group>
                   </Group>
+>>>>>>> b941cf90fa2c52f39f0fc10c77103e9cb907393b:src/schedulepro/SubjectForm.form
               </Group>
-              <EmptySpace pref="116" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+<<<<<<< HEAD:build/classes/schedulepro/Subjectform.form
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel9" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="jTextField3" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+=======
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel8" min="-2" pref="26" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jLabel9" pref="21" max="32767" attributes="0"/>
                   <Component id="jTextField3" pref="0" max="32767" attributes="0"/>
+>>>>>>> b941cf90fa2c52f39f0fc10c77103e9cb907393b:src/schedulepro/SubjectForm.form
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" max="32767" attributes="0"/>
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD:build/classes/schedulepro/Subjectform.form
+                  <Component id="jTextField1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel1" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+=======
                   <Component id="jLabel2" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jTextField2" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -95,14 +148,16 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+>>>>>>> b941cf90fa2c52f39f0fc10c77103e9cb907393b:src/schedulepro/SubjectForm.form
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel5" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,17 +165,12 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Subject Title"/>
+        <Property name="text" type="java.lang.String" value="Subject Title:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Short Form"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Subject"/>
+        <Property name="text" type="java.lang.String" value="Short Form:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
@@ -143,7 +193,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Subject Code"/>
+        <Property name="text" type="java.lang.String" value="Subject Code:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField3">
@@ -154,12 +204,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Department"/>
+        <Property name="text" type="java.lang.String" value="Department:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sub Credits"/>
+        <Property name="text" type="java.lang.String" value="Subject Credits:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox2">

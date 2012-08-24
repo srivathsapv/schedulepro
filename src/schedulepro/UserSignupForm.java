@@ -22,11 +22,11 @@ public class UserSignupForm extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                AdministerAccountForm af = new AdministerAccountForm();
-                Utilfunctions.setIconImage(af);
-                Utilfunctions.setLocation(af);
+                DashboardForm df = new DashboardForm();
+                Utilfunctions.setIconImage(df);
+                Utilfunctions.setLocation(df);
                 e.getWindow().setVisible(false);
-                af.setVisible(true);
+                df.setVisible(true);
 
             }
         });
@@ -69,7 +69,8 @@ public class UserSignupForm extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SchedulePro - New User Signup");
         setResizable(false);
 
         nameLabel.setText("*Name:");

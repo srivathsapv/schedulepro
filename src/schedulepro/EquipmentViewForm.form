@@ -20,6 +20,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="View Booking Details"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
           <Properties>
@@ -58,7 +61,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="View Equipments"/>
+    <Property name="title" type="java.lang.String" value="SchedulePro - View Equipments"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>

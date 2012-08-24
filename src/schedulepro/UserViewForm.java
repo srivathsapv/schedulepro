@@ -92,7 +92,9 @@ public class UserViewForm extends javax.swing.JFrame {
         });
         userPopupMenu.add(deleteMenuItem);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SchedulePro - View Users");
+        setResizable(false);
 
         usersLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         usersLabel.setText("Users");
@@ -183,15 +185,14 @@ public class UserViewForm extends javax.swing.JFrame {
         int n=0;
         int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to Reset the Password?", "Reset Password", JOptionPane.YES_NO_OPTION);
         if (opt == JOptionPane.YES_OPTION) {
-            String reference="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*-_";
-            String newPassword = Utilfunctions.randomStringGenerator(reference, 8);
+            String newPassword = Utilfunctions.randomStringGenerator(8);
             try {
                 n=Utilfunctions.executeUpdate("UPDATE `login` SET `password`='"+Utilfunctions.MD5(newPassword).toString(16)+"' WHERE `id`='" + usersTable.getValueAt(selectedRow, 0) + "'");
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
             }
             if(n==1)
-                JOptionPane.showMessageDialog(null, "Password reset to "+newPassword);
+                JOptionPane.showMessageDialog(null, "Password reset to '"+newPassword+"'");
             else
                 JOptionPane.showMessageDialog(null, "Error in reseting Password");
         }
