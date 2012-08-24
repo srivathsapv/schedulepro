@@ -141,15 +141,15 @@ public class LoginForm extends javax.swing.JFrame {
             String query = "SELECT * FROM `login` WHERE  `id` = '" + usernameText.getText() + "' AND  `password` =  '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"'";
             ResultSet result = Utilfunctions.executeQuery(query);
             result.next();
-            GlobalVars.loginId = result.getString(1);
-            GlobalVars.userCode=result.getString(2);
-            GlobalVars.userRole = result.getString(4);
+            loginId = result.getString(1);
+            userCode=result.getString(2);
+            userRole = result.getString(4);
             
-            result = Utilfunctions.executeQuery("SELECT * FROM user WHERE userCode = '" + GlobalVars.userCode + "'");
+            result = Utilfunctions.executeQuery("SELECT * FROM user WHERE userCode = '" + userCode + "'");
             result.next();
-            GlobalVars.userName = result.getString(2);
-            GlobalVars.userSalutation = result.getString(3);
-            GlobalVars.userDept = result.getString(4);
+            userName = result.getString(2);
+            userSalutation = result.getString(3);
+            userDept = result.getString(4);
             
             this.setVisible(false);
             
@@ -158,7 +158,6 @@ public class LoginForm extends javax.swing.JFrame {
             Utilfunctions.setLocation(tf);
             tf.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e.getMessage());
             JOptionPane.showMessageDialog(null, "Invalid Username or Password");
             usernameText.setText("");
             passwordText.setText("");
@@ -227,5 +226,10 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
-    
+    public static String loginId;
+    public static String userCode;
+    public static String userRole;
+    public static String userName;
+    public static String userDept;
+    public static String userSalutation;
 }

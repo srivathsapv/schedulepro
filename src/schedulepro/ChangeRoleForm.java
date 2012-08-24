@@ -89,7 +89,7 @@ public class ChangeRoleForm extends javax.swing.JFrame {
         }else if (roleComboBox.getSelectedIndex() == 3) {
             role = "sa";
         }
-        int n=Utilfunctions.executeUpdate("UPDATE `login` SET `role`='"+role+"' WHERE `id`='"+GlobalVars.temp+"'");
+        int n=Utilfunctions.executeUpdate("UPDATE `login` SET `role`='"+role+"' WHERE `id`='"+temp+"'");
         if(n==1)
             JOptionPane.showMessageDialog(null, "Role changed to "+roleComboBox.getSelectedItem());
         else
@@ -140,4 +140,5 @@ public class ChangeRoleForm extends javax.swing.JFrame {
     private javax.swing.JComboBox roleComboBox;
     private javax.swing.JLabel roleLabel;
     // End of variables declaration//GEN-END:variables
+    public static String temp;
 }
