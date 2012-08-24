@@ -200,7 +200,7 @@ public class UserViewForm extends javax.swing.JFrame {
 
     private void changeRoleMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeRoleMenuItemActionPerformed
         // TODO add your handling code here:
-        GlobalVars.temp=(String) usersTable.getValueAt(selectedRow, 0);
+        ChangeRoleForm.temp=(String) usersTable.getValueAt(selectedRow, 0);
         ChangeRoleForm cf = new ChangeRoleForm();
         Utilfunctions.setIconImage(cf);
         Utilfunctions.setLocation(cf);

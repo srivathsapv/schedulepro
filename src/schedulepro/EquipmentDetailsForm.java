@@ -5,9 +5,6 @@
 package schedulepro;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,11 +41,7 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
         equipmentNameText = new javax.swing.JTextField();
         departmentLabel = new javax.swing.JLabel();
         departmentComboBox = new javax.swing.JComboBox();
-        quantityLabel = new javax.swing.JLabel();
-        quantityText = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -74,32 +67,10 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
 
         departmentLabel.setText("Department:");
 
-        quantityLabel.setText("Quantity:");
-
-        quantityText.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                quantityTextFocusLost(evt);
-            }
-        });
-
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -108,11 +79,13 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(84, 84, 84)
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(quantityLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(departmentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(equipmentNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(equipmentIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -120,15 +93,7 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(equipmentIdText)
                             .addComponent(equipmentNameText)
-                            .addComponent(departmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(quantityText, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
+                            .addComponent(departmentComboBox, 0, 112, Short.MAX_VALUE))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -146,16 +111,9 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(departmentLabel)
                     .addComponent(departmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(quantityLabel)
-                    .addComponent(quantityText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveButton)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(saveButton)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,20 +148,6 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_equipmentIdTextFocusLost
 
-    private void quantityTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantityTextFocusLost
-        // TODO add your handling code here:
-        if (!quantityText.getText().isEmpty()) {
-            if (!Validation.isNumber(quantityText.getText())) {
-                JOptionPane.showMessageDialog(null, "Please enter a numeric value");
-                quantityText.setText("");
-                quantityText.requestFocus();
-                test[1] = 1;
-            } else {
-                test[1] = 0;
-            }
-        }
-    }//GEN-LAST:event_quantityTextFocusLost
-
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
         int n = 0;
@@ -219,7 +163,7 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
                 //netqty = existingqty + Integer.parseInt(quantityText.getText());
                 //n = Utilfunctions.executeUpdate("UPDATE `equipment` SET `quantity`=" + netqty + " WHERE `equipId`=" + result.getString(1));
             } catch (Exception e) {
-                n = Utilfunctions.executeUpdate("INSERT INTO `equipment`(`equipId`, `equipName`, `dept`, `quantity`) VALUES (" + equipId + ",'" + equipmentNameText.getText().toUpperCase() + "', '" + departmentComboBox.getSelectedItem() + "'," + quantityText.getText() + ")");
+                n = Utilfunctions.executeUpdate("INSERT INTO `equipment`(`equipId`, `equipName`, `dept`) VALUES (" + equipId + ",'" + equipmentNameText.getText().toUpperCase() + "', '" + departmentComboBox.getSelectedItem() + "')");
             }
             if (n == 1) {
                 JOptionPane.showMessageDialog(null, "Saved");
@@ -230,23 +174,6 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please Check the errors");
         }
     }//GEN-LAST:event_saveButtonActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        GlobalVars.pConfigChooseInvoker = this;
-        try {
-            PeriodConfigViewForm pvf = new PeriodConfigViewForm();
-            this.setVisible(false);
-            pvf.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(EquipmentDetailsForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null,GlobalVars.pConfigId);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,11 +216,7 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
     private javax.swing.JTextField equipmentIdText;
     private javax.swing.JLabel equipmentNameLabel;
     private javax.swing.JTextField equipmentNameText;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel quantityLabel;
-    private javax.swing.JTextField quantityText;
     private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
     private int test[] = {1, 1};

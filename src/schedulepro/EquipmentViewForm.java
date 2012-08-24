@@ -145,7 +145,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
+                .addContainerGap(104, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(89, 89, 89))
         );
@@ -312,10 +312,10 @@ class EquipmentTableModel extends AbstractTableModel {
     private int[] equipId;
     
     public EquipmentTableModel() throws SQLException{
-        ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM equipment WHERE dept = '" + GlobalVars.userDept + "'");
+        ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM equipment WHERE dept = '" + LoginForm.userDept + "'");
         rs_cnt.next();
         int cnt = rs_cnt.getInt(1);
-        String query = "SELECT equipId,equipName,quantity FROM equipment WHERE dept = '" + GlobalVars.userDept + "'";
+        String query = "SELECT equipId,equipName,quantity FROM equipment WHERE dept = '" + LoginForm.userDept + "'";
         ResultSet rs = Utilfunctions.executeQuery(query);
         data = new Vector<String[]>();
         equipId = new int[cnt];

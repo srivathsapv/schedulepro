@@ -160,7 +160,7 @@ public class ChangePasswordForm extends javax.swing.JFrame {
             try {
                 String oldPwd = Utilfunctions.MD5(oldPassword.getText()).toString(16);
                 ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '"
-                        + GlobalVars.userCode + "'");
+                        + LoginForm.userCode + "'");
                 try {
                     rs.next();
                     String dbOldPwd = rs.getString(3);
@@ -183,14 +183,14 @@ public class ChangePasswordForm extends javax.swing.JFrame {
             try {
                 String oldPwd = Utilfunctions.MD5(oldPassword.getText()).toString(16);
                 ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM login WHERE userCode = '"
-                        + GlobalVars.userCode + "'");
+                        + LoginForm.userCode + "'");
                 try {
                     rs.next();
                     String dbOldPwd = rs.getString(3);
                     if (oldPwd.equals(dbOldPwd)) {
                         int n = Utilfunctions.executeUpdate("UPDATE login SET password = '"
                                 + Utilfunctions.MD5(newPassword.getText()).toString(16)
-                                + "' WHERE userCode = '" + GlobalVars.userCode + "'");
+                                + "' WHERE userCode = '" + LoginForm.userCode + "'");
                         if (n >= 1) {
                             JOptionPane.showMessageDialog(null, "Password Updated Successfully");
                             this.setVisible(false);

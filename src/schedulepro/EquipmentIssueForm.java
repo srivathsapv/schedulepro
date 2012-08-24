@@ -6,8 +6,6 @@ package schedulepro;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,9 +21,19 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
      */
     public EquipmentIssueForm() {
         initComponents();
-        Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT DISTINCT(year) FROM class WHERE dept = '" + GlobalVars.userDept + "' ORDER BY year");
-        Utilfunctions.populateComboBoxwithQuery(jComboBox2,"SELECT DISTINCT(section) FROM class WHERE dept = '" + GlobalVars.userDept + "' ORDER BY section");
-        Utilfunctions.populateComboBoxwithQuery(jComboBox3,"SELECT DISTINCT(course) FROM class WHERE dept = '" + GlobalVars.userDept + "' ORDER BY course");
+        Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT DISTINCT(year) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY year");
+        Utilfunctions.populateComboBoxwithQuery(jComboBox2,"SELECT DISTINCT(section) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY section");
+        Utilfunctions.populateComboBoxwithQuery(jComboBox3,"SELECT DISTINCT(course) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY course");
+        
+        for(int i=1;i<=31;i++)
+            jComboBox4.addItem(Integer.toString(i));
+        
+        for(int i=2000;i<=2020;i++)
+            jComboBox6.addItem(Integer.toString(i));
+        
+        String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        for(int i=0;i<months.length;i++)
+            jComboBox5.addItem(months[i]);
     }
 
     /**
@@ -47,6 +55,10 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox();
+        jComboBox5 = new javax.swing.JComboBox();
+        jComboBox6 = new javax.swing.JComboBox();
 
         setTitle("Schedule Pro - Equipment Issue");
         setResizable(false);
@@ -75,6 +87,8 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
 
         jLabel4.setText("Course");
 
+        jLabel5.setText("Date");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,33 +96,35 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(33, 33, 33)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox3, 0, 211, Short.MAX_VALUE)
+                            .addComponent(jTextField1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(41, 41, 41))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(170, 170, 170)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +138,13 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,9 +152,9 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addComponent(jButton2)
-                .addGap(30, 30, 30))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -140,8 +162,8 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        GlobalVars.pConfigChooseInvoker = this;
-        GlobalVars.pConfigTextField = jTextField1;
+        PeriodConfigViewForm.pConfigChooseInvoker = this;
+        PeriodConfigViewForm.pConfigTextField = jTextField1;
         try {
             PeriodConfigViewForm pcv = new PeriodConfigViewForm();
             Utilfunctions.setIconImage(pcv);
@@ -159,7 +181,7 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
         int year = Integer.parseInt(jComboBox1.getSelectedItem().toString());
         String section = jComboBox2.getSelectedItem().toString();
         int classCode=0;
-        String query = "SELECT * FROM class WHERE course = '" + course + "' AND year = " + year + " AND section = '" + section + "' AND dept = '" + GlobalVars.userDept + "'";        
+        String query = "SELECT * FROM class WHERE course = '" + course + "' AND year = " + year + " AND section = '" + section + "' AND dept = '" + LoginForm.userDept + "'";        
         ResultSet rs = Utilfunctions.executeQuery(query);
         try {
             rs.next();
@@ -168,13 +190,34 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
             Logger.getLogger(EquipmentIssueForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Calendar cl = Calendar.getInstance();
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-        String date = f.format(cl.getTime());
+        String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
         
+        /*Calendar cl = Calendar.getInstance();
+        cl.set(Calendar.YEAR,Integer.parseInt(jComboBox6.getSelectedItem().toString()));
+        cl.set(Calendar.DAY_OF_MONTH,Integer.parseInt(jComboBox4.getSelectedItem().toString()));
+        cl.set(Calendar.MONTH,Arrays.binarySearch(months, jComboBox5.getSelectedItem().toString()));
+        */
+        
+        int day = Integer.parseInt(jComboBox4.getSelectedItem().toString());
+        int month=0;
+        
+        for(int i=0;i<months.length;i++){
+            if(months[i].equals(jComboBox5.getSelectedItem().toString())) {
+                month = i+1;
+                break;
+            }
+        }
+        int yr = Integer.parseInt(jComboBox6.getSelectedItem().toString());
+        
+        if(!Validation.isValidDate(day,month,yr)){
+            JOptionPane.showMessageDialog(null,"Invalid Date");
+            return;
+        }
+        
+        String date = yr + "-" + month + "-" + day;
         query = "INSERT INTO equipmentissue(equipId,userCode,pconfigId,classCode,"
                         + "issueDate,issueStatus) VALUES(" + chosenEquipId + ",'" + 
-                        GlobalVars.userCode + "'," + GlobalVars.pConfigId + "," + 
+                        LoginForm.userCode + "'," + PeriodConfigViewForm.pConfigId + "," + 
                         classCode + ",'" + date + "',1)";
         
         int n = Utilfunctions.executeUpdate(query);
@@ -184,7 +227,7 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -232,10 +275,14 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 

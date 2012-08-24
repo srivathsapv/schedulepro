@@ -41,7 +41,7 @@ public class PersonalDetailsForm extends javax.swing.JFrame {
             } 
         });
         
-        String query = "SELECT * FROM user WHERE userCode = '" + GlobalVars.userCode + "'";
+        String query = "SELECT * FROM user WHERE userCode = '" + LoginForm.userCode + "'";
         ResultSet rs = Utilfunctions.executeQuery(query);
         Utilfunctions.populateComboBoxwithQuery(jComboBox2, "SELECT dept FROM dept");
         try{

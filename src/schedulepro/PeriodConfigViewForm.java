@@ -12,9 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTable;
-import javax.swing.JTextPane;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -113,22 +111,25 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        JTable source = (JTable)evt.getSource();
-        int row = source.rowAtPoint(evt.getPoint());
-        int col = source.columnAtPoint(evt.getPoint());
-        
-        PeriodConfigTableModel model = (PeriodConfigTableModel)source.getModel();
-        GlobalVars.pConfigId = model.getPeriodConfigId(row, col);
-        ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM periodconfig WHERE pconfigId = " + GlobalVars.pConfigId);
-        try {
-            rs.next();
-            GlobalVars.pConfigTextField.setText(rs.getString(3) + " to " + rs.getString(4));
-        } catch (SQLException ex) {
-            Logger.getLogger(PeriodConfigViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        if(evt.getClickCount() == 2) {
+            evt.consume();
+            JTable source = (JTable)evt.getSource();
+            int row = source.rowAtPoint(evt.getPoint());
+            int col = source.columnAtPoint(evt.getPoint());
+
+            PeriodConfigTableModel model = (PeriodConfigTableModel)source.getModel();
+            pConfigId = model.getPeriodConfigId(row, col);
+            ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM periodconfig WHERE pconfigId = " + pConfigId);
+            try {
+                rs.next();
+                pConfigTextField.setText(rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5));
+            } catch (SQLException ex) {
+                Logger.getLogger(PeriodConfigViewForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            this.setVisible(false);
+            pConfigChooseInvoker.setVisible(true);
         }
-        
-        this.setVisible(false);
-        GlobalVars.pConfigChooseInvoker.setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -181,6 +182,9 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+    public static int pConfigId;
+    public static JFrame pConfigChooseInvoker;
+    public static JTextField pConfigTextField;
 }
 
 class PeriodConfigTableModel extends AbstractTableModel {

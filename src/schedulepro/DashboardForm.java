@@ -24,7 +24,7 @@ public class DashboardForm extends javax.swing.JFrame {
      */
     public DashboardForm() {
         initComponents();
-        jLabel1.setText("Welcome " + GlobalVars.userSalutation + GlobalVars.userName);
+        jLabel1.setText("Welcome " + LoginForm.userSalutation + LoginForm.userName);
         Utilfunctions.setClosePrompt(this);
     }
 
@@ -155,6 +155,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu8.setText("Add Course Details");
 
         jMenuItem5.setText("Manual");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem5);
 
         jMenuItem6.setText("Upload CSV File");
@@ -366,7 +371,7 @@ public class DashboardForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
+                .addContainerGap(178, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(58, 58, 58))
         );
@@ -514,6 +519,15 @@ public class DashboardForm extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem26ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        SubjectForm sj = new SubjectForm();
+        Utilfunctions.setLocation(sj);
+        Utilfunctions.setIconImage(sj);
+        this.setVisible(false);
+        sj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
         // TODO add your handling code here:
