@@ -53,6 +53,7 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SchedulePro - Add Equipment");
         setResizable(false);
 
         equipmentIdLabel.setText("Equipment Id:");

@@ -105,6 +105,7 @@ public class PersonalDetailsForm extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("SchedulePro - Personal Details");
         setResizable(false);
 
         jLabel1.setText("Staff Code");
