@@ -305,7 +305,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
 }
 
 class EquipmentTableModel extends AbstractTableModel {
-    private String[] columnNames = {"Equipment ID","Equipment Name","Quantity"};
+    private String[] columnNames = {"Equipment ID","Equipment Name"};
     
     private Vector<String[]> data;
     
@@ -315,14 +315,14 @@ class EquipmentTableModel extends AbstractTableModel {
         ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM equipment WHERE dept = '" + LoginForm.userDept + "'");
         rs_cnt.next();
         int cnt = rs_cnt.getInt(1);
-        String query = "SELECT equipId,equipName,quantity FROM equipment WHERE dept = '" + LoginForm.userDept + "'";
+        String query = "SELECT equipId,equipName FROM equipment WHERE dept = '" + LoginForm.userDept + "'";
         ResultSet rs = Utilfunctions.executeQuery(query);
         data = new Vector<String[]>();
         equipId = new int[cnt];
         
         int i=0;
         while(rs.next()){
-            String[] values = {rs.getString(1),rs.getString(2),rs.getString(3)};
+            String[] values = {rs.getString(1),rs.getString(2)};
             data.add(values);
             equipId[i++] = Integer.parseInt(rs.getString(1));
         }
