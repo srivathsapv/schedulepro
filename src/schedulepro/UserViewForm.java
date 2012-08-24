@@ -4,6 +4,7 @@
  */
 package schedulepro;
 
+import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.security.NoSuchAlgorithmException;
@@ -12,11 +13,11 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -44,6 +45,24 @@ public class UserViewForm extends javax.swing.JFrame {
 
             }
         });
+        
+        /*TableColumn col = usersTable.getColumnModel().getColumn(2);
+        String[] values = {"Head of the Department","Staff","Department Secretary","System Administrator"};
+        UserTableModel model = (UserTableModel)usersTable.getModel();
+        model.setColumnValue(2,values);
+        col.setCellEditor(new RoleCellEditor(values));
+        col.setCellRenderer(new RoleCellRenderer(values));*/
+        //DefaultTableModel model = (DefaultTableModel)usersTable.getModel();
+
+        // Add some columns
+        //model.addColumn("A", new Object[]{"item1"});
+        //model.addColumn("B", new Object[]{"item2"});
+        //model.addColumn("C", new Object[]{"item3"});
+        
+        String[] values = {"Head of the Department","Staff","Department Secretary","System Administrator"};
+        TableColumn col = usersTable.getColumnModel().getColumn(2);
+        col.setCellEditor(new RoleCellEditor(values));
+        col.setCellRenderer(new RoleCellRenderer(values));
     }
 
     public JTextField getEditTextBox() {
@@ -93,6 +112,7 @@ public class UserViewForm extends javax.swing.JFrame {
         userPopupMenu.add(deleteMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SchedulePro - View Users");
         setResizable(false);
 
         usersLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
@@ -126,7 +146,7 @@ public class UserViewForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(273, 273, 273)
                 .addComponent(usersLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(86, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,8 +274,8 @@ public class UserViewForm extends javax.swing.JFrame {
     private javax.swing.JLabel usersLabel;
     private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
-}
 
+}
 class UserTableModel extends AbstractTableModel {
 
     private String[] columnNames = {"Username", "Name", "Role", "Department"};
@@ -276,8 +296,16 @@ class UserTableModel extends AbstractTableModel {
             String[] values = {result.getString(2), result1.getString(1), result.getString(3), result1.getString(2)};
             data.add(values);
         }
+        
     }
-
+    
+    public void setColumnValue(int col,String[] values){
+        for(int i=0;i<values.length;i++){
+            JOptionPane.showMessageDialog(null,values[i]);
+            this.setValueAt(values[i],i,col);
+        }
+    }
+    
     @Override
     public int getColumnCount() {
         return columnNames.length;
@@ -301,7 +329,6 @@ class UserTableModel extends AbstractTableModel {
     @Override
     public Class getColumnClass(int c) {
         return getValueAt(0, c).getClass();
-
     }
 
     @Override
@@ -317,5 +344,37 @@ class UserTableModel extends AbstractTableModel {
             System.out.println(data.get(i));
         }
         this.fireTableDataChanged();
+    }
+}
+
+class RoleCellRenderer extends JComboBox implements TableCellRenderer {
+    // This is the component that will handle the editing of the cell value
+    
+    public RoleCellRenderer(String items[]){
+        super(items);
+    }
+    
+    // This method is called when a cell value is edited by the user.
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        if (isSelected) {
+            setForeground(table.getSelectionForeground());
+            super.setBackground(table.getSelectionBackground());
+        } else {
+            setForeground(table.getForeground());
+            setBackground(table.getBackground());
+        }
+
+        // Select the current value
+        setSelectedItem(value);
+        return this;
+    }
+    
+}
+
+class RoleCellEditor extends DefaultCellEditor {
+    public RoleCellEditor(String[] items) {
+        super(new JComboBox(items));
     }
 }
