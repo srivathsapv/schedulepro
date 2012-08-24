@@ -14,6 +14,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -42,7 +44,7 @@ public class Utilfunctions {
         jf.setLocation(x, y);
 
     }
-    
+
     public static void setIconImage(JFrame jf) {
         File directory = new File(".");
         try {
@@ -89,7 +91,7 @@ public class Utilfunctions {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(null,ex.getMessage());
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
             String dbpwd = Utilfunctions.getDbConfig("password");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
@@ -177,14 +179,27 @@ public class Utilfunctions {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    public static String randomStringGenerator(String refer,int length)
-    {
-        Random random = new Random();
-        char output[]=new char[length];
-        for(int i=0;i<length;i++)
-            output[i]=refer.charAt(random.nextInt(refer.length()));
-        return new String(output);
+
+    public static String randomStringGenerator(int length) {
+        Random rand = new Random();
+        String password = "";
+        int count = 0;
+        ArrayList temp = new ArrayList();
+        while (count < length) {
+            temp.add((char) (rand.nextInt(90 - 65 + 1) + 65));
+            count++;
+            temp.add((char) (rand.nextInt(122 - 97 + 1) + 97));
+            count++;
+            temp.add((char) (rand.nextInt(57 - 48 + 1) + 48));
+            count++;
+        }
+        Collections.shuffle(temp, rand);
+        int i = 0;
+        while (i < length) {
+            password += temp.get(i);
+            i++;
+        }
+        return password;
     }
     private static Toolkit toolkit;
     private static Dimension dim;

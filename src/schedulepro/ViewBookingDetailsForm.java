@@ -51,6 +51,7 @@ public class ViewBookingDetailsForm extends javax.swing.JFrame {
         bookingDetailsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SchedulePro - Booking Details");
         setResizable(false);
 
         bookingDetailsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -73,7 +74,7 @@ public class ViewBookingDetailsForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
         );
 
         pack();

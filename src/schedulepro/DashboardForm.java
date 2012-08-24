@@ -91,7 +91,9 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenu18 = new javax.swing.JMenu();
         jMenuItem27 = new javax.swing.JMenuItem();
-        jMenuItem28 = new javax.swing.JMenuItem();
+        jMenu19 = new javax.swing.JMenu();
+        jMenuItem29 = new javax.swing.JMenuItem();
+        jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenu21 = new javax.swing.JMenu();
         jMenuItem18 = new javax.swing.JMenuItem();
@@ -301,13 +303,25 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu18.add(jMenuItem27);
 
-        jMenuItem28.setText("Add User CSV");
-        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+        jMenu19.setText("Upload CSV File");
+
+        jMenuItem29.setText("Login CSV File");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem28ActionPerformed(evt);
+                jMenuItem29ActionPerformed(evt);
             }
         });
-        jMenu18.add(jMenuItem28);
+        jMenu19.add(jMenuItem29);
+
+        jMenuItem30.setText("User CSV File");
+        jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem30ActionPerformed(evt);
+            }
+        });
+        jMenu19.add(jMenuItem30);
+
+        jMenu18.add(jMenu19);
 
         jMenuItem17.setText("View Users");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
@@ -508,11 +522,6 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        SubjectForm sj = new SubjectForm();
-        Utilfunctions.setLocation(sj);
-        Utilfunctions.setIconImage(sj);
-        this.setVisible(false);
-        sj.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
@@ -523,15 +532,6 @@ public class DashboardForm extends javax.swing.JFrame {
         this.setVisible(false);
         newUserForm.setVisible(true);
     }//GEN-LAST:event_jMenuItem27ActionPerformed
-
-    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
-        // TODO add your handling code here:
-        UserCSVUploadForm ucsv = new UserCSVUploadForm();
-        Utilfunctions.setIconImage(ucsv);
-        Utilfunctions.setLocation(ucsv);
-        this.setVisible(false);
-        ucsv.setVisible(true);
-    }//GEN-LAST:event_jMenuItem28ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         // TODO add your handling code here:
@@ -546,6 +546,68 @@ public class DashboardForm extends javax.swing.JFrame {
         this.setVisible(false);
         uv.setVisible(true);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+        // TODO add your handling code here:
+        String tablename = "login";
+        String parentTable = "login";
+        int parentKeyColumn = 2;
+        try {
+            try {
+                try {
+                    Utilfunctions.showCSVFileOpenDialog(tablename, parentTable, parentKeyColumn, 3);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid data");
+        }
+    }                                        
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+        String tablename = "user";
+        try {
+            try {
+                try {
+                    Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid data");
+        }
+    }//GEN-LAST:event_jMenuItem29ActionPerformed
+
+    private void jMenuItem30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem30ActionPerformed
+        // TODO add your handling code here:
+        String tablename = "user";
+        try {
+            try {
+                try {
+                    Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid data");
+        }
+    }//GEN-LAST:event_jMenuItem30ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -598,6 +660,7 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu16;
     private javax.swing.JMenu jMenu17;
     private javax.swing.JMenu jMenu18;
+    private javax.swing.JMenu jMenu19;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu21;
     private javax.swing.JMenu jMenu24;
@@ -633,8 +696,9 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
-    private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
