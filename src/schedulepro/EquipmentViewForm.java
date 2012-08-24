@@ -236,6 +236,8 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         ViewBookingDetailsForm vb = null;
         try {
             vb = new ViewBookingDetailsForm();
+            Utilfunctions.setIconImage(vb);
+            Utilfunctions.setLocation(vb);
         } catch (SQLException ex) {
             Logger.getLogger(EquipmentViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
