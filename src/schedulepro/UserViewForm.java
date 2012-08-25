@@ -5,19 +5,16 @@
 package schedulepro;
 
 import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+import javax.swing.table.*;
 
 /**
  *
@@ -33,7 +30,7 @@ public class UserViewForm extends javax.swing.JFrame {
      */
     public UserViewForm() throws SQLException {
         initComponents();
-        usersTable.setModel(new UserTableModel());
+        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -46,23 +43,47 @@ public class UserViewForm extends javax.swing.JFrame {
             }
         });
         
-        /*TableColumn col = usersTable.getColumnModel().getColumn(2);
-        String[] values = {"Head of the Department","Staff","Department Secretary","System Administrator"};
-        UserTableModel model = (UserTableModel)usersTable.getModel();
-        model.setColumnValue(2,values);
-        col.setCellEditor(new RoleCellEditor(values));
-        col.setCellRenderer(new RoleCellRenderer(values));*/
-        //DefaultTableModel model = (DefaultTableModel)usersTable.getModel();
-
-        // Add some columns
-        //model.addColumn("A", new Object[]{"item1"});
-        //model.addColumn("B", new Object[]{"item2"});
-        //model.addColumn("C", new Object[]{"item3"});
-        
-        String[] values = {"Head of the Department","Staff","Department Secretary","System Administrator"};
+        usersTable.setModel(new UserTableModel());
         TableColumn col = usersTable.getColumnModel().getColumn(2);
-        col.setCellEditor(new RoleCellEditor(values));
-        col.setCellRenderer(new RoleCellRenderer(values));
+        JComboBox comboBox = new JComboBox();
+        comboBox.addItem("Head of the Department");
+        comboBox.addItem("Staff");
+        comboBox.addItem("Department Secretary");
+        comboBox.addItem("System Administrator");
+        
+        comboBox.addItemListener(new ItemListener() { 
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                int row = usersTable.getSelectedRow();
+                if(row >= 0){
+                    msgCount++;
+                    if(msgCount == 2)
+                        msgCount = 0;
+                    String currentRole = usersTable.getValueAt(row,3).toString();
+                    HashMap hm = new HashMap();
+                    hm.put("Head of the Department","hod");
+                    hm.put("Staff","staff");
+                    hm.put("Department Secretary","ds");
+                    hm.put("System Administrator","sa");
+                    
+                    JComboBox cb = (JComboBox)e.getSource();
+                    String role = cb.getSelectedItem().toString();
+                    
+                    
+                    String query = "UPDATE login SET role = '" + hm.get(role) + "' WHERE id = '" + usersTable.getValueAt(row,0) + "'";
+                    int n = Utilfunctions.executeUpdate(query);
+                    if(n >= 1 && msgCount == 1)
+                        JOptionPane.showMessageDialog(null,"Role Changed");
+                }
+            }
+        });
+        
+        col.setCellEditor(new DefaultCellEditor(comboBox));
+
+        //Set up tool tips for the sport cells.
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        col.setCellRenderer(renderer);
+        
     }
 
     public JTextField getEditTextBox() {
@@ -194,7 +215,7 @@ public class UserViewForm extends javax.swing.JFrame {
                 Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
             }
             UserTableModel model = (UserTableModel) usersTable.getModel();
-            model.removeRow(selectedRow);
+            //model.removeRow(selectedRow);
         }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
 
@@ -273,78 +294,102 @@ public class UserViewForm extends javax.swing.JFrame {
     private javax.swing.JLabel usersLabel;
     private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
-
+    
+    private int msgCount = 0;
 }
+
 class UserTableModel extends AbstractTableModel {
-
-    private String[] columnNames = {"Username", "Name", "Role", "Department"};
-    private Vector<String[]> data;
-
-    public UserTableModel() throws SQLException {
-        ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM `login`");
-        rs_cnt.next();
-        int cnt = rs_cnt.getInt(1);
-        String query = "SELECT `userCode`,`id`,`role` FROM `login` ";
-        ResultSet result = Utilfunctions.executeQuery(query);
-        data = new Vector<String[]>();
-        ResultSet result1;
-        int i = 0;
-        while (result.next()) {
-            result1 = Utilfunctions.executeQuery("SELECT `name`,`dept` FROM `user` WHERE `userCode`='" + result.getString(1) + "'");
-            result1.next();
-            String[] values = {result.getString(2), result1.getString(1), result.getString(3), result1.getString(2)};
-            data.add(values);
+        private String[] columnNames = {"Login Id","Name","Role","Department"};
+        private Object[][] data;
+	
+        public UserTableModel() throws SQLException{
+            //Remove this later
+            LoginForm.userDept = "BME";
+            //Remove this later
+            
+            String query = "SELECT * FROM user WHERE dept = '" + LoginForm.userDept + "' ORDER BY name";
+            ResultSet rs = Utilfunctions.executeQuery(query);
+            
+            int cnt = 0;
+            while(rs.next())
+                cnt++;
+            HashMap hm = new HashMap();
+            hm.put("hod","Head of the Department");
+            hm.put("staff","Staff");
+            hm.put("ds","Department Secretary");
+            hm.put("sa","System Administrator");
+            
+            data = new Object[cnt][4];
+            
+            rs = Utilfunctions.executeQuery(query);
+            int i=0;
+            while(rs.next()){
+                query = "SELECT * FROM login WHERE userCode = '" + rs.getString(1) + "'";
+                
+                ResultSet rs2 = Utilfunctions.executeQuery(query);
+                rs2.next();
+                Object[] values = {rs2.getString(1),rs.getString(2),hm.get(rs2.getString(4)),rs.getString(4)};
+                data[i] = values;
+            }
+            
         }
         
-    }
-    
-    public void setColumnValue(int col,String[] values){
-        for(int i=0;i<values.length;i++){
-            JOptionPane.showMessageDialog(null,values[i]);
-            this.setValueAt(values[i],i,col);
+    @Override
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+    @Override
+        public int getRowCount() {
+            return data.length;
+        }
+
+    @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+    @Override
+        public Object getValueAt(int row, int col) {
+            return data[row][col];
+        }
+
+        /*
+         * JTable uses this method to determine the default renderer/
+         * editor for each cell.  If we didn't implement this method,
+         * then the last column would contain text ("true"/"false"),
+         * rather than a check box.
+         */
+    @Override
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+    @Override
+        public boolean isCellEditable(int row, int col) {
+            //Note that the data/cell address is constant,
+            //no matter where the cell appears onscreen.
+            if (col < 2) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * data can change.
+         */
+    @Override
+        public void setValueAt(Object value, int row, int col) {
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
         }
     }
-    
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public int getRowCount() {
-        return data.size();
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-
-    @Override
-    public Object getValueAt(int row, int col) {
-        return data.get(row)[col];
-    }
-
-    @Override
-    public Class getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
-    }
-
-    @Override
-    public void setValueAt(Object value, int row, int column) {
-        String values[] = data.get(row);
-        values[column] = value.toString();
-        data.setElementAt(values, row);
-    }
-
-    public void removeRow(int row) {
-        data.remove(row);
-        for (int i = 0; i < data.size(); i++) {
-            System.out.println(data.get(i));
-        }
-        this.fireTableDataChanged();
-    }
-}
 
 class RoleCellRenderer extends JComboBox implements TableCellRenderer {
     // This is the component that will handle the editing of the cell value

@@ -42,7 +42,6 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
                 Utilfunctions.setLocation(df);
                 e.getWindow().setVisible(false);
                 df.setVisible(true);
-
             }
         });
     }
@@ -103,6 +102,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         SubjectDetailsTable.setColumnSelectionAllowed(true);
         SubjectDetailsTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         SubjectDetailsTable.setInheritsPopupMenu(true);
+        SubjectDetailsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         SubjectDetailsTable.setShowHorizontalLines(false);
         SubjectDetailsTable.setShowVerticalLines(false);
         SubjectDetailsTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,13 +120,15 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(240, 240, 240))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(240, 240, 240))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,6 +167,9 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
             Utilfunctions.executeUpdate("UPDATE `subject` SET `subcode`='" + str + "' WHERE `subcode`='" + SubjectDetailsTable.getValueAt(selectedRow, 0) + "'");
             SubjectDetailsTable.setValueAt(str, selectedRow, 0);
         }
+        
+        if (! SubjectDetailsTable.isRowSelected(selectedRow))
+                SubjectDetailsTable.changeSelection(selectedRow, selectedColumn, false, false);
     }//GEN-LAST:event_editSubjectCodeMenuItemActionPerformed
 
     private void editSubjectNameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSubjectNameMenuItemActionPerformed
@@ -172,6 +177,8 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         String str = JOptionPane.showInputDialog("Subject Name:", SubjectDetailsTable.getValueAt(selectedRow, 1));
         Utilfunctions.executeUpdate("UPDATE `subject` SET `subName`='" + str + "' WHERE `subcode`='" + SubjectDetailsTable.getValueAt(selectedRow, 0) + "'");
         SubjectDetailsTable.setValueAt(str, selectedRow, 1);
+        if (! SubjectDetailsTable.isRowSelected(selectedRow))
+                SubjectDetailsTable.changeSelection(selectedRow, selectedColumn, false, false);
     }//GEN-LAST:event_editSubjectNameMenuItemActionPerformed
 
     private void editSubjectCreditsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSubjectCreditsMenuItemActionPerformed
@@ -183,6 +190,8 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         } else {
             Utilfunctions.executeUpdate("UPDATE `subject` SET `credits`=" + str + " WHERE `subcode`='" + SubjectDetailsTable.getValueAt(selectedRow, 0) + "'");
             SubjectDetailsTable.setValueAt(str, selectedRow, 2);
+            if (! SubjectDetailsTable.isRowSelected(selectedRow))
+                SubjectDetailsTable.changeSelection(selectedRow, selectedColumn, false, false);
         }
     }//GEN-LAST:event_editSubjectCreditsMenuItemActionPerformed
 
