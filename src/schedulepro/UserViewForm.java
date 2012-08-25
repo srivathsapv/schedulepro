@@ -214,8 +214,11 @@ public class UserViewForm extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-            UserTableModel model = (UserTableModel) usersTable.getModel();
-            //model.removeRow(selectedRow);
+            try {
+                usersTable.setModel(new UserTableModel());
+            } catch (SQLException ex) {
+                Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
 
@@ -303,9 +306,6 @@ class UserTableModel extends AbstractTableModel {
         private Object[][] data;
 	
         public UserTableModel() throws SQLException{
-            //Remove this later
-            LoginForm.userDept = "BME";
-            //Remove this later
             
             String query = "SELECT * FROM user WHERE dept = '" + LoginForm.userDept + "' ORDER BY name";
             ResultSet rs = Utilfunctions.executeQuery(query);
@@ -325,11 +325,10 @@ class UserTableModel extends AbstractTableModel {
             int i=0;
             while(rs.next()){
                 query = "SELECT * FROM login WHERE userCode = '" + rs.getString(1) + "'";
-                
                 ResultSet rs2 = Utilfunctions.executeQuery(query);
                 rs2.next();
                 Object[] values = {rs2.getString(1),rs.getString(2),hm.get(rs2.getString(4)),rs.getString(4)};
-                data[i] = values;
+                data[i++] = values;
             }
             
         }
