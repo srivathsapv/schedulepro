@@ -522,6 +522,11 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
+        Subjectform sb = new Subjectform();
+        Utilfunctions.setIconImage(sb);
+        Utilfunctions.setLocation(sb);
+        this.setVisible(false);
+        sb.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
