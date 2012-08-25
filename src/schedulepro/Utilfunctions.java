@@ -201,6 +201,12 @@ public class Utilfunctions {
         }
         return password;
     }
+    
+    public static String getWithinBrackets(String input)
+    {
+        return input.substring(input.indexOf("(")+1, input.indexOf(")"));
+    }
+    
     private static Toolkit toolkit;
     private static Dimension dim;
     private static int width;

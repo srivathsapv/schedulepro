@@ -76,6 +76,7 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuItem26 = new javax.swing.JMenuItem();
         jMenu16 = new javax.swing.JMenu();
         jMenuItem23 = new javax.swing.JMenuItem();
+        jMenuItem28 = new javax.swing.JMenuItem();
         jMenu17 = new javax.swing.JMenu();
         jMenuItem21 = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
@@ -240,6 +241,14 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuItem23.setText("Generate");
         jMenu16.add(jMenuItem23);
+
+        jMenuItem28.setText("Assign Faculty");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        jMenu16.add(jMenuItem28);
 
         jMenu17.setText("View Schedule");
 
@@ -633,6 +642,15 @@ public class DashboardForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+        // TODO add your handling code here:
+        AssignFacultyForm af = new AssignFacultyForm();
+        Utilfunctions.setIconImage(af);
+        Utilfunctions.setLocation(af);
+        this.setVisible(false);
+        af.setVisible(true);
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -720,6 +738,7 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;

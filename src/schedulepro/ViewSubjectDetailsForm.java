@@ -60,6 +60,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         editSubjectCodeMenuItem = new javax.swing.JMenuItem();
         editSubjectNameMenuItem = new javax.swing.JMenuItem();
         editSubjectCreditsMenuItem = new javax.swing.JMenuItem();
+        deleteMenuItem = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         SubjectDetailsTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -87,6 +88,14 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
             }
         });
         rightClickPopupMenu.add(editSubjectCreditsMenuItem);
+
+        deleteMenuItem.setText("Delete");
+        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMenuItemActionPerformed(evt);
+            }
+        });
+        rightClickPopupMenu.add(deleteMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - View Subjects");
@@ -186,6 +195,16 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editSubjectCreditsMenuItemActionPerformed
 
+    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
+        // TODO add your handling code here:
+        int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this subject?", "Delete Subject", JOptionPane.YES_NO_OPTION);
+        if (opt == JOptionPane.YES_OPTION) {
+            Utilfunctions.executeUpdate("DELETE FROM `subject` WHERE `subcode`='" + SubjectDetailsTable.getValueAt(selectedRow, 0) + "'");
+            SubjectDetailsTableModel model = (SubjectDetailsTableModel) SubjectDetailsTable.getModel();
+            model.removeRow(selectedRow);
+        }
+    }//GEN-LAST:event_deleteMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,6 +245,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable SubjectDetailsTable;
+    private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JMenuItem editSubjectCodeMenuItem;
     private javax.swing.JMenuItem editSubjectCreditsMenuItem;
     private javax.swing.JMenuItem editSubjectNameMenuItem;
