@@ -14,13 +14,14 @@ import javax.swing.JOptionPane;
  *
  * @author Administrator
  */
-public class Subjectform extends javax.swing.JFrame {
+public class SubjectForm extends javax.swing.JFrame {
 
     /**
      * Creates new form subject
      */
-    public Subjectform() {
+    public SubjectForm() {
         initComponents();
+        Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT dept FROM dept ORDER BY dept");
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -50,12 +51,13 @@ public class Subjectform extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
+        jComboBox1 = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("ShedulePro - Add Subject");
+        setResizable(false);
         addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -102,12 +104,6 @@ public class Subjectform extends javax.swing.JFrame {
 
         jLabel6.setText("Department:");
 
-        jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField4FocusLost(evt);
-            }
-        });
-
         jLabel5.setText("Credits:");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "4", "3", "2" }));
@@ -126,15 +122,14 @@ public class Subjectform extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -158,8 +153,8 @@ public class Subjectform extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,12 +168,15 @@ public class Subjectform extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      int test = 0;
-        if (!jTextField3.getText().isEmpty()) {
-            test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`subject` (`subCode`, 'subName`, `subShortName`, `dept`, 'credits') VALUES ('" + jTextField3.getText() + "', '" +jTextField1.getText() + "', '" +jTextField2.getText()  + "', '" + jTextField4.getText() + "', '" +jComboBox2.getSelectedItem()  + "')");
-        } else {
-            test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`subject` (`subCode`, 'subName`, `subShortName`, `dept`, 'credits') VALUES (NULL, '" +jTextField1.getText() + "', '" +jTextField2.getText()  + "', '" + jTextField4.getText() + "', '" +jComboBox2.getSelectedItem() + "')");
+        int test = 0;
+        
+        if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jTextField3.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"One or more fields empty");
+            return;
         }
+        
+        test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`subject` (`subCode`, `subName`, `subShortName`, `dept`, `credits`) VALUES ('" + jTextField3.getText() + "', '" +jTextField1.getText() + "', '" +jTextField2.getText()  + "', '" + jComboBox1.getSelectedItem().toString() + "', '" +jComboBox2.getSelectedItem().toString()  + "')");
+        
         if (test == 1) {
             JOptionPane.showMessageDialog(null, "Inserted");
             this.setVisible(false);
@@ -207,7 +205,7 @@ public class Subjectform extends javax.swing.JFrame {
 
     private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
         if (!jTextField2.getText().isEmpty()) {
-                if (!Validation.isNumber(jTextField2.getText())) {
+                if (!Validation.isalphanumeric(jTextField2.getText())) {
                     JOptionPane.showMessageDialog(null, "Please Enter a text value");
                     jTextField2.setText("");
                     jTextField2.requestFocus();
@@ -224,16 +222,6 @@ public class Subjectform extends javax.swing.JFrame {
                 }
             }// TODO add your handling code here:
     }//GEN-LAST:event_jTextField1FocusLost
-
-    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
-        if (!jTextField4.getText().isEmpty()) {
-                if (!Validation.isStringWithSpace(jTextField4.getText())) {
-                    JOptionPane.showMessageDialog(null, "Please Enter a text value");
-                    jTextField4.setText("");
-                    jTextField4.requestFocus();
-                }
-            }// TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4FocusLost
 
     /**
      * @param args the command line arguments
@@ -252,25 +240,26 @@ public class Subjectform extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Subjectform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SubjectForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Subjectform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SubjectForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Subjectform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SubjectForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Subjectform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SubjectForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Subjectform().setVisible(true);
+                new SubjectForm().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -280,6 +269,5 @@ public class Subjectform extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

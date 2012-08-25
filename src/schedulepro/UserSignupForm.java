@@ -431,7 +431,7 @@ public class UserSignupForm extends javax.swing.JFrame {
     private void roleComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_roleComboBoxFocusLost
         // TODO add your handling code here:
         if (roleComboBox.getSelectedIndex() == 0) {
-            role = "HOD";
+            role = "hod";
         } else if (roleComboBox.getSelectedIndex() == 1) {
             role = "staff";
         } else if (roleComboBox.getSelectedIndex() == 2) {
