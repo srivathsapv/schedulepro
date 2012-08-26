@@ -82,9 +82,6 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SubjectDetailsTableMouseReleased"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

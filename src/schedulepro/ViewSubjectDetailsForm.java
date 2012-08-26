@@ -4,13 +4,10 @@
  */
 package schedulepro;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -89,11 +86,6 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         SubjectDetailsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         SubjectDetailsTable.setShowHorizontalLines(false);
         SubjectDetailsTable.setShowVerticalLines(false);
-        SubjectDetailsTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                SubjectDetailsTableMouseReleased(evt);
-            }
-        });
         jScrollPane1.setViewportView(SubjectDetailsTable);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -127,19 +119,6 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SubjectDetailsTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubjectDetailsTableMouseReleased
-        // TODO add your handling code here:
-        if (SwingUtilities.isRightMouseButton(evt)) {
-            JTable source = (JTable) evt.getSource();
-            selectedRow = source.rowAtPoint(evt.getPoint());
-            selectedColumn = source.columnAtPoint(evt.getPoint());
-
-            if (!source.isRowSelected(selectedRow)) {
-                source.changeSelection(selectedRow, selectedColumn, false, false);
-            }
-        }
-    }//GEN-LAST:event_SubjectDetailsTableMouseReleased
-
     /**
      * @param args the command line arguments
      */
@@ -169,7 +148,6 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
                 try {
                     new ViewSubjectDetailsForm().setVisible(true);
@@ -184,7 +162,6 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    private static int msgCount=0;
 }
 
 class SubjectTableModel extends AbstractTableModel {
