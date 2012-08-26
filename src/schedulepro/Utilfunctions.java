@@ -118,6 +118,7 @@ public class Utilfunctions {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
             PreparedStatement statement = con.prepareStatement(query);
             rowsAffected = statement.executeUpdate();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

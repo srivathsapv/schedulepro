@@ -4,17 +4,20 @@
  */
 package schedulepro;
 
-import java.awt.Component;
-import java.awt.event.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -39,7 +42,6 @@ public class UserViewForm extends javax.swing.JFrame {
                 Utilfunctions.setLocation(df);
                 e.getWindow().setVisible(false);
                 df.setVisible(true);
-
             }
         });
         
@@ -51,36 +53,8 @@ public class UserViewForm extends javax.swing.JFrame {
         comboBox.addItem("Department Secretary");
         comboBox.addItem("System Administrator");
         
-        comboBox.addItemListener(new ItemListener() { 
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                int row = usersTable.getSelectedRow();
-                if(row >= 0){
-                    msgCount++;
-                    if(msgCount == 2)
-                        msgCount = 0;
-                    String currentRole = usersTable.getValueAt(row,3).toString();
-                    HashMap hm = new HashMap();
-                    hm.put("Head of the Department","hod");
-                    hm.put("Staff","staff");
-                    hm.put("Department Secretary","ds");
-                    hm.put("System Administrator","sa");
-                    
-                    JComboBox cb = (JComboBox)e.getSource();
-                    String role = cb.getSelectedItem().toString();
-                    
-                    
-                    String query = "UPDATE login SET role = '" + hm.get(role) + "' WHERE id = '" + usersTable.getValueAt(row,0) + "'";
-                    int n = Utilfunctions.executeUpdate(query);
-                    if(n >= 1 && msgCount == 1)
-                        JOptionPane.showMessageDialog(null,"Role Changed");
-                }
-            }
-        });
-        
         col.setCellEditor(new DefaultCellEditor(comboBox));
 
-        //Set up tool tips for the sport cells.
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         col.setCellRenderer(renderer);
         
@@ -298,7 +272,6 @@ public class UserViewForm extends javax.swing.JFrame {
     private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
     
-    private int msgCount = 0;
 }
 
 class UserTableModel extends AbstractTableModel {
@@ -306,7 +279,6 @@ class UserTableModel extends AbstractTableModel {
         private Object[][] data;
 	
         public UserTableModel() throws SQLException{
-            
             String query = "SELECT * FROM user WHERE dept = '" + LoginForm.userDept + "' ORDER BY name";
             ResultSet rs = Utilfunctions.executeQuery(query);
             
@@ -379,45 +351,28 @@ class UserTableModel extends AbstractTableModel {
             }
         }
 
-        /*
-         * Don't need to implement this method unless your table's
-         * data can change.
-         */
+    /*
+     * Don't need to implement this method unless your table's
+     * data can change.
+     */
     @Override
         public void setValueAt(Object value, int row, int col) {
             data[row][col] = value;
             fireTableCellUpdated(row, col);
+            
+            HashMap hm = new HashMap();
+            hm.put("Head of the Department","hod");
+            hm.put("Staff","staff");
+            hm.put("Department Secretary","ds");
+            hm.put("System Administrator","sa");
+
+            
+            String role = value.toString();
+
+            String query = "UPDATE login SET role = '" + hm.get(role) + "' WHERE id = '" + data[row][0] + "'";
+            int n = Utilfunctions.executeUpdate(query);
+            if(n >= 1)
+                JOptionPane.showMessageDialog(null,"Role Changed");
         }
     }
 
-class RoleCellRenderer extends JComboBox implements TableCellRenderer {
-    // This is the component that will handle the editing of the cell value
-    
-    public RoleCellRenderer(String items[]){
-        super(items);
-    }
-    
-    // This method is called when a cell value is edited by the user.
-
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        if (isSelected) {
-            setForeground(table.getSelectionForeground());
-            super.setBackground(table.getSelectionBackground());
-        } else {
-            setForeground(table.getForeground());
-            setBackground(table.getBackground());
-        }
-
-        // Select the current value
-        setSelectedItem(value);
-        return this;
-    }
-    
-}
-
-class RoleCellEditor extends DefaultCellEditor {
-    public RoleCellEditor(String[] items) {
-        super(new JComboBox(items));
-    }
-}

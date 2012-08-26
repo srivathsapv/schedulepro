@@ -111,13 +111,13 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        if(evt.getClickCount() == 2) {
+        if(evt.getClickCount() == 2 && !source.equals("dashboard")) {
             evt.consume();
-            JTable source = (JTable)evt.getSource();
-            int row = source.rowAtPoint(evt.getPoint());
-            int col = source.columnAtPoint(evt.getPoint());
+            JTable sourceTable = (JTable)evt.getSource();
+            int row = sourceTable.rowAtPoint(evt.getPoint());
+            int col = sourceTable.columnAtPoint(evt.getPoint());
 
-            PeriodConfigTableModel model = (PeriodConfigTableModel)source.getModel();
+            PeriodConfigTableModel model = (PeriodConfigTableModel)sourceTable.getModel();
             pConfigId = model.getPeriodConfigId(row, col);
             ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM periodconfig WHERE pconfigId = " + pConfigId);
             try {
@@ -185,6 +185,7 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
     public static int pConfigId;
     public static JFrame pConfigChooseInvoker;
     public static JTextField pConfigTextField;
+    public static String source;
 }
 
 class PeriodConfigTableModel extends AbstractTableModel {

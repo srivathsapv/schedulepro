@@ -196,7 +196,7 @@ public class SubjectForm extends javax.swing.JFrame {
     private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
         // TODO aif (!classCodeText.getText().isEmpty()) {
                 if (!Validation.isalphanumericOrNull(jTextField3.getText())) {
-                    JOptionPane.showMessageDialog(null, "subject Code should contain alphanumeric characters");
+                    JOptionPane.showMessageDialog(null, "Subject Code should contain alphanumeric characters");
                     jTextField3.setText("");
                    jTextField3.requestFocus();
                 }

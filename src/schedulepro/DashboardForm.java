@@ -516,6 +516,7 @@ public class DashboardForm extends javax.swing.JFrame {
             pvf = new PeriodConfigViewForm();
             Utilfunctions.setIconImage(pvf);
             Utilfunctions.setLocation(pvf);
+            PeriodConfigViewForm.source = "dashboard";
             this.setVisible(false);
             pvf.setVisible(true);
         } catch (SQLException ex) {

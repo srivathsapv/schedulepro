@@ -26,27 +26,8 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Edit Equipment"/>
+            <Property name="text" type="java.lang.String" value="Edit Equipment Name"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
-          </Events>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Increase Quantity"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
-          </Events>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Decrease Quantity"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
-          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
           <Properties>
@@ -130,6 +111,7 @@
               <Color id="Hand Cursor"/>
             </Property>
             <Property name="inheritsPopupMenu" type="boolean" value="true"/>
+            <Property name="rowHeight" type="int" value="25"/>
             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
               <JTableSelectionModel selectionMode="0"/>
             </Property>

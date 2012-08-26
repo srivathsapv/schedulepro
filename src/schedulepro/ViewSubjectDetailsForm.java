@@ -4,17 +4,19 @@
  */
 package schedulepro;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -30,10 +32,20 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
      */
     public ViewSubjectDetailsForm() throws SQLException {
         initComponents();
-        SubjectDetailsTable.setModel(new SubjectDetailsTableModel());
+        SubjectDetailsTable.setModel(new SubjectTableModel());
         SubjectDetailsTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         SubjectDetailsTable.getColumnModel().getColumn(0).setPreferredWidth(85);
         SubjectDetailsTable.getColumnModel().getColumn(1).setPreferredWidth(500);
+        
+        TableColumn col = SubjectDetailsTable.getColumnModel().getColumn(3);
+        JComboBox comboBox = new JComboBox();
+        comboBox.addItem("2");
+        comboBox.addItem("3");
+        comboBox.addItem("4");
+        comboBox.addItem("5");
+        
+        col.setCellEditor(new DefaultCellEditor(comboBox));
+        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -55,37 +67,9 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        rightClickPopupMenu = new javax.swing.JPopupMenu();
-        editSubjectCodeMenuItem = new javax.swing.JMenuItem();
-        editSubjectNameMenuItem = new javax.swing.JMenuItem();
-        editSubjectCreditsMenuItem = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         SubjectDetailsTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-
-        editSubjectCodeMenuItem.setText("Edit Subject Code");
-        editSubjectCodeMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editSubjectCodeMenuItemActionPerformed(evt);
-            }
-        });
-        rightClickPopupMenu.add(editSubjectCodeMenuItem);
-
-        editSubjectNameMenuItem.setText("Edit Subject Name");
-        editSubjectNameMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editSubjectNameMenuItemActionPerformed(evt);
-            }
-        });
-        rightClickPopupMenu.add(editSubjectNameMenuItem);
-
-        editSubjectCreditsMenuItem.setText("Edit Subject Credits");
-        editSubjectCreditsMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editSubjectCreditsMenuItemActionPerformed(evt);
-            }
-        });
-        rightClickPopupMenu.add(editSubjectCreditsMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - View Subjects");
@@ -153,47 +137,8 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
             if (!source.isRowSelected(selectedRow)) {
                 source.changeSelection(selectedRow, selectedColumn, false, false);
             }
-
-            rightClickPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_SubjectDetailsTableMouseReleased
-
-    private void editSubjectCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSubjectCodeMenuItemActionPerformed
-        // TODO add your handling code here:
-        String str = JOptionPane.showInputDialog("Subject Code:", SubjectDetailsTable.getValueAt(selectedRow, 0));
-        if (!Validation.isalphanumericOrNull(str)) {
-            JOptionPane.showMessageDialog(null, "subject Code should contain alphanumeric characters");
-        } else {
-            Utilfunctions.executeUpdate("UPDATE `subject` SET `subcode`='" + str + "' WHERE `subcode`='" + SubjectDetailsTable.getValueAt(selectedRow, 0) + "'");
-            SubjectDetailsTable.setValueAt(str, selectedRow, 0);
-        }
-        
-        if (! SubjectDetailsTable.isRowSelected(selectedRow))
-                SubjectDetailsTable.changeSelection(selectedRow, selectedColumn, false, false);
-    }//GEN-LAST:event_editSubjectCodeMenuItemActionPerformed
-
-    private void editSubjectNameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSubjectNameMenuItemActionPerformed
-        // TODO add your handling code here:
-        String str = JOptionPane.showInputDialog("Subject Name:", SubjectDetailsTable.getValueAt(selectedRow, 1));
-        Utilfunctions.executeUpdate("UPDATE `subject` SET `subName`='" + str + "' WHERE `subcode`='" + SubjectDetailsTable.getValueAt(selectedRow, 0) + "'");
-        SubjectDetailsTable.setValueAt(str, selectedRow, 1);
-        if (! SubjectDetailsTable.isRowSelected(selectedRow))
-                SubjectDetailsTable.changeSelection(selectedRow, selectedColumn, false, false);
-    }//GEN-LAST:event_editSubjectNameMenuItemActionPerformed
-
-    private void editSubjectCreditsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSubjectCreditsMenuItemActionPerformed
-        // TODO add your handling code here:
-        String str = JOptionPane.showInputDialog("Subject Name:", SubjectDetailsTable.getValueAt(selectedRow, 2));
-        int credit = Integer.parseInt(str);
-        if (!Validation.isNumber(str) || credit <= 0 || credit >= 5) {
-            JOptionPane.showMessageDialog(null, "Please Enter a numeric value from 0 - 5");
-        } else {
-            Utilfunctions.executeUpdate("UPDATE `subject` SET `credits`=" + str + " WHERE `subcode`='" + SubjectDetailsTable.getValueAt(selectedRow, 0) + "'");
-            SubjectDetailsTable.setValueAt(str, selectedRow, 2);
-            if (! SubjectDetailsTable.isRowSelected(selectedRow))
-                SubjectDetailsTable.changeSelection(selectedRow, selectedColumn, false, false);
-        }
-    }//GEN-LAST:event_editSubjectCreditsMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,6 +169,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new ViewSubjectDetailsForm().setVisible(true);
@@ -235,79 +181,150 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable SubjectDetailsTable;
-    private javax.swing.JMenuItem editSubjectCodeMenuItem;
-    private javax.swing.JMenuItem editSubjectCreditsMenuItem;
-    private javax.swing.JMenuItem editSubjectNameMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu rightClickPopupMenu;
     // End of variables declaration//GEN-END:variables
+    private static int msgCount=0;
 }
 
-class SubjectDetailsTableModel extends AbstractTableModel {
+class SubjectTableModel extends AbstractTableModel {
+        private String[] columnNames = {"Subject Code", "Subject Name","Short Name", "Credits"};
+        private Object[][] data;
+	
+        public SubjectTableModel() throws SQLException{
+            //Remove it later
+            LoginForm.userDept = "CSE";
+            //Remove it later
+            
+            ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM `subject` WHERE dept = '" + LoginForm.userDept + "'");
+            rs_cnt.next();
+            int cnt = rs_cnt.getInt(1);
 
-    private String[] columnNames = {"Subject Code", "Subject Name", "Credits"};
-    private Vector<String[]> data;
+            data = new Object[cnt][4];
 
-    public SubjectDetailsTableModel() throws SQLException {
-        ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM `subject`");
-        rs_cnt.next();
-        int cnt = rs_cnt.getInt(1);
-        //String query = "SELECT `subcode`, `subName`, `dept`, `credits` FROM `subject` order by `subcode` asc";
-        String query = "SELECT `subcode`, `subName`, `credits` FROM `subject` where `dept` = '" + LoginForm.userDept + "' order by `subcode` asc";
-        ResultSet result = Utilfunctions.executeQuery(query);
-        data = new Vector<String[]>();
-        while (result.next()) {
-            String[] values = {result.getString(1), result.getString(2), result.getString(3)};
-            data.add(values);
+            String query = "SELECT `subcode`, `subName`,`subShortName`, `credits` FROM `subject` where `dept` = '" + LoginForm.userDept + "' order by `subName` asc";
+            ResultSet result = Utilfunctions.executeQuery(query);
+            int i =0;
+            while (result.next()) {
+                String[] values = {result.getString(1), result.getString(2), result.getString(3),result.getString(4)};
+                data[i++] = values;
+            }
+            
+        }
+        
+    @Override
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-    }
+    @Override
+        public int getRowCount() {
+            return data.length;
+        }
 
-    public void setColumnValue(int col, String[] values) {
-        for (int i = 0; i < values.length; i++) {
-            JOptionPane.showMessageDialog(null, values[i]);
-            this.setValueAt(values[i], i, col);
+    @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+    @Override
+        public Object getValueAt(int row, int col) {
+            return data[row][col];
+        }
+
+        /*
+         * JTable uses this method to determine the default renderer/
+         * editor for each cell.  If we didn't implement this method,
+         * then the last column would contain text ("true"/"false"),
+         * rather than a check box.
+         */
+    @Override
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+    @Override
+        public boolean isCellEditable(int row, int col) {
+            //Note that the data/cell address is constant,
+            //no matter where the cell appears onscreen.
+            if(col == 0)
+                return false;
+            else 
+                return true;
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * data can change.
+         */
+    @Override
+        public void setValueAt(Object value, int row, int col) {
+            String subcode = (data[row][0]).toString();
+            if(value.toString().equals((data[row][col]).toString())) {
+                return;
+            }
+            String dept = LoginForm.userDept;
+            if(col == 1){
+                ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM "
+                                                              + "subject WHERE subName = '" 
+                                                              + value.toString() + "' "
+                                                              + "AND dept = '" + dept + "'");
+                if(!Validation.isalphanumeric(value.toString())){
+                    JOptionPane.showMessageDialog(null,"Invalid Subject Code");
+                    return;
+                }
+                try {
+                    rs_cnt.next();
+                    if(rs_cnt.getInt(1) >= 1){
+                        JOptionPane.showMessageDialog(null,"Duplicate Subject Name");
+                        return;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String query = "UPDATE subject SET subName = '" 
+                                + value.toString() + "' WHERE subcode = '" 
+                                + subcode + "' AND dept = '" + dept + "'";
+                int n = Utilfunctions.executeUpdate(query);
+                if(n >= 1) JOptionPane.showMessageDialog(null,"Subject Name Updated");
+            }
+            else if(col == 2){
+                ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM "
+                                                             + "subject WHERE subShortName = "
+                                                             + "'" + value.toString()  + "' AND dept = '" 
+                                                             + dept + "'");
+                if(!Validation.isalphanumeric(value.toString())){
+                    JOptionPane.showMessageDialog(null,"Invalid Subject Short Name");
+                    return;
+                }
+                try {
+                    rs_cnt.next();
+                    if(rs_cnt.getInt(1) >= 1){
+                        JOptionPane.showMessageDialog(null,"Duplicate Subject Short Name");
+                        return;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                String query = "UPDATE subject SET subShortName = '" 
+                               + value.toString() + "' WHERE subcode = '" 
+                               + subcode + "'";
+                int n = Utilfunctions.executeUpdate(query);
+                if(n >= 1) JOptionPane.showMessageDialog(null,"Subject Short Name Updated");
+            }
+            else if(col == 3) {
+                String query = "UPDATE subject SET credits = " + value.toString() 
+                                + " WHERE subcode = '" + subcode + "'";
+                int n = Utilfunctions.executeUpdate(query);
+                if(n >= 1) JOptionPane.showMessageDialog(null,"Credits updated");
+            }
+            
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
         }
     }
-
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public int getRowCount() {
-        return data.size();
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-
-    @Override
-    public Object getValueAt(int row, int col) {
-        return data.get(row)[col];
-    }
-
-    @Override
-    public Class getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
-    }
-
-    @Override
-    public void setValueAt(Object value, int row, int column) {
-        String values[] = data.get(row);
-        values[column] = value.toString();
-        data.setElementAt(values, row);
-    }
-
-    public void removeRow(int row) {
-        data.remove(row);
-        for (int i = 0; i < data.size(); i++) {
-            System.out.println(data.get(i));
-        }
-        this.fireTableDataChanged();
-    }
-}

@@ -4,13 +4,11 @@
  */
 package schedulepro;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -24,7 +22,7 @@ public class ViewBookingDetailsForm extends javax.swing.JFrame {
      */
     public ViewBookingDetailsForm() throws SQLException {
         initComponents();
-        bookingDetailsTable.setModel(new BookingDetailsTableModel());
+        bookingDetailsTable.setModel(new BookingTableModel());
     }
 
     /**
@@ -112,78 +110,104 @@ public class ViewBookingDetailsForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
-class BookingDetailsTableModel extends AbstractTableModel {
 
+class BookingTableModel extends AbstractTableModel {
     private String[] columnNames = {"Name of the Bookie", "Year", "Section", "Room No.", "Day", "From", "To", "Status"};
-    private Vector<String[]> data;
-    private String status;
+    private Object[][] data;
+    private boolean status;
+    private int[] issueIds;
+    
+    public BookingTableModel() throws SQLException{
+        
+        String query = "SELECT * FROM equipmentissue WHERE equipId = " + EquipmentViewForm.equipmentId;
+        ResultSet rs = Utilfunctions.executeQuery(query);
 
-    public BookingDetailsTableModel() throws SQLException {
-        ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM `equipment` WHERE `equipId`=" + GlobalVars.equipmentId);
-        rs_cnt.next();
-        int cnt = rs_cnt.getInt(1);
-        String query = "SELECT `userCode`,`pconfigId`,`classCode` ,`issueStatus` FROM `equipmentissue` WHERE `equipId`=" + GlobalVars.equipmentId;
+        int cnt = 0;
+        while(rs.next())
+            cnt++;
+        data = new Object[cnt][8];
+        issueIds = new int[cnt];
+        query = "SELECT * FROM `equipmentissue` WHERE `equipId`=" + EquipmentViewForm.equipmentId;
         ResultSet result = Utilfunctions.executeQuery(query);
-        data = new Vector<String[]>();
+        
         ResultSet userResult;
         ResultSet periodResult;
         ResultSet classResult;
         int i = 0;
         while (result.next()) {
-            if (Integer.parseInt(result.getString(4)) == 1) {
-                status = "Pending";
+            if (result.getInt(7) == 0) {
+                status = false;
             } else {
-                status = "Recieved";
+                status = true;
             }
-            userResult = Utilfunctions.executeQuery("SELECT `name` FROM `user` WHERE `userCode`='" + result.getString(1) + "'");
+            userResult = Utilfunctions.executeQuery("SELECT `name` FROM `user` WHERE `userCode`='" + result.getString(3) + "'");
             userResult.next();
-            periodResult = Utilfunctions.executeQuery("SELECT `day` ,`timeFrom` ,`timeTo` FROM `periodconfig` WHERE `pconfigId`=" + result.getString(2));
+            periodResult = Utilfunctions.executeQuery("SELECT `day` ,`timeFrom` ,`timeTo` FROM `periodconfig` WHERE `pconfigId`=" + result.getString(4));
             periodResult.next();
-            classResult = Utilfunctions.executeQuery("SELECT `roomNo`,`year`,`section` FROM `class` WHERE `classCode`='" + result.getString(3) + "'");
+            classResult = Utilfunctions.executeQuery("SELECT `roomNo`,`year`,`section` FROM `class` WHERE `classCode`='" + result.getString(5) + "'");
             classResult.next();
-            String[] values = {userResult.getString(1), classResult.getString(2), classResult.getString(3), classResult.getString(1), periodResult.getString(1), periodResult.getString(2), periodResult.getString(3), status};
-            data.add(values);
+            Object[] values = {userResult.getString(1), classResult.getString(2), classResult.getString(3), classResult.getString(1), periodResult.getString(1), periodResult.getString(2), periodResult.getString(3), status};
+            data[i] = values;
+            issueIds[i++] = result.getInt(1);
+            
+        }
+
+    }
+        
+    @Override
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+    @Override
+        public int getRowCount() {
+            return data.length;
+        }
+
+    @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+    @Override
+        public Object getValueAt(int row, int col) {
+            return data[row][col];
+        }
+
+        /*
+         * JTable uses this method to determine the default renderer/
+         * editor for each cell.  If we didn't implement this method,
+         * then the last column would contain text ("true"/"false"),
+         * rather than a check box.
+         */
+    @Override
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+    @Override
+        public boolean isCellEditable(int row, int col) {
+            //Note that the data/cell address is constant,
+            //no matter where the cell appears onscreen.
+            if(col == 7) return true;
+            else return false;
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * data can change.
+         */
+    @Override
+        public void setValueAt(Object value, int row, int col) {
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
+            
+            String query = "UPDATE equipmentissue SET issueStatus = " + value + " WHERE issueId = " + issueIds[row];
+            int n = Utilfunctions.executeUpdate(query);
+            if(n >= 1) JOptionPane.showMessageDialog(null,"Equipment returned successfully");
         }
     }
-
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public int getRowCount() {
-        return data.size();
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-
-    @Override
-    public Object getValueAt(int row, int col) {
-        return data.get(row)[col];
-    }
-
-    @Override
-    public Class getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
-
-    }
-
-    @Override
-    public void setValueAt(Object value, int row, int column) {
-        String values[] = data.get(row);
-        values[column] = value.toString();
-        data.setElementAt(values, row);
-    }
-
-    public void removeRow(int row) {
-        data.remove(row);
-        for (int i = 0; i < data.size(); i++) {
-            System.out.println(data.get(i));
-        }
-        this.fireTableDataChanged();
-    }
-}
