@@ -208,6 +208,28 @@ public class Utilfunctions {
         return input.substring(input.indexOf("(")+1, input.indexOf(")"));
     }
     
+    public static int getMonthNumber(String month){
+        String[] months = {"January","February","March","April","May",
+                           "June","July","August","September","October","November","December"};
+        
+        for(int i=0;i<months.length;i++){
+            if((months[i]).indexOf(month) >= 0) {
+                return i+1;
+            }
+        }
+        return -1;
+    }
+    
+    public static int getDayNumber(String day){
+        String[] days = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+        for(int i=0;i<days.length;i++){
+            if((days[i]).indexOf(day) >= 0){
+                return i+1;
+            }
+        }
+        return -1;
+    }
+    
     private static Toolkit toolkit;
     private static Dimension dim;
     private static int width;
