@@ -4,6 +4,8 @@
  */
 package schedulepro;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -27,6 +29,17 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
      */
     public ExamScheduleViewForm() throws SQLException {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                DashboardForm df = new DashboardForm();
+                Utilfunctions.setIconImage(df);
+                Utilfunctions.setLocation(df);
+                e.getWindow().setVisible(false);
+                df.setVisible(true);
+            }
+        });
+        
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         jTable1.setModel(new ExamTableModel());
         
@@ -90,7 +103,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - View Exam Schedule");
         setResizable(false);
 

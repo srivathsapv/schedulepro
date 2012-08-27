@@ -272,6 +272,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu6.add(jMenuItem15);
 
         jMenuItem16.setText("View");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem16);
 
         jMenuBar1.add(jMenu6);
@@ -676,6 +681,20 @@ public class DashboardForm extends javax.swing.JFrame {
             Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem32ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        try {
+            // TODO add your handling code here:
+            ExamScheduleViewForm exf = new ExamScheduleViewForm();
+            Utilfunctions.setLocation(exf);
+            Utilfunctions.setIconImage(exf);
+            this.setVisible(false);
+            exf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     /**
      * @param args the command line arguments
