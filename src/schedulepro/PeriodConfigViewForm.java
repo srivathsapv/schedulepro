@@ -38,7 +38,9 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
                 Utilfunctions.setIconImage(df);
                 Utilfunctions.setLocation(df);
                 e.getWindow().setVisible(false);
-                df.setVisible(true);
+                if(PeriodConfigViewForm.source.equals("dashboard")){
+                    df.setVisible(true);
+                }
             }
         });
         jTable1.setModel(new PeriodConfigTableModel());
@@ -116,19 +118,27 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
             JTable sourceTable = (JTable)evt.getSource();
             int row = sourceTable.rowAtPoint(evt.getPoint());
             int col = sourceTable.columnAtPoint(evt.getPoint());
-
             PeriodConfigTableModel model = (PeriodConfigTableModel)sourceTable.getModel();
+            
             pConfigId = model.getPeriodConfigId(row, col);
+            if(pConfigId == 0) return;
             ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM periodconfig WHERE pconfigId = " + pConfigId);
             try {
                 rs.next();
-                pConfigTextField.setText(rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5));
+                if(source.equals("exam")) {
+                    srcTable.setValueAt(rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5), tableRow,3);
+                    ExamTableModel etm = (ExamTableModel)srcTable.getModel();
+                    etm.fireTableCellUpdated(tableRow,3);
+                    this.setVisible(false);
+                }
+                else {
+                    pConfigTextField.setText(rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5));
+                    this.setVisible(false);
+                    pConfigChooseInvoker.setVisible(true);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(PeriodConfigViewForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            this.setVisible(false);
-            pConfigChooseInvoker.setVisible(true);
+            }            
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -186,6 +196,8 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
     public static JFrame pConfigChooseInvoker;
     public static JTextField pConfigTextField;
     public static String source;
+    public static JTable srcTable;
+    public static int tableRow;
 }
 
 class PeriodConfigTableModel extends AbstractTableModel {
