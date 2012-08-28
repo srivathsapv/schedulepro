@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -58,19 +57,9 @@ public class SubjectsHandledViewForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        rightClickPopupMenu = new javax.swing.JPopupMenu();
-        deleteMenuItem = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         subjectsHandledTable = new javax.swing.JTable();
-
-        deleteMenuItem.setText("Delete");
-        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteMenuItemActionPerformed(evt);
-            }
-        });
-        rightClickPopupMenu.add(deleteMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - Subjects Handled");
@@ -91,11 +80,6 @@ public class SubjectsHandledViewForm extends javax.swing.JFrame {
         subjectsHandledTable.setInheritsPopupMenu(true);
         subjectsHandledTable.setShowHorizontalLines(false);
         subjectsHandledTable.setShowVerticalLines(false);
-        subjectsHandledTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                subjectsHandledTableMouseReleased(evt);
-            }
-        });
         jScrollPane1.setViewportView(subjectsHandledTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,38 +107,6 @@ public class SubjectsHandledViewForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
-        // TODO add your handling code here:
-        int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this subject?", "Delete Subject", JOptionPane.YES_NO_OPTION);
-        ResultSet result;
-        if (opt == JOptionPane.YES_OPTION) {
-            try {
-                result=Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `year`="+subjectsHandledTable.getValueAt(selectedRow, 0)+" AND `section`='"+subjectsHandledTable.getValueAt(selectedRow, 1)+"' AND `dept`='"+LoginForm.userDept+"'");
-                result.next();
-                Utilfunctions.executeUpdate("DELETE FROM `subclass` WHERE `subCode`='" + subjectsHandledTable.getValueAt(selectedRow, 2) + "' AND `userCode`='" + LoginForm.userCode + "' AND `classCode`="+result.getString(1));
-                SubjectsHandledTableModel model = (SubjectsHandledTableModel) subjectsHandledTable.getModel();
-                model.removeRow(selectedRow);
-            } catch (SQLException ex) {
-                Logger.getLogger(SubjectsHandledViewForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_deleteMenuItemActionPerformed
-
-    private void subjectsHandledTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subjectsHandledTableMouseReleased
-        // TODO add your handling code here:
-        if (SwingUtilities.isRightMouseButton(evt)) {
-            JTable source = (JTable) evt.getSource();
-            selectedRow = source.rowAtPoint(evt.getPoint());
-            selectedColumn = source.columnAtPoint(evt.getPoint());
-
-            if (!source.isRowSelected(selectedRow)) {
-                source.changeSelection(selectedRow, selectedColumn, false, false);
-            }
-
-            rightClickPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-        }
-    }//GEN-LAST:event_subjectsHandledTableMouseReleased
 
     /**
      * @param args the command line arguments
@@ -195,10 +147,8 @@ public class SubjectsHandledViewForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu rightClickPopupMenu;
     private javax.swing.JTable subjectsHandledTable;
     // End of variables declaration//GEN-END:variables
 }
