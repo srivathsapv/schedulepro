@@ -32,10 +32,11 @@ public class SubjectsHandledViewForm extends javax.swing.JFrame {
         initComponents();
         subjectsHandledTable.setModel(new SubjectsHandledTableModel());
         subjectsHandledTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        subjectsHandledTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-        subjectsHandledTable.getColumnModel().getColumn(1).setPreferredWidth(70);
-        subjectsHandledTable.getColumnModel().getColumn(2).setPreferredWidth(105);
-        subjectsHandledTable.getColumnModel().getColumn(3).setPreferredWidth(500);
+        subjectsHandledTable.getColumnModel().getColumn(0).setPreferredWidth(70);
+        subjectsHandledTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+        subjectsHandledTable.getColumnModel().getColumn(2).setPreferredWidth(70);
+        subjectsHandledTable.getColumnModel().getColumn(3).setPreferredWidth(105);
+        subjectsHandledTable.getColumnModel().getColumn(4).setPreferredWidth(500);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -106,9 +107,9 @@ public class SubjectsHandledViewForm extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
+                .addGap(149, 149, 149)
                 .addComponent(jLabel1)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +205,7 @@ public class SubjectsHandledViewForm extends javax.swing.JFrame {
 
 class SubjectsHandledTableModel extends AbstractTableModel {
 
-    private String[] columnNames = {"Year", "Section", "Subject Code", "Subject Name"};
+    private String[] columnNames = {"Course","Year", "Section", "Subject Code", "Subject Name"};
     private Vector<String[]> data;
 
     public SubjectsHandledTableModel() {
@@ -224,9 +225,9 @@ class SubjectsHandledTableModel extends AbstractTableModel {
                 while (result.next()) {
                     result1 = Utilfunctions.executeQuery("SELECT `subName` FROM `subject` WHERE `subcode`='" + result.getString(1) + "'");
                     result1.next();
-                    result2 = Utilfunctions.executeQuery("SELECT `year`, `section` FROM `class` WHERE `classCode`='" + result.getString(2) + "' AND `dept`='" + LoginForm.userDept + "'");
+                    result2 = Utilfunctions.executeQuery("SELECT `year`, `section`, course FROM `class` WHERE `classCode`=" + result.getString(2));
                     result2.next();
-                    String[] values = {result2.getString(1), result2.getString(2), result.getString(1), result1.getString(1)};
+                    String[] values = {result2.getString(3),result2.getString(1), result2.getString(2), result.getString(1), result1.getString(1)};
                     data.add(values);
                 }
             }

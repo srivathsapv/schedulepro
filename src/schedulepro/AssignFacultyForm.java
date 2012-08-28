@@ -21,8 +21,7 @@ public class AssignFacultyForm extends javax.swing.JFrame {
      */
     public AssignFacultyForm() {
         initComponents();
-        Utilfunctions.populateComboBoxwithQuery(selectYearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' order by `year` asc");
-        Utilfunctions.populateComboBoxwithQuery(selectSectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' order by `section` asc");
+        Utilfunctions.populateComboBoxwithQuery(selectCourseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='"+LoginForm.userDept+"'");
         Utilfunctions.populateComboBoxwithQuery(selectSubjectComboBox, "select CONCAT(`subName`,'(',`subcode`,')') from `subject` WHERE `dept`='"+LoginForm.userDept+"' order by `subName` asc");
         Utilfunctions.populateComboBoxwithQuery(selectFacultyComboBox, "SELECT CONCAT(`name`,'(',`userCode`,')') FROM `user` WHERE `dept`='"+LoginForm.userDept+"' order by `name` asc");
         addWindowListener(new WindowAdapter() {
@@ -56,6 +55,8 @@ public class AssignFacultyForm extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         selectFacultyLabel = new javax.swing.JLabel();
         selectFacultyComboBox = new javax.swing.JComboBox();
+        selectCourseLabel = new javax.swing.JLabel();
+        selectCourseComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - Assign Faculty");
@@ -76,6 +77,14 @@ public class AssignFacultyForm extends javax.swing.JFrame {
 
         selectFacultyLabel.setText("Select Faculty:");
 
+        selectCourseLabel.setText("Select Course:");
+
+        selectCourseComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                selectCourseComboBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,14 +94,17 @@ public class AssignFacultyForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(selectYearLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(selectSectionLabel)
-                                .addGap(1, 1, 1)))
+                                .addGap(1, 1, 1))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(selectCourseLabel)
+                                .addComponent(selectYearLabel)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(selectYearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selectSectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(selectSectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selectCourseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -111,7 +123,11 @@ public class AssignFacultyForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectCourseLabel)
+                    .addComponent(selectCourseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectYearLabel)
                     .addComponent(selectYearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -129,7 +145,7 @@ public class AssignFacultyForm extends javax.swing.JFrame {
                     .addComponent(selectFacultyLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saveButton)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,7 +154,7 @@ public class AssignFacultyForm extends javax.swing.JFrame {
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
         try {
-            ResultSet result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `year`=" + selectYearComboBox.getSelectedItem() + " AND `section`='" + selectSectionComboBox.getSelectedItem() + "'");
+            ResultSet result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `year`=" + selectYearComboBox.getSelectedItem() + " AND `section`='" + selectSectionComboBox.getSelectedItem() + "' AND dept='"+LoginForm.userDept+"'");
             result.next();
             int n = Utilfunctions.executeUpdate("INSERT INTO `subclass`(`subClassId`, `classCode`, `subCode`, `userCode`) VALUES (NULL," + result.getString(1) + ",'" + Utilfunctions.getWithinBrackets(selectSubjectComboBox.getSelectedItem().toString()) + "','" + Utilfunctions.getWithinBrackets(selectFacultyComboBox.getSelectedItem().toString()) + "')");
             if (n == 1) {
@@ -150,6 +166,12 @@ public class AssignFacultyForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No such Class Exists");
         }
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void selectCourseComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectCourseComboBoxItemStateChanged
+        // TODO add your handling code here:
+        Utilfunctions.populateComboBoxwithQuery(selectYearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND course='"+selectCourseComboBox.getSelectedItem()+"' order by `year` asc");
+        Utilfunctions.populateComboBoxwithQuery(selectSectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND course='"+selectCourseComboBox.getSelectedItem()+"' order by `section` asc");
+    }//GEN-LAST:event_selectCourseComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -187,6 +209,8 @@ public class AssignFacultyForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton saveButton;
+    private javax.swing.JComboBox selectCourseComboBox;
+    private javax.swing.JLabel selectCourseLabel;
     private javax.swing.JComboBox selectFacultyComboBox;
     private javax.swing.JLabel selectFacultyLabel;
     private javax.swing.JComboBox selectSectionComboBox;

@@ -221,7 +221,7 @@ public class ClassDetailsForm extends javax.swing.JFrame {
         }
         if (test == 1) {
             JOptionPane.showMessageDialog(null, "Saved");
-            this.setVisible(false);
+            //this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Error");
         }

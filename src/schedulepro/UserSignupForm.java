@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  * @author Sasi praveen
  */
 public class UserSignupForm extends javax.swing.JFrame {
+    private String departmentfull;
 
     /**
      * Creates new form UserSignup
@@ -146,7 +147,7 @@ public class UserSignupForm extends javax.swing.JFrame {
 
         mandotaryfieldLabel.setText("* mandotary fileds");
 
-        departmentCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BME", "CIV", "CSE", "ECE", "EEE", "IT" }));
+        departmentCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BME", "CIV", "CSE", "ECE", "EEE", "IT", "Other" }));
         departmentCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 departmentComboboxActionPerformed(evt);
@@ -217,7 +218,7 @@ public class UserSignupForm extends javax.swing.JFrame {
                         .addComponent(roleComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(gradeText)
                         .addComponent(passwordText)
-                        .addComponent(retypepasswordText, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                        .addComponent(retypepasswordText)
                         .addComponent(phonenumberText)))
                 .addGap(67, 67, 67))
         );
@@ -294,6 +295,8 @@ public class UserSignupForm extends javax.swing.JFrame {
                     throw new Exception();
                 }
             }
+            if(departmentCombobox.getSelectedItem().toString().equals("Other"))
+                Utilfunctions.executeUpdate("INSERT INTO `dept`(Course,`dept`, `deptName`) VALUES ('B.E','"+department.toUpperCase()+"','"+departmentfull.toUpperCase()+"')");
             Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`user` (`userCode`, `name`, `salutation`, `dept`, `grade`, `email`, `phone`) VALUES ('" + idnumberText.getText() + "', '" + nameText.getText() + "', '" + salutation + "', '" + department + "', '" + gradeText.getText() + "', '" + emailidText.getText() + "', '" + phonenumberText.getText() + "');");
             Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`login` (`id`, `userCode`, `password`, `role`) VALUES ('" + usernameText.getText() + "', '" + idnumberText.getText() + "', '" + Utilfunctions.MD5(passwordText.getText()).toString(16) + "', '" + role + "');");
         } catch (Exception e) {
@@ -405,6 +408,11 @@ public class UserSignupForm extends javax.swing.JFrame {
 
     private void departmentComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentComboboxActionPerformed
         department = departmentCombobox.getSelectedItem().toString();
+        if(department.equals("Other"))
+        {
+            departmentfull=(String) JOptionPane.showInputDialog(departmentCombobox, "Enter department's full name:", "Full name",1);
+            department=(String) JOptionPane.showInputDialog(departmentCombobox, "Enter department's Short name Eg:-CSE :", "Short name",1);
+        }
     }//GEN-LAST:event_departmentComboboxActionPerformed
 
     private void salutationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salutationComboBoxActionPerformed
