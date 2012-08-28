@@ -295,8 +295,9 @@ public class UserSignupForm extends javax.swing.JFrame {
                     throw new Exception();
                 }
             }
-            if(departmentCombobox.getSelectedItem().toString().equals("Other"))
-                Utilfunctions.executeUpdate("INSERT INTO `dept`(Course,`dept`, `deptName`) VALUES ('B.E','"+department.toUpperCase()+"','"+departmentfull.toUpperCase()+"')");
+            if(departmentCombobox.getSelectedItem().toString().equals("Other")) {
+                Utilfunctions.executeUpdate("INSERT INTO `dept`(Course,`dept`, `deptName`) VALUES ('"+NewCourseForm.course+"','"+NewCourseForm.department.toUpperCase()+"','"+NewCourseForm.departmentfull.toUpperCase()+"')");
+            }
             Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`user` (`userCode`, `name`, `salutation`, `dept`, `grade`, `email`, `phone`) VALUES ('" + idnumberText.getText() + "', '" + nameText.getText() + "', '" + salutation + "', '" + department + "', '" + gradeText.getText() + "', '" + emailidText.getText() + "', '" + phonenumberText.getText() + "');");
             Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`login` (`id`, `userCode`, `password`, `role`) VALUES ('" + usernameText.getText() + "', '" + idnumberText.getText() + "', '" + Utilfunctions.MD5(passwordText.getText()).toString(16) + "', '" + role + "');");
         } catch (Exception e) {
@@ -410,8 +411,10 @@ public class UserSignupForm extends javax.swing.JFrame {
         department = departmentCombobox.getSelectedItem().toString();
         if(department.equals("Other"))
         {
-            departmentfull=(String) JOptionPane.showInputDialog(departmentCombobox, "Enter department's full name:", "Full name",1);
-            department=(String) JOptionPane.showInputDialog(departmentCombobox, "Enter department's Short name Eg:-CSE :", "Short name",1);
+                NewCourseForm nf =new NewCourseForm();
+                Utilfunctions.setIconImage(nf);
+                Utilfunctions.setLocation(nf);
+                nf.setVisible(true);
         }
     }//GEN-LAST:event_departmentComboboxActionPerformed
 
