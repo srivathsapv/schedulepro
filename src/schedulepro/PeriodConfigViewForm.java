@@ -195,7 +195,7 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
     public static int pConfigId;
     public static JFrame pConfigChooseInvoker;
     public static JTextField pConfigTextField;
-    public static String source;
+    public static String source="";
     public static JTable srcTable;
     public static int tableRow;
 }
