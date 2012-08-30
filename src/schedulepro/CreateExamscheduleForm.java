@@ -89,7 +89,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
 
         jLabel5.setText("Date:");
 
-        jLabel6.setText("DD/MM/YYYY");
+        jLabel6.setText("YYYY-MM-YY");
 
         dateTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -106,6 +106,11 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         });
 
         jButton1.setText("Create");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setEditable(false);
 
@@ -217,13 +222,12 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
     }//GEN-LAST:event_yearComboBoxItemStateChanged
 
     private void dateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateTextFieldFocusLost
-        // TODO add your handling code here:
-        
-        
+        // TODO add your handling code here:        
     }//GEN-LAST:event_dateTextFieldFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:PeriodConfigViewForm.pConfigChooseInvoker = this;
+        if(!dateTextField.getText().isEmpty()){
         PeriodConfigViewForm.pConfigChooseInvoker = this;
         PeriodConfigViewForm.pConfigTextField = jTextField2;
         try {
@@ -233,6 +237,11 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
             pcv.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(EquipmentIssueForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        else
+        {
+                JOptionPane.showMessageDialog(subjectComboBox, "Please Enter a date");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -244,6 +253,11 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTextField1FocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

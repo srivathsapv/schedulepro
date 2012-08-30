@@ -167,7 +167,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="DD/MM/YYYY"/>
+        <Property name="text" type="java.lang.String" value="YYYY-MM-YY"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="dateTextField">
@@ -189,6 +189,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Create"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField2">
       <Properties>

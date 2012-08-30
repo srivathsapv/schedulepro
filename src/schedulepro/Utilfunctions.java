@@ -14,7 +14,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Random;
 import javax.swing.JComboBox;
@@ -230,6 +232,16 @@ public class Utilfunctions {
         return -1;
     }
     
+    public static String getDayOFWeek(String input)
+    {
+        int y = Integer.parseInt(input.substring(0, 4));
+        int m = Integer.parseInt(input.substring(5, 7));
+        int d = Integer.parseInt(input.substring(8, input.length()));
+        String dayNames[] = new DateFormatSymbols().getWeekdays();
+        Calendar date2 = Calendar.getInstance();
+        date2.set(y, m-1, d);
+        return dayNames[date2.get(Calendar.DAY_OF_WEEK)];
+    }
     private static Toolkit toolkit;
     private static Dimension dim;
     private static int width;
