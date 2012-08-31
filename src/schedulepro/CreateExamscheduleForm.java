@@ -23,7 +23,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
      */
     public CreateExamscheduleForm() {
         initComponents();
-        Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='"+LoginForm.userDept+"'");
+        Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='" + LoginForm.userDept + "'");
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -61,6 +61,8 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        sectionComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - Create Exam Schedule");
@@ -121,42 +123,59 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("Section:");
+
+        sectionComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                sectionComboBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(yearComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 103, Short.MAX_VALUE)
-                        .addComponent(courseComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                        .addGap(76, 76, 76)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel6))
+                                    .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(1, 1, 1))
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(yearComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 103, Short.MAX_VALUE)
+                                        .addComponent(courseComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(216, 216, 216))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +194,10 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                     .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -182,14 +205,14 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                     .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(34, 34, 34))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,34 +220,19 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
 
     private void courseComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_courseComboBoxItemStateChanged
         // TODO add your handling code here:
-        Utilfunctions.populateComboBoxwithQuery(yearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND course='"+courseComboBox.getSelectedItem()+"' order by `year` asc");
+        Utilfunctions.populateComboBoxwithQuery(yearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' order by `year` asc");
+
     }//GEN-LAST:event_courseComboBoxItemStateChanged
 
     private void yearComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_yearComboBoxItemStateChanged
-        try {
-            // TODO add your handling code here:
-            subjectComboBox.removeAllItems();
-            ResultSet result;
-            ResultSet result1;
-            ResultSet result2;
-            result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND `year`=" + yearComboBox.getSelectedItem() + " AND section = 'B' AND `course`='" + courseComboBox.getSelectedItem() + "'");
-            if (result.next()) {
-                result1 = Utilfunctions.executeQuery("SELECT `subCode` FROM `subclass` WHERE `classCode`=" + result.getString(1));
-                while (result1.next()) {
-                    result2 = Utilfunctions.executeQuery("select CONCAT(`subName`,'(',`subcode`,')') from `subject` WHERE `subcode`='" + result1.getString(1) + "' order by `subName` asc");
-                    result2.next();
-                    subjectComboBox.addItem(result2.getString(1));
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        Utilfunctions.populateComboBoxwithQuery(sectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' AND year=" + yearComboBox.getSelectedItem() + " order by `year` asc");
     }//GEN-LAST:event_yearComboBoxItemStateChanged
 
     private void dateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateTextFieldFocusLost
         // TODO add your handling code here:    
         if (!dateTextField.getText().isEmpty()) {
-            String DayOfWeek="";
+            String DayOfWeek = "";
             String input = dateTextField.getText().toString();
             int y = Integer.parseInt(input.substring(0, 4));
             int m = Integer.parseInt(input.substring(5, 7));
@@ -242,51 +250,66 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:PeriodConfigViewForm.pConfigChooseInvoker = this;
-        if(!dateTextField.getText().isEmpty()){
-        PeriodConfigViewForm.pConfigChooseInvoker = this;
-        PeriodConfigViewForm.pConfigTextField = jTextField2;
-        try {
-            PeriodConfigViewForm pcv = new PeriodConfigViewForm();
-            Utilfunctions.setIconImage(pcv);
-            Utilfunctions.setLocation(pcv);
-            pcv.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(EquipmentIssueForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-        else
-        {
-                JOptionPane.showMessageDialog(subjectComboBox, "Please Enter a date");
+        if (!dateTextField.getText().isEmpty()) {
+            PeriodConfigViewForm.pConfigChooseInvoker = this;
+            PeriodConfigViewForm.pConfigTextField = jTextField2;
+            try {
+                PeriodConfigViewForm pcv = new PeriodConfigViewForm();
+                Utilfunctions.setIconImage(pcv);
+                Utilfunctions.setLocation(pcv);
+                pcv.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(EquipmentIssueForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(subjectComboBox, "Please Enter a date");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
         // TODO add your handling code here:
-        if(!jTextField1.getText().equals("")) {
-            if(!Validation.isalphanumeric(jTextField1.getText())){
-                JOptionPane.showMessageDialog(null,"Exam Name should be alphanumeric");
+        if (!jTextField1.getText().equals("")) {
+            if (!Validation.isalphanumeric(jTextField1.getText())) {
+                JOptionPane.showMessageDialog(null, "Exam Name should be alphanumeric");
             }
         }
     }//GEN-LAST:event_jTextField1FocusLost
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int classCode=0;
-        int n=0;
-        ResultSet result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND `year`="+yearComboBox.getSelectedItem()+" AND `course`='"+courseComboBox.getSelectedItem()+"'");
+        int classCode = 0;
+        int n = 0;
+        ResultSet result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND `year`=" + yearComboBox.getSelectedItem() + " AND `course`='" + courseComboBox.getSelectedItem() + "' AND section='" + sectionComboBox.getSelectedItem() + "'");
         try {
-            while(result.next()){
-                classCode=Integer.parseInt(result.getString(1));
-                n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`) VALUES (NULL, '"+Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString())+"', '"+dateTextField.getText()+"', "+PeriodConfigViewForm.pConfigId+", "+classCode+", '"+jTextField1.getText()+"')");
-                if(n==1)
-                    n=0;
-                else
-                    JOptionPane.showMessageDialog(null, "Error in creating exam");
-            }
+            result.next();
+            classCode = Integer.parseInt(result.getString(1));
+            n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`) VALUES (NULL, '" + Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString()) + "', '" + dateTextField.getText() + "', " + PeriodConfigViewForm.pConfigId + ", " + classCode + ", '" + jTextField1.getText() + "')");
         } catch (SQLException ex) {
             Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void sectionComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sectionComboBoxItemStateChanged
+        // TODO add your handling code here:
+        try {
+            subjectComboBox.removeAllItems();
+            ResultSet result;
+            ResultSet result1;
+            ResultSet result2;
+            result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND `year`=" + yearComboBox.getSelectedItem() + " AND section = '" + sectionComboBox.getSelectedItem() + "' AND `course`='" + courseComboBox.getSelectedItem() + "'");
+            if (result.next()) {
+                result1 = Utilfunctions.executeQuery("SELECT `subCode` FROM `subclass` WHERE `classCode`=" + result.getString(1));
+                while (result1.next()) {
+                    result2 = Utilfunctions.executeQuery("select CONCAT(`subName`,'(',`subcode`,')') from `subject` WHERE `subcode`='" + result1.getString(1) + "' order by `subName` asc");
+                    result2.next();
+                    subjectComboBox.addItem(result2.getString(1));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_sectionComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -334,8 +357,10 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox sectionComboBox;
     private javax.swing.JComboBox subjectComboBox;
     private javax.swing.JComboBox yearComboBox;
     // End of variables declaration//GEN-END:variables
