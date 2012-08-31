@@ -236,7 +236,7 @@ public class Utilfunctions {
     {
         int y = Integer.parseInt(input.substring(0, 4));
         int m = Integer.parseInt(input.substring(5, 7));
-        int d = Integer.parseInt(input.substring(8, input.length()));
+        int d = Integer.parseInt(input.substring(8));
         String dayNames[] = new DateFormatSymbols().getWeekdays();
         Calendar date2 = Calendar.getInstance();
         date2.set(y, m-1, d);
