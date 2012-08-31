@@ -222,7 +222,22 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
     }//GEN-LAST:event_yearComboBoxItemStateChanged
 
     private void dateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateTextFieldFocusLost
-        // TODO add your handling code here:        
+        // TODO add your handling code here:    
+        if (!dateTextField.getText().isEmpty()) {
+            String DayOfWeek="";
+            String input = dateTextField.getText().toString();
+            int y = Integer.parseInt(input.substring(0, 4));
+            int m = Integer.parseInt(input.substring(5, 7));
+            int d = Integer.parseInt(input.substring(8));
+            if (!Validation.isValidDate(d, m, y)) {
+                JOptionPane.showMessageDialog(null, "Invalid date");
+                dateTextField.setText("");
+                dateTextField.requestFocus();
+            } else {
+                DayOfWeek = Utilfunctions.getDayOFWeek(dateTextField.getText());
+            }
+
+        }
     }//GEN-LAST:event_dateTextFieldFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -256,7 +271,21 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        int classCode=0;
+        int n=0;
+        ResultSet result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND `year`="+yearComboBox.getSelectedItem()+" AND `course`='"+courseComboBox.getSelectedItem()+"'");
+        try {
+            while(result.next()){
+                classCode=Integer.parseInt(result.getString(1));
+                n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`) VALUES (NULL, '"+Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString())+"', '"+dateTextField.getText()+"', "+PeriodConfigViewForm.pConfigId+", "+classCode+", '"+jTextField1.getText()+"')");
+                if(n==1)
+                    n=0;
+                else
+                    JOptionPane.showMessageDialog(null, "Error in creating exam");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
