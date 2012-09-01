@@ -18,11 +18,15 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+
 /**
  *
  * @author srivathsa
  */
 public class ExamScheduleViewForm extends javax.swing.JFrame {
+    private int selectedRow;
+    private int selectedColumn;
+    public static int examCode;
 
     /**
      * Creates new form ExamScheduleViewForm
@@ -99,13 +103,28 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        assignFacultyMenuItem = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        assignFacultyMenuItem.setText("Assign/Change Faculty");
+        assignFacultyMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignFacultyMenuItemActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(assignFacultyMenuItem);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - View Exam Schedule");
         setResizable(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Subjects Handled");
@@ -179,6 +198,28 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1MouseReleased
 
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        // TODO add your handling code here:
+        if(SwingUtilities.isRightMouseButton(evt)) {
+            JTable source = (JTable)evt.getSource();
+            selectedRow = source.rowAtPoint( evt.getPoint() );
+            selectedColumn = source.columnAtPoint( evt.getPoint() );
+            examCode = ExamTableModel.examCodes[selectedRow];
+            if (! source.isRowSelected(selectedRow))
+                source.changeSelection(selectedRow, selectedColumn, false, false);
+            
+            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_formMouseReleased
+
+    private void assignFacultyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignFacultyMenuItemActionPerformed
+        // TODO add your handling code here:
+        AssignFacultytoExamForm ef = new AssignFacultytoExamForm();
+        Utilfunctions.setIconImage(ef);
+        Utilfunctions.setLocation(ef);
+        ef.setVisible(true);
+    }//GEN-LAST:event_assignFacultyMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,17 +267,18 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem assignFacultyMenuItem;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
-
 class ExamTableModel extends AbstractTableModel {
         private String[] columnNames = {"Exam Name","Subject","Exam Date","Time Slot","Department","Course","Year","Section"};
         private Object[][] data;
 	
-        private int[] examCodes;
+        public  static int[] examCodes;
         private String[] examNames;
         private String[] subCodes;
         private String[] examDates;
