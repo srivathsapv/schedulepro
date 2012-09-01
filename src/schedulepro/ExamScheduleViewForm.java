@@ -120,11 +120,6 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - View Exam Schedule");
         setResizable(false);
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                formMouseReleased(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Subjects Handled");
@@ -178,10 +173,10 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         // TODO add your handling code here:
-        if(evt.getClickCount() == 2){
+        if (evt.getClickCount() == 2) {
             evt.consume();
             JTable source = (JTable) evt.getSource();
-            if(source.columnAtPoint(evt.getPoint()) == 3) {
+            if (source.columnAtPoint(evt.getPoint()) == 3) {
                 PeriodConfigViewForm pcvf;
                 try {
                     pcvf = new PeriodConfigViewForm();
@@ -195,22 +190,19 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
                     Logger.getLogger(ExamScheduleViewForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
-    }//GEN-LAST:event_jTable1MouseReleased
-
-    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        // TODO add your handling code here:
-        if(SwingUtilities.isRightMouseButton(evt)) {
-            JTable source = (JTable)evt.getSource();
-            selectedRow = source.rowAtPoint( evt.getPoint() );
-            selectedColumn = source.columnAtPoint( evt.getPoint() );
+        } else if (SwingUtilities.isRightMouseButton(evt)) {
+            JTable source = (JTable) evt.getSource();
+            selectedRow = source.rowAtPoint(evt.getPoint());
+            selectedColumn = source.columnAtPoint(evt.getPoint());
             examCode = ExamTableModel.examCodes[selectedRow];
-            if (! source.isRowSelected(selectedRow))
+            if (!source.isRowSelected(selectedRow)) {
                 source.changeSelection(selectedRow, selectedColumn, false, false);
-            
+            }
+
             jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_formMouseReleased
+
+    }//GEN-LAST:event_jTable1MouseReleased
 
     private void assignFacultyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignFacultyMenuItemActionPerformed
         // TODO add your handling code here:

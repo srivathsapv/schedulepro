@@ -26,37 +26,28 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         initComponents();
         
         examCode=ExamScheduleViewForm.examCode;
-        ResultSet result = Utilfunctions.executeQuery("select userCode from exam where examCode="+examCode);
+        ResultSet result = Utilfunctions.executeQuery("select userCode from examinvigilation where examCode="+examCode);
         try {
             if(result.next()){
                 ResultSet result1 = Utilfunctions.executeQuery("SELECT CONCAT(name,'(',userCode,')') FROM `user` WHERE userCode='"+result.getString(1)+"'");
                 result1.next();
                 assignedFacultyTextField.setText(result1.getString(1));
                 flag=true;
+                assignButton.setText("change");
+                this.setTitle("SchedulePro - Change Faculty");
             }
             else
             {
                 assignedFacultyTextField.setText("");
                 flag=false;
+                assignButton.setText("Assign");
+                this.setTitle("SchedulePro - Assign Faculty");
             }
         } catch (SQLException ex) {
             Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Utilfunctions.populateComboBoxwithQuery(changeFacultyComboBox, "SELECT userCode FROM user WHERE userCode NOT IN (SELECT userCode FROM examinvigilation) AND dept =  '"+LoginForm.userDept+"'");
-    addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-            try {
-                ExamScheduleViewForm df = new ExamScheduleViewForm();
-                Utilfunctions.setIconImage(df);
-                Utilfunctions.setLocation(df);
-                e.getWindow().setVisible(false);
-                df.setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            }
-        });
+        Utilfunctions.populateComboBoxwithQuery(changeFacultyComboBox, "SELECT CONCAT(name,'(',userCode,')') FROM user WHERE userCode NOT IN (SELECT userCode FROM examinvigilation) AND dept =  '"+LoginForm.userDept+"' order by name asc");
+    
     }
 
     /**
@@ -81,7 +72,6 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         jLabel1.setText("Assigned Faculty:");
 
         assignedFacultyTextField.setEditable(false);
-        assignedFacultyTextField.setEnabled(false);
 
         jLabel2.setText("Change Faculty:");
 
@@ -97,20 +87,19 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(changeFacultyComboBox, 0, 189, Short.MAX_VALUE)
-                            .addComponent(assignedFacultyTextField)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(changeFacultyComboBox, 0, 189, Short.MAX_VALUE)
+                    .addComponent(assignedFacultyTextField))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(92, Short.MAX_VALUE)
+                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,6 +128,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         else{
             Utilfunctions.executeUpdate("INSERT INTO `examinvigilation`(`id`, `examCode`, `userCode`) VALUES (NULL,"+examCode+",'"+Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString())+"')");
         }
+        this.setVisible(false);
     }//GEN-LAST:event_assignButtonActionPerformed
 
     /**
