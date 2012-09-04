@@ -133,6 +133,7 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
                 }
                 else {
                     pConfigTextField.setText(rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5));
+                    pConfigTextField.requestFocus();
                     this.setVisible(false);
                     pConfigChooseInvoker.setVisible(true);
                 }

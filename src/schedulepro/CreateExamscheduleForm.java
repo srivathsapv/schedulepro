@@ -8,6 +8,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -91,7 +95,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
 
         jLabel5.setText("Date:");
 
-        jLabel6.setText("YYYY-MM-YY");
+        jLabel6.setText("YYYY-MM-DD");
 
         dateTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -115,6 +119,16 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         });
 
         jTextField2.setEditable(false);
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField2FocusGained(evt);
+            }
+        });
+        jTextField2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTextField2PropertyChange(evt);
+            }
+        });
 
         jButton2.setText("Choose");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -241,11 +255,12 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Invalid date");
                 dateTextField.setText("");
                 dateTextField.requestFocus();
+                return;
             } else {
                 DayOfWeek = Utilfunctions.getDayOFWeek(dateTextField.getText());
             }
-
         }
+        changeDate();
     }//GEN-LAST:event_dateTextFieldFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -284,6 +299,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
             result.next();
             classCode = Integer.parseInt(result.getString(1));
             n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`) VALUES (NULL, '" + Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString()) + "', '" + dateTextField.getText() + "', " + PeriodConfigViewForm.pConfigId + ", " + classCode + ", '" + jTextField1.getText() + "')");
+            if(n >= 1) JOptionPane.showMessageDialog(null,"Exam added successfully");
         } catch (SQLException ex) {
             Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -311,6 +327,37 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_sectionComboBoxItemStateChanged
 
+    private void jTextField2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextField2PropertyChange
+        
+        
+    }//GEN-LAST:event_jTextField2PropertyChange
+
+    private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
+        changeDate();
+    }//GEN-LAST:event_jTextField2FocusGained
+    
+    private void changeDate(){
+        if(jTextField2.getText().equals("")) return;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date dt = df.parse(dateTextField.getText());
+            Calendar cl = Calendar.getInstance();
+            cl.setTime(dt);
+            
+            String query = "SELECT day FROM periodconfig where pconfigId = " + PeriodConfigViewForm.pConfigId;
+            ResultSet rs = Utilfunctions.executeQuery(query);
+            try {
+                rs.next();
+                cl.set(Calendar.DAY_OF_WEEK,Utilfunctions.getDayNumber(rs.getString(1)));
+                String changedDate = df.format(cl.getTime());
+                dateTextField.setText(changedDate);
+            } catch (SQLException ex) {
+                Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * @param args the command line arguments
      */
