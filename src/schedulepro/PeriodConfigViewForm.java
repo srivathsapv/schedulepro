@@ -131,6 +131,27 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
                     etm.fireTableCellUpdated(tableRow,3);
                     this.setVisible(false);
                 }
+                else if(source.equals("subconstraint")){
+                    Boolean dup = false;
+                    String configString = rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5);
+                    if(rs.getInt(5) == 2) {
+                        JOptionPane.showMessageDialog(null,"Cannot choose a recess period");
+                        return;
+                    }
+                    for(int i=0;i<srcListModel.size();i++){
+                        if(srcListModel.get(i).toString().equals(configString)){
+                            dup = true;
+                            break;
+                        }
+                    }
+                    if(dup) JOptionPane.showMessageDialog(null,"Already Added");
+                    else {
+                        srcListModel.addElement(configString);
+                        SubjectConstraintForm.pConfigs.add(pConfigId);
+                    }
+                    
+                    this.setVisible(false);
+                }
                 else {
                     pConfigTextField.setText(rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5));
                     pConfigTextField.requestFocus();
@@ -199,6 +220,7 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
     public static String source="";
     public static JTable srcTable;
     public static int tableRow;
+    public static DefaultListModel srcListModel;
 }
 
 class PeriodConfigTableModel extends AbstractTableModel {
