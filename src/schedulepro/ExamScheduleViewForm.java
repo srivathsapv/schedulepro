@@ -152,7 +152,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -269,7 +269,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 class ExamTableModel extends AbstractTableModel {
-        private String[] columnNames = {"Exam Name","Subject","Exam Date","Time Slot","Department","Course","Year","Section"};
+        private String[] columnNames = {"Exam Name","Subject","Exam Date","Time Slot","Department","Course","Year","Section","Assigned Faculty"};
         private Object[][] data;
 	
         public  static int[] examCodes;
@@ -279,6 +279,7 @@ class ExamTableModel extends AbstractTableModel {
         private String[] pconfigIds;
         private String[] classCodes;
         private static int msgCount=0;
+        private String assignedFaculty="";
         
         public ExamTableModel() throws SQLException{
             String query = "SELECT * FROM exam ORDER BY examName,examDate";
@@ -312,6 +313,17 @@ class ExamTableModel extends AbstractTableModel {
                 ResultSet classResult = Utilfunctions.executeQuery(query);
                 classResult.next();
                 
+                query = "SELECT userCode FROM examinvigilation WHERE examCode = " + rs.getString(1);
+                ResultSet userResult = Utilfunctions.executeQuery(query);
+                if (userResult.next()) {
+                    query = "SELECT CONCAT(name,'(',userCode,')') FROM user WHERE userCode = '" + userResult.getString(1) + "'";
+                    userResult = Utilfunctions.executeQuery(query);
+                    userResult.next();
+                    assignedFaculty = userResult.getString(1);
+                } else {
+                    assignedFaculty = "";
+                }
+                
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                 String examDate = df.format(rs.getDate(4));
                 
@@ -322,7 +334,7 @@ class ExamTableModel extends AbstractTableModel {
                 pconfigIds[i] = rs.getString(5);
                 classCodes[i] = rs.getString(6);
                 
-                Object[] values = {rs.getString(2),subResult.getString(1),examDate,pconfigResult.getString(2).substring(0,5) + " to " + pconfigResult.getString(3).substring(0,5),classResult.getString(1),classResult.getString(2),classResult.getString(3),classResult.getString(4)};
+                Object[] values = {rs.getString(2),subResult.getString(1),examDate,pconfigResult.getString(2).substring(0,5) + " to " + pconfigResult.getString(3).substring(0,5),classResult.getString(1),classResult.getString(2),classResult.getString(3),classResult.getString(4),assignedFaculty};
                 data[i++] = values;
             }   
             fireTableDataChanged();
