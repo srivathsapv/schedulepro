@@ -4,50 +4,79 @@
  */
 package schedulepro;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Sasi Praveen
  */
 public class AssignFacultytoExamForm extends javax.swing.JFrame {
-    private int examCode=0;
-    private boolean flag=false;
+
+    private int examCode = 0;
+    private String examDate = "";
+    private boolean flag = false;
+    private String Query;
+    private boolean assigned = false;
+    private String excode="";
 
     /**
      * Creates new form AssignFacultytoExamForm
      */
     public AssignFacultytoExamForm() {
         initComponents();
-        
-        examCode=ExamScheduleViewForm.examCode;
-        ResultSet result = Utilfunctions.executeQuery("select userCode from examinvigilation where examCode="+examCode);
+
+        examCode = ExamScheduleViewForm.examCode;
+        examDate = ExamScheduleViewForm.examDate;
+        ResultSet result = Utilfunctions.executeQuery("select userCode from examinvigilation where examCode=" + examCode);
         try {
-            if(result.next()){
-                ResultSet result1 = Utilfunctions.executeQuery("SELECT CONCAT(name,'(',userCode,')') FROM `user` WHERE userCode='"+result.getString(1)+"'");
+            if (result.next()) {
+                ResultSet result1 = Utilfunctions.executeQuery("SELECT CONCAT(name,'(',userCode,')') FROM `user` WHERE userCode='" + result.getString(1) + "'");
                 result1.next();
                 assignedFacultyTextField.setText(result1.getString(1));
-                flag=true;
+                flag = true;
                 assignButton.setText("change");
                 this.setTitle("SchedulePro - Change Faculty");
-            }
-            else
-            {
+            } else {
                 assignedFacultyTextField.setText("");
-                flag=false;
+                flag = false;
                 assignButton.setText("Assign");
                 this.setTitle("SchedulePro - Assign Faculty");
             }
         } catch (SQLException ex) {
             Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Utilfunctions.populateComboBoxwithQuery(changeFacultyComboBox, "SELECT CONCAT(name,'(',userCode,')') FROM user WHERE userCode NOT IN (SELECT userCode FROM examinvigilation) AND dept =  '"+LoginForm.userDept+"' order by name asc");
-    
+        Query = "SELECT CONCAT(name,'(',userCode,')') FROM user WHERE  dept =  '" + LoginForm.userDept + "' order by name asc";
+        result = Utilfunctions.executeQuery(Query);
+        ResultSet r1;
+        ResultSet r2;
+        try {
+            while (result.next() != false) {
+                assigned = false;
+                Query = "select examCode from examinvigilation where userCode = '" + Utilfunctions.getWithinBrackets(result.getString(1)) + "'";
+                r1 = Utilfunctions.executeQuery(Query);
+                while (r1.next()) {
+                    Query = "select examDate from exam where examCode = " + r1.getString(1);
+                    r2 = Utilfunctions.executeQuery(Query);
+                    r2.next();
+                    if (r2.getString(1).equals(examDate)) {
+                        assigned = true;
+                        excode = r1.getString(1);
+                        break;
+                    }
+                }
+                if (assigned) {
+                    changeFacultyComboBox.addItem("<html><font color=red>" + result.getString(1) + "</font></html>");
+                } else {
+                    changeFacultyComboBox.addItem("<html><font color=green>" + result.getString(1) + "</font></html>");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -122,13 +151,29 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
 
     private void assignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignButtonActionPerformed
         // TODO add your handling code here:
-        if(flag){
-            Utilfunctions.executeUpdate("UPDATE `examinvigilation` SET `userCode`='"+Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString())+"' WHERE `examCode`="+examCode);
+        ResultSet r1;
+        ResultSet r2;
+        ResultSet r3;
+        if (changeFacultyComboBox.getSelectedItem().toString().contains("green")) {
+            if (flag) {
+                Utilfunctions.executeUpdate("UPDATE `examinvigilation` SET `userCode`='" + Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString()) + "' WHERE `examCode`=" + examCode);
+            } else {
+                Utilfunctions.executeUpdate("INSERT INTO `examinvigilation`(`id`, `examCode`, `userCode`) VALUES (NULL," + examCode + ",'" + Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString()) + "')");
+            }
+            this.setVisible(false);
+        } else {
+            try {
+                r1 = Utilfunctions.executeQuery("select examDate, classCode, subCode from exam where examCode ="+excode);
+                r1.next();
+                r2 = Utilfunctions.executeQuery("select CONCAT(subName,'(',subcode,')') from subject where subcode = '"+r1.getString(3)+"'");
+                r2.next();
+                r3 = Utilfunctions.executeQuery("select year, course, section, roomNo from class where classCode = "+r1.getString(2));
+                r3.next();
+                JOptionPane.showMessageDialog(null, "Alreay assigned to:\nSubject = "+r2.getString(1)+"\nClass = "+r3.getString(1)+"-"+r3.getString(3)+" "+r3.getString(2)+"\nRoom No. = "+r3.getString(4));
+            } catch (SQLException ex) {
+                Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        else{
-            Utilfunctions.executeUpdate("INSERT INTO `examinvigilation`(`id`, `examCode`, `userCode`) VALUES (NULL,"+examCode+",'"+Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString())+"')");
-        }
-        this.setVisible(false);
     }//GEN-LAST:event_assignButtonActionPerformed
 
     /**

@@ -27,6 +27,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     private int selectedRow;
     private int selectedColumn;
     public static int examCode;
+    public static String examDate;
 
     /**
      * Creates new form ExamScheduleViewForm
@@ -195,6 +196,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
             selectedRow = source.rowAtPoint(evt.getPoint());
             selectedColumn = source.columnAtPoint(evt.getPoint());
             examCode = ExamTableModel.examCodes[selectedRow];
+            examDate = ExamTableModel.examDates[selectedRow];
             if (!source.isRowSelected(selectedRow)) {
                 source.changeSelection(selectedRow, selectedColumn, false, false);
             }
@@ -273,7 +275,7 @@ class ExamTableModel extends AbstractTableModel {
         public  static int[] examCodes;
         private String[] examNames;
         private String[] subCodes;
-        private String[] examDates;
+        public static String[] examDates;
         private String[] pconfigIds;
         private String[] classCodes;
         private static int msgCount=0;
