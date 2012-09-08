@@ -6,7 +6,7 @@ package schedulepro;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class NewCourseForm extends javax.swing.JFrame {
     public static String course;

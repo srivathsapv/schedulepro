@@ -16,7 +16,7 @@ import javax.swing.table.TableColumn;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class ViewSubjectDetailsForm extends javax.swing.JFrame {
 

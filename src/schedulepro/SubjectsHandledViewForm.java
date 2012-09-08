@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class SubjectsHandledViewForm extends javax.swing.JFrame {
 

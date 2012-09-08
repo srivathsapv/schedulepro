@@ -192,6 +192,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu2.setText("Faculty");
 
         jMenuItem8.setText("Constraints");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
@@ -451,7 +456,6 @@ public class DashboardForm extends javax.swing.JFrame {
         ClassDetailsForm cdf = new ClassDetailsForm();
         Utilfunctions.setIconImage(cdf);
         Utilfunctions.setLocation(cdf);
-        cdf.setTitle("Class Detail");
         this.setVisible(false);
         cdf.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
@@ -741,6 +745,15 @@ public class DashboardForm extends javax.swing.JFrame {
         this.setVisible(false);
         scf.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        StaffConstraintForm stcf = new StaffConstraintForm();
+        Utilfunctions.setIconImage(stcf);
+        Utilfunctions.setLocation(stcf);
+        this.setVisible(false);
+        stcf.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments

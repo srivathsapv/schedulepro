@@ -6,6 +6,7 @@ package schedulepro;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,8 +21,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
     private String examDate = "";
     private boolean flag = false;
     private String Query;
-    private boolean assigned = false;
-    private String excode="";
+    private Vector assignedFaculty = new Vector();
 
     /**
      * Creates new form AssignFacultytoExamForm
@@ -49,33 +49,25 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Query = "SELECT CONCAT(name,'(',userCode,')') FROM user WHERE  dept =  '" + LoginForm.userDept + "' order by name asc";
+        Query = "SELECT `userCode` FROM `examinvigilation` WHERE `examCode`= ANY (SELECT `examCode` FROM `exam` WHERE `examDate`='"+examDate+"')";
         result = Utilfunctions.executeQuery(Query);
         ResultSet r1;
-        ResultSet r2;
         try {
-            while (result.next() != false) {
-                assigned = false;
-                Query = "select examCode from examinvigilation where userCode = '" + Utilfunctions.getWithinBrackets(result.getString(1)) + "'";
-                r1 = Utilfunctions.executeQuery(Query);
-                while (r1.next()) {
-                    Query = "select examDate from exam where examCode = " + r1.getString(1);
-                    r2 = Utilfunctions.executeQuery(Query);
-                    r2.next();
-                    if (r2.getString(1).equals(examDate)) {
-                        assigned = true;
-                        excode = r1.getString(1);
-                        break;
-                    }
-                }
-                if (assigned) {
-                    changeFacultyComboBox.addItem("<html><font color=red>" + result.getString(1) + "</font></html>");
-                } else {
-                    changeFacultyComboBox.addItem("<html><font color=green>" + result.getString(1) + "</font></html>");
-                }
+            while(result.next()){
+                assignedFaculty.addElement(result.getString(1));
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            Query = "SELECT userCode, CONCAT(name,'(',userCode,')') FROM user WHERE  dept =  '" + LoginForm.userDept + "' order by name asc";
+            r1 = Utilfunctions.executeQuery(Query);
+            while(r1.next()){
+                System.out.println(r1.getString(1)+"\n"+r1.getString(2));
+            if (assignedFaculty.contains(r1.getString(1))) {
+                        changeFacultyComboBox.addItem("<html><font color=red>" + r1.getString(2) + "</font></html>");
+                    } else {
+                        changeFacultyComboBox.addItem("<html><font color=green>" + r1.getString(2) + "</font></html>");
+                    }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -151,6 +143,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
 
     private void assignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignButtonActionPerformed
         // TODO add your handling code here:
+        ResultSet r;
         ResultSet r1;
         ResultSet r2;
         ResultSet r3;
@@ -163,7 +156,9 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             this.setVisible(false);
         } else {
             try {
-                r1 = Utilfunctions.executeQuery("select examDate, classCode, subCode from exam where examCode ="+excode);
+                r = Utilfunctions.executeQuery("select examCode from examinvigilation where userCode ='"+Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString())+"'");
+                r.next();
+                r1 = Utilfunctions.executeQuery("select examDate, classCode, subCode from exam where examCode ="+r.getString(1));
                 r1.next();
                 r2 = Utilfunctions.executeQuery("select CONCAT(subName,'(',subcode,')') from subject where subcode = '"+r1.getString(3)+"'");
                 r2.next();

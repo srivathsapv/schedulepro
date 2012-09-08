@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class CreateExamscheduleForm extends javax.swing.JFrame {
 

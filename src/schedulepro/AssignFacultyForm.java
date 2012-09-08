@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Home
+ * @author Sasi Praveen
  */
 public class AssignFacultyForm extends javax.swing.JFrame {
 
