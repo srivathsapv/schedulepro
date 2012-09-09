@@ -8,8 +8,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,14 +23,17 @@ public class StaffConstraintForm extends javax.swing.JFrame {
     private String workingPeriod="";
     private String minInterval="";
     private boolean flag = false;
+    private Vector workHourConfigId = new Vector();
+   
 
     /**
      * Creates new form StaffConstraintForm
      */
     public StaffConstraintForm() {
             initComponents();
-        try {
-            ResultSet result = Utilfunctions.executeQuery("select * from staffconstraint where userCode = '"+LoginForm.userCode+"'" );
+            ResultSet result,r1;
+            try {
+            result = Utilfunctions.executeQuery("select * from staffconstraint where userCode = '"+LoginForm.userCode+"'" );
             if(result.next()){
                 workingPeriod = result.getString(2);
                workingPeriodsTextField.setText(workingPeriod);
@@ -38,6 +44,20 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        DefaultListModel model = new DefaultListModel();
+        result = Utilfunctions.executeQuery("SELECT `workHourConfigId` FROM `userworkid` WHERE `userCode`='"+LoginForm.userCode+"'");
+        try {
+            while(result.next()){
+                r1 = Utilfunctions.executeQuery("SELECT * FROM `staffworkhour` WHERE `workHourConfigId`="+result.getString(1));
+                r1.next();
+                model.addElement(r1.getString(2)+" "+r1.getString(3)+" - "+r1.getString(4));
+                workHourConfigId.addElement(r1.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        workHourList.setModel(model);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -107,6 +127,11 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             }
         });
 
+        workHourList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                workHourListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(workHourList);
 
         jLabel6.setText("Work Hours:");
@@ -119,6 +144,12 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         });
 
         removeButton.setText("Remove");
+        removeButton.setEnabled(false);
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -232,6 +263,11 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             workingPeriodsTextField.setText(workingPeriod);
             minimumIntervalTextField.setText(minInterval);
         }
+        DashboardForm df = new DashboardForm();
+        Utilfunctions.setIconImage(df);
+        Utilfunctions.setLocation(df);
+        setVisible(false);
+        df.setVisible(true);
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
@@ -240,8 +276,28 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         Utilfunctions.setLocation(wf);
         Utilfunctions.setLocation(wf);
         wf.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_addButtonActionPerformed
 
+    private void workHourListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workHourListMouseClicked
+        // TODO add your handling code here:
+            removeButton.setEnabled(true);
+    }//GEN-LAST:event_workHourListMouseClicked
+
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
+        // TODO add your handling code here:
+        int x = workHourList.getSelectedIndex();
+        int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this workHour?", "SchedulePro - Faculty Constraints", JOptionPane.YES_NO_OPTION);
+        if(n==JOptionPane.YES_OPTION){    
+            Utilfunctions.executeUpdate("DELETE FROM `staffworkhour` WHERE `workHourConfigId`="+workHourConfigId.get(x));
+            Utilfunctions.executeUpdate("DELETE FROM `userworkid` WHERE `workHourConfigId`="+workHourConfigId.get(x));
+            DefaultListModel model = (DefaultListModel)workHourList.getModel();
+            workHourConfigId.removeElementAt(x);
+            model.remove(x);
+        }
+    }//GEN-LAST:event_removeButtonActionPerformed
+
+  
     /**
      * @param args the command line arguments
      */

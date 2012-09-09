@@ -9,6 +9,8 @@ import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,10 @@ import javax.swing.JOptionPane;
  * @author Sasi Praveen
  */
 public class WorkHourForm extends javax.swing.JFrame {
+
+    private static String timeFrom;
+    private static String timeTo;
+    private String day;
 
     /**
      * Creates new form PeriodConfigForm
@@ -25,11 +31,11 @@ public class WorkHourForm extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                StaffConstraintForm df = new StaffConstraintForm();
-                Utilfunctions.setIconImage(df);
-                Utilfunctions.setLocation(df);
-                e.getWindow().setVisible(false);
-                df.setVisible(true);
+                StaffConstraintForm sf = new StaffConstraintForm();
+                Utilfunctions.setIconImage(sf);
+                Utilfunctions.setLocation(sf);
+                setVisible(false);
+                sf.setVisible(true);
             }
         });
         jComboBox1.setSelectedIndex(0);
@@ -165,45 +171,52 @@ public class WorkHourForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
-        Calendar cl1 = Calendar.getInstance();        
-        
-        cl1.set(Calendar.MINUTE,Integer.parseInt(jSpinner2.getValue().toString()));
-        cl1.set(Calendar.HOUR,Integer.parseInt(jSpinner1.getValue().toString()));
-        
-        if(jComboBox2.getSelectedItem().toString().equals("AM")){
-            cl1.set(Calendar.AM_PM,Calendar.AM);            
+        try {
+            // TODO add your handling code here:
+            Calendar cl1 = Calendar.getInstance();
+
+            cl1.set(Calendar.MINUTE, Integer.parseInt(jSpinner2.getValue().toString()));
+            cl1.set(Calendar.HOUR, Integer.parseInt(jSpinner1.getValue().toString()));
+
+            if (jComboBox2.getSelectedItem().toString().equals("AM")) {
+                cl1.set(Calendar.AM_PM, Calendar.AM);
+            } else {
+                cl1.set(Calendar.AM_PM, Calendar.PM);
+            }
+
+            Calendar cl2 = Calendar.getInstance();
+            cl2.set(Calendar.HOUR, Integer.parseInt(jSpinner3.getValue().toString()));
+            cl2.set(Calendar.MINUTE, Integer.parseInt(jSpinner4.getValue().toString()));
+            if (jComboBox3.getSelectedItem().toString().equals("AM")) {
+                cl2.set(Calendar.AM_PM, Calendar.AM);
+            } else {
+                cl2.set(Calendar.AM_PM, Calendar.PM);
+            }
+
+            if (cl1.compareTo(cl2) == 1) {
+                JOptionPane.showMessageDialog(null, "Start time cannot be later than end time");
+                return;
+            }
+
+            timeFrom = cl1.getTime().getHours() + ":" + cl1.getTime().getMinutes();
+            timeTo = cl2.getTime().getHours() + ":" + cl2.getTime().getMinutes();
+            day = jComboBox1.getSelectedItem().toString();
+
+            int n = Utilfunctions.executeUpdate("INSERT INTO staffworkhour(workHourConfigId,day,workHourFrom,workHourTo) VALUES(NULL,'" + day + "','" + timeFrom + "','" + timeTo + "')");
+            if (n == 1) {
+                JOptionPane.showMessageDialog(null, "Work Hour added successfully");
+            }
+            ResultSet r = Utilfunctions.executeQuery("select workHourConfigId from staffworkhour where day = '" + day + "' AND workHourFrom = '" + timeFrom + "' AND workHourTo ='" + timeTo + "'");
+            r.next();
+            Utilfunctions.executeUpdate("INSERT INTO `userworkid`(`id`, `userCode`, `workHourConfigId`) VALUES (NULL,'" + LoginForm.userCode + "'," + r.getString(1) + ")");
+            StaffConstraintForm sf = new StaffConstraintForm();
+            Utilfunctions.setIconImage(sf);
+            Utilfunctions.setLocation(sf);
+            setVisible(false);
+            sf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkHourForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else {
-            cl1.set(Calendar.AM_PM,Calendar.PM);
-        }
-        
-        Calendar cl2 = Calendar.getInstance();
-        cl2.set(Calendar.HOUR,Integer.parseInt(jSpinner3.getValue().toString()));
-        cl2.set(Calendar.MINUTE,Integer.parseInt(jSpinner4.getValue().toString()));
-        if(jComboBox3.getSelectedItem().toString().equals("AM")){
-            cl2.set(Calendar.AM_PM,Calendar.AM);
-        }
-        else {
-            cl2.set(Calendar.AM_PM,Calendar.PM);
-        }
-        
-        if(cl1.compareTo(cl2) == 1) {
-            JOptionPane.showMessageDialog(null,"Start time cannot be later than end time");
-            return;
-        }
-        
-        String timeFrom = cl1.getTime().getHours() + ":" + cl1.getTime().getMinutes();
-        String timeTo = cl2.getTime().getHours() + ":" + cl2.getTime().getMinutes();
-        String day = jComboBox1.getSelectedItem().toString();
-        
-        int n = Utilfunctions.executeUpdate("INSERT INTO staffworkhour(workHourConfigId,day,workHourFrom,workHourTo) VALUES(NULL,'" + day + "','" + timeFrom + "','" + timeTo + "')");
-        if(n == 1) JOptionPane.showMessageDialog(null,"Work Hour added successfully");
-        this.setVisible(false);
-        StaffConstraintForm df = new StaffConstraintForm();
-        Utilfunctions.setIconImage(df);
-        Utilfunctions.setLocation(df);
-        df.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed
 
     /**
@@ -241,7 +254,6 @@ public class WorkHourForm extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new WorkHourForm().setVisible(true);
             }
