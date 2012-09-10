@@ -24,6 +24,9 @@ public class StaffConstraintForm extends javax.swing.JFrame {
     private String minInterval="";
     private boolean flag = false;
     private Vector workHourConfigId = new Vector();
+    private Vector day = new Vector();
+    private Vector timeFrom = new Vector();
+    private Vector timeTo = new Vector();
    
 
     /**
@@ -50,6 +53,9 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             while(result.next()){
                 r1 = Utilfunctions.executeQuery("SELECT * FROM `staffworkhour` WHERE `workHourConfigId`="+result.getString(1));
                 r1.next();
+                day.addElement(r1.getString(2));
+                timeFrom.addElement(r1.getString(3));
+                timeTo.addElement(r1.getString(4));
                 model.addElement(r1.getString(2)+" "+r1.getString(3)+" - "+r1.getString(4));
                 workHourConfigId.addElement(r1.getString(1));
             }
@@ -274,7 +280,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         WorkHourForm wf = new WorkHourForm();
         Utilfunctions.setLocation(wf);
-        Utilfunctions.setLocation(wf);
+        Utilfunctions.setIconImage(wf);
         wf.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addButtonActionPerformed
@@ -286,11 +292,20 @@ public class StaffConstraintForm extends javax.swing.JFrame {
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         // TODO add your handling code here:
+        ResultSet r;
         int x = workHourList.getSelectedIndex();
         int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this workHour?", "SchedulePro - Faculty Constraints", JOptionPane.YES_NO_OPTION);
         if(n==JOptionPane.YES_OPTION){    
             Utilfunctions.executeUpdate("DELETE FROM `staffworkhour` WHERE `workHourConfigId`="+workHourConfigId.get(x));
             Utilfunctions.executeUpdate("DELETE FROM `userworkid` WHERE `workHourConfigId`="+workHourConfigId.get(x));
+            r = Utilfunctions.executeQuery("SELECT `pconfigId` FROM `periodconfig` WHERE day ='"+day.get(x) +"' and timeFrom and timeTo not between '"+timeFrom.get(x) +"' and '"+timeTo.get(x) +"'");
+            try {
+                while(r.next()){
+                    Utilfunctions.executeUpdate("DELETE FROM `staffperiodexception` WHERE `userCode`='"+LoginForm.userCode+"' and `pconfigId`="+r.getString(1));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
             DefaultListModel model = (DefaultListModel)workHourList.getModel();
             workHourConfigId.removeElementAt(x);
             model.remove(x);

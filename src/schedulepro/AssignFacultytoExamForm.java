@@ -59,7 +59,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             Query = "SELECT userCode, CONCAT(name,'(',userCode,')') FROM user WHERE  dept =  '" + LoginForm.userDept + "' order by name asc";
             r1 = Utilfunctions.executeQuery(Query);
             while(r1.next()){
-                System.out.println(r1.getString(1)+"\n"+r1.getString(2));
+                //System.out.println(r1.getString(1)+"\n"+r1.getString(2));
             if (assignedFaculty.contains(r1.getString(1))) {
                         changeFacultyComboBox.addItem("<html><font color=red>" + r1.getString(2) + "</font></html>");
                     } else {

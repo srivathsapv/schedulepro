@@ -209,6 +209,10 @@ public class WorkHourForm extends javax.swing.JFrame {
             ResultSet r = Utilfunctions.executeQuery("select workHourConfigId from staffworkhour where day = '" + day + "' AND workHourFrom = '" + timeFrom + "' AND workHourTo ='" + timeTo + "'");
             r.next();
             Utilfunctions.executeUpdate("INSERT INTO `userworkid`(`id`, `userCode`, `workHourConfigId`) VALUES (NULL,'" + LoginForm.userCode + "'," + r.getString(1) + ")");
+            r = Utilfunctions.executeQuery("SELECT `pconfigId` FROM `periodconfig` WHERE day ='"+day+"' and timeFrom and timeTo not between '"+timeFrom+"' and '"+timeTo+"'");
+            while(r.next()){
+                Utilfunctions.executeUpdate("INSERT INTO `staffperiodexception`(`id`, `userCode`, `pconfigId`) VALUES (NULL,'"+LoginForm.userCode+"',"+r.getString(1)+")");
+            }
             StaffConstraintForm sf = new StaffConstraintForm();
             Utilfunctions.setIconImage(sf);
             Utilfunctions.setLocation(sf);
