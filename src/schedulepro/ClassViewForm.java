@@ -128,6 +128,8 @@ public class ClassViewForm extends javax.swing.JFrame {
             int classCode = model.getClassCode(selectedRow);
             String query = "DELETE FROM class WHERE classCode = " + classCode;
             n = Utilfunctions.executeUpdate(query);
+            Utilfunctions.executeQuery("DELETE FROM subclass WHERE classCode = " + classCode);
+            Utilfunctions.executeQuery("DELETE FROM `equipmentissue` WHERE classCode = " + classCode);
             if(n >= 1) {
                 JOptionPane.showMessageDialog(null,"Class Deleted");
                 try {

@@ -35,11 +35,14 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         try {
             if (result.next()) {
                 ResultSet result1 = Utilfunctions.executeQuery("SELECT CONCAT(name,'(',userCode,')') FROM `user` WHERE userCode='" + result.getString(1) + "'");
-                result1.next();
-                assignedFacultyTextField.setText(result1.getString(1));
-                flag = true;
-                assignButton.setText("change");
-                this.setTitle("SchedulePro - Change Faculty");
+                if (result1.next()) {
+                    assignedFacultyTextField.setText(result1.getString(1));
+                    flag = true;
+                    assignButton.setText("change");
+                    this.setTitle("SchedulePro - Change Faculty");
+                } else {
+                    flag = true;
+                }
             } else {
                 assignedFacultyTextField.setText("");
                 flag = false;

@@ -142,6 +142,10 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
             try {
                 
                 Utilfunctions.executeUpdate("DELETE FROM `subject` WHERE `subcode`='" + SubjectDetailsTable.getValueAt(selectedRow,0) + "'");
+                Utilfunctions.executeUpdate("DELETE FROM `subclass` WHERE `subCode`='" + SubjectDetailsTable.getValueAt(selectedRow,0) + "'");
+                Utilfunctions.executeUpdate("DELETE FROM `subjectconstraint` WHERE `subCode`='" + SubjectDetailsTable.getValueAt(selectedRow,0) + "'");
+                Utilfunctions.executeUpdate("DELETE FROM `subperiodexception` WHERE `subCode`='" + SubjectDetailsTable.getValueAt(selectedRow,0) + "'");
+                Utilfunctions.executeUpdate("DELETE FROM `exam` WHERE `subCode`='" + SubjectDetailsTable.getValueAt(selectedRow,0) + "'");
             } catch (Exception ex) {
                 Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
             }

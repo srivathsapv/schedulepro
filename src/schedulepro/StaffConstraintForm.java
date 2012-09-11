@@ -260,7 +260,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         if (flag) {
             n = Utilfunctions.executeUpdate("UPDATE `staffconstraint` SET `totalPPW`=" + workingPeriod + ",`minInterval`=" + minInterval + " WHERE userCode = '" + LoginForm.userCode + "'");
         } else {
-            n = Utilfunctions.executeUpdate("INSERT INTO `staffconstraint`(`userCode`, `totalPPW`, `minInterval`, `workHourConfigId`) VALUES ('" + LoginForm.userCode + "'," + workingPeriod + "," + minInterval + ",0)");
+            n = Utilfunctions.executeUpdate("INSERT INTO `staffconstraint`(`userCode`, `totalPPW`, `minInterval`) VALUES ('" + LoginForm.userCode + "'," + workingPeriod + "," + minInterval + ")");
         }
         if (n != 1) {
             JOptionPane.showMessageDialog(null, "Please Check the errors");

@@ -177,7 +177,7 @@ public class UserViewForm extends javax.swing.JFrame {
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
         // TODO add your handling code here:
-        ResultSet result;
+        ResultSet result,r;
         int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this User?", "Delete User", JOptionPane.YES_NO_OPTION);
         if (opt == JOptionPane.YES_OPTION) {
             result = Utilfunctions.executeQuery("SELECT `userCode` FROM `login` WHERE `id`='" + usersTable.getValueAt(selectedRow, 0) + "'");
@@ -185,6 +185,15 @@ public class UserViewForm extends javax.swing.JFrame {
                 result.next();
                 Utilfunctions.executeUpdate("DELETE FROM `login` WHERE `userCode`='" + result.getString(1) + "'");
                 Utilfunctions.executeUpdate("DELETE FROM `user` WHERE `userCode`='" + result.getString(1) + "'");
+                Utilfunctions.executeUpdate("DELETE FROM `staffconstraint` WHERE `userCode`='" + result.getString(1) + "'");
+                Utilfunctions.executeUpdate("DELETE FROM `staffperiodexception` WHERE `userCode`='" + result.getString(1) + "'");
+                r = Utilfunctions.executeQuery("SELECT `workHourConfigId` FROM `userworkid` WHERE `userCode`='" + result.getString(1) + "'");
+                while(r.next()){
+                    Utilfunctions.executeUpdate("DELETE FROM `staffworkhour` WHERE `workHourConfigId`='" + r.getString(1) + "'");
+                }
+                Utilfunctions.executeUpdate("DELETE FROM `userworkid` WHERE `userCode`='" + result.getString(1) + "'");
+                Utilfunctions.executeUpdate("UPDATE `examinvigilation` SET `userCode`= '' WHERE `userCode`='" + result.getString(1) + "'");
+                Utilfunctions.executeUpdate("DELETE FROM `equipmentissue` WHERE `userCode`='" + result.getString(1) + "'");
             } catch (SQLException ex) {
                 Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
             }

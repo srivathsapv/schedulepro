@@ -158,6 +158,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         int opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this equipment?","Delete Equipment",JOptionPane.YES_NO_OPTION);
         if(opt == JOptionPane.YES_OPTION){
             Utilfunctions.executeUpdate("DELETE FROM equipment WHERE equipId = '" + jTable1.getValueAt(selectedRow,0) + "'");
+            Utilfunctions.executeUpdate("DELETE FROM `equipmentissue` WHERE `equipId`='" + jTable1.getValueAt(selectedRow,0) + "'");
             EquipmentTableModel model = (EquipmentTableModel)jTable1.getModel();
             try {
                 jTable1.setModel(new EquipmentTableModel());
