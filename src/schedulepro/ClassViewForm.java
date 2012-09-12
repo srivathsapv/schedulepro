@@ -122,6 +122,7 @@ public class ClassViewForm extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        ResultSet result;
         int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this class?", "SchedulePro - Class View", JOptionPane.YES_NO_OPTION);
         if(n == JOptionPane.YES_OPTION){
             ClassTableModel model = (ClassTableModel)jTable1.getModel();
@@ -130,6 +131,15 @@ public class ClassViewForm extends javax.swing.JFrame {
             n = Utilfunctions.executeUpdate(query);
             Utilfunctions.executeQuery("DELETE FROM subclass WHERE classCode = " + classCode);
             Utilfunctions.executeQuery("DELETE FROM `equipmentissue` WHERE classCode = " + classCode);
+            result = Utilfunctions.executeQuery("SELECT `examCode` FROM `exam` WHERE `classCode`= " + classCode);
+            try {
+                if(result.next()){
+                    Utilfunctions.executeUpdate("DELETE FROM `examinvigilation` WHERE `examCode`=" + result.getString(1));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassViewForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Utilfunctions.executeQuery("DELETE FROM `exam` WHERE classCode = " + classCode);
             if(n >= 1) {
                 JOptionPane.showMessageDialog(null,"Class Deleted");
                 try {
@@ -213,7 +223,7 @@ class ClassTableModel extends AbstractTableModel {
         private Object[][] data;
         private int classCodes[];
         public ClassTableModel() throws SQLException{
-            LoginForm.userDept = "CSE";
+            ResultSet r;
             String query = "SELECT * FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY year,section";
             ResultSet rs = Utilfunctions.executeQuery(query);
             int cnt = 0;
@@ -225,7 +235,9 @@ class ClassTableModel extends AbstractTableModel {
             rs=Utilfunctions.executeQuery(query);
             int i=0;
             while(rs.next()){
-                String values[] = {rs.getString(6),rs.getString(4),rs.getString(3),rs.getString(5),rs.getString(7)};
+                r = Utilfunctions.executeQuery("Select roomNo from classroom where roomId="+rs.getString(6));
+                r.next();
+                String values[] = {r.getString(1),rs.getString(4),rs.getString(3),rs.getString(5),rs.getString(7)};
                 data[i]=values;
                 classCodes[i++] = rs.getInt(1);
             }

@@ -2,6 +2,10 @@ package schedulepro;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -212,29 +216,52 @@ public class ClassDetailsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_courseComboBoxItemStateChanged
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        // TODO add your handling code here:
-        int test = 0;
-        if (!classCodeText.getText().isEmpty()) {
-            test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (" + classCodeText.getText() + ", '" + departmentComboBox.getSelectedItem() + "', '" + yearComboBox.getSelectedItem() + "', '" + courseComboBox.getSelectedItem() + "', '" + sectionComboBox.getSelectedItem() + "', '" + roomNoText.getText() + "', " + strengthText.getText() + ")");
-        } else {
-            test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomNo`, `strength`) VALUES (NULL, '" + departmentComboBox.getSelectedItem() + "', '" + yearComboBox.getSelectedItem() + "', '" + courseComboBox.getSelectedItem() + "', '" + sectionComboBox.getSelectedItem() + "', '" + roomNoText.getText() + "', " + strengthText.getText() + ")");
-        }
-        if (test == 1) {
-            JOptionPane.showMessageDialog(null, "Saved");
-            //this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error");
+        try {
+            // TODO add your handling code here:
+            int test = 0;
+            ResultSet r;
+            r = Utilfunctions.executeQuery("select roomId from classroom where roomNo='"+roomNoText.getText().toUpperCase()+"'");
+                if(!r.next()){
+                    Utilfunctions.executeUpdate("INSERT INTO `classroom`(`roomId`, `roomNo`) VALUES (NULL,'"+roomNoText.getText().toUpperCase()+"')");
+                    r = Utilfunctions.executeQuery("select roomId from classroom where roomNo='"+roomNoText.getText().toUpperCase()+"'");
+                    r.next();
+                }
+            if (!classCodeText.getText().isEmpty()) {          
+                test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomId`, `strength`) VALUES (" + classCodeText.getText() + ", '" + departmentComboBox.getSelectedItem() + "', '" + yearComboBox.getSelectedItem() + "', '" + courseComboBox.getSelectedItem() + "', '" + sectionComboBox.getSelectedItem() + "', '" + r.getString(1) + "', " + strengthText.getText() + ")");
+            } else {
+                test = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`class` (`classCode`, `dept`, `year`, `course`, `section`, `roomId`, `strength`) VALUES (NULL, '" + departmentComboBox.getSelectedItem() + "', '" + yearComboBox.getSelectedItem() + "', '" + courseComboBox.getSelectedItem() + "', '" + sectionComboBox.getSelectedItem() + "', '" + r.getString(1) + "', " + strengthText.getText() + ")");
+            }
+            if (test == 1) {
+                JOptionPane.showMessageDialog(null, "Saved");
+                //this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassDetailsForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void roomNoTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_roomNoTextFocusLost
         // TODO add your handling code here:
+        ResultSet r;
         if (!courseComboBox.getSelectedItem().toString().isEmpty()) {
             if (!roomNoText.getText().isEmpty()) {
                 if (!Validation.isalphanumeric(roomNoText.getText())) {
                     JOptionPane.showMessageDialog(null, "Please Enter a valid Room No.");
                     roomNoText.setText("");
                     roomNoText.requestFocus();
+                }else{
+                  r = Utilfunctions.executeQuery("select * from class where roomId=(select roomId from classroom where roomNo='"+roomNoText.getText().toUpperCase()+"')");
+                  try {
+                        if(r.next()){
+                            JOptionPane.showMessageDialog(null, "Room already taken");
+                          roomNoText.setText("");
+                          roomNoText.requestFocus();
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ClassDetailsForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }

@@ -267,7 +267,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 class ExamTableModel extends AbstractTableModel {
-        private String[] columnNames = {"Exam Name","Subject","Exam Date","Time Slot","Department","Course","Year","Section","Assigned Faculty"};
+        private String[] columnNames = {"Exam Name","Subject","Exam Date","Time Slot","Department","Course","Year","Section","Room No","Assigned Faculty"};
         private Object[][] data;
 	
         public  static int[] examCodes;
@@ -278,9 +278,11 @@ class ExamTableModel extends AbstractTableModel {
         private String[] classCodes;
         private static int msgCount=0;
         private String assignedFaculty="";
+        private String[] roomId;
+        private String roomNo;
         
         public ExamTableModel() throws SQLException{
-            String query = "SELECT * FROM exam ORDER BY examName,examDate";
+            String query = "SELECT `examCode`,`examName`,`subCode`,`examDate`,`pconfigId`,`classCode`,`roomId` FROM exam ORDER BY examName,examDate";
             ResultSet rs = Utilfunctions.executeQuery(query);
             
             int cnt = 0;
@@ -295,6 +297,7 @@ class ExamTableModel extends AbstractTableModel {
             examDates = new String[cnt];
             pconfigIds = new String[cnt];
             classCodes = new String[cnt];
+            roomId = new String[cnt];
             
             int i = 0;
             rs = Utilfunctions.executeQuery(query);
@@ -310,6 +313,15 @@ class ExamTableModel extends AbstractTableModel {
                 query = "SELECT dept,course,year,section FROM class WHERE classCode = '" + rs.getString(6) + "'";
                 ResultSet classResult = Utilfunctions.executeQuery(query);
                 classResult.next();
+         
+                query = "select roomNo from classroom where roomId="+rs.getString(7);
+                ResultSet roomResult = Utilfunctions.executeQuery(query);
+                if(roomResult.next()){
+                    roomNo = roomResult.getString(7);
+                }else
+                {
+                    roomNo="";
+                }
                 
                 query = "SELECT userCode FROM examinvigilation WHERE examCode = " + rs.getString(1);
                 ResultSet userResult = Utilfunctions.executeQuery(query);
@@ -331,8 +343,9 @@ class ExamTableModel extends AbstractTableModel {
                 examDates[i] = rs.getString(4);
                 pconfigIds[i] = rs.getString(5);
                 classCodes[i] = rs.getString(6);
+                roomId[i]=rs.getString(7);
                 
-                Object[] values = {rs.getString(2),subResult.getString(1),examDate,pconfigResult.getString(2).substring(0,5) + " to " + pconfigResult.getString(3).substring(0,5),classResult.getString(1),classResult.getString(2),classResult.getString(3),classResult.getString(4),assignedFaculty};
+                Object[] values = {rs.getString(2),subResult.getString(1),examDate,pconfigResult.getString(2).substring(0,5) + " to " + pconfigResult.getString(3).substring(0,5),classResult.getString(1),classResult.getString(2),classResult.getString(3),classResult.getString(4),roomNo,assignedFaculty};
                 data[i++] = values;
             }   
             fireTableDataChanged();
