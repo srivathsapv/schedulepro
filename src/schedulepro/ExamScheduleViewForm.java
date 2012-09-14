@@ -317,7 +317,7 @@ class ExamTableModel extends AbstractTableModel {
                 query = "select roomNo from classroom where roomId="+rs.getString(7);
                 ResultSet roomResult = Utilfunctions.executeQuery(query);
                 if(roomResult.next()){
-                    roomNo = roomResult.getString(7);
+                    roomNo = rs.getString(7);
                 }else
                 {
                     roomNo="";
