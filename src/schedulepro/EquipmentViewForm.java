@@ -18,18 +18,27 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
+
+
 /**
  *
  * @author srivathsa
  */
 public class EquipmentViewForm extends javax.swing.JFrame {
+    private final String userRole;
 
     /**
      * Creates new form EquipmentView
      */
     public EquipmentViewForm() throws SQLException {
         initComponents();
-        
+        jMenuItem1.setVisible(false);
+        jMenuItem4.setVisible(false);
+        userRole = LoginForm.userRole;
+        if (userRole.equals("sa") || userRole.equals("ds") || userRole.equals("hod")) {
+            jMenuItem1.setVisible(true);
+            jMenuItem4.setVisible(true);
+        }
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -170,6 +179,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
+        EquipmentIssueForm.chosenEquipId=Integer.parseInt(jTable1.getValueAt(selectedRow,0).toString());
         EquipmentIssueForm eif = new EquipmentIssueForm();
         Utilfunctions.setIconImage(eif);
         Utilfunctions.setLocation(eif);
@@ -255,8 +265,6 @@ public class EquipmentViewForm extends javax.swing.JFrame {
     private int selectedColumn;
     public static int equipmentId;
 }
-
-
 class EquipmentTableModel extends AbstractTableModel {
         private String[] columnNames = {"Equipment ID","Equipment Name","Department"};
         private Object[][] data;

@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+
 /**
  *
  * @author Sasi Praveen
@@ -22,6 +23,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
 
     private int selectedRow;
     private int selectedColumn;
+    private String userRole;
 
     /**
      * Creates new form ViewSubjectDetailsForm
@@ -33,7 +35,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         SubjectDetailsTable.getColumnModel().getColumn(0).setPreferredWidth(85);
         SubjectDetailsTable.getColumnModel().getColumn(2).setPreferredWidth(500);
         
-        TableColumn col = SubjectDetailsTable.getColumnModel().getColumn(3);
+        TableColumn col = SubjectDetailsTable.getColumnModel().getColumn(4);
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("2");
         comboBox.addItem("3");
@@ -166,16 +168,19 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
 
     private void SubjectDetailsTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubjectDetailsTableMouseReleased
         // TODO add your handling code here:
-        if (SwingUtilities.isRightMouseButton(evt)) {
-            JTable source = (JTable) evt.getSource();
-            selectedRow = source.rowAtPoint(evt.getPoint());
-            selectedColumn = source.columnAtPoint(evt.getPoint());
+        userRole = LoginForm.userRole;
+        if (userRole.equals("sa") || userRole.equals("ds") || userRole.equals("hod")) {
+            if (SwingUtilities.isRightMouseButton(evt)) {
+                JTable source = (JTable) evt.getSource();
+                selectedRow = source.rowAtPoint(evt.getPoint());
+                selectedColumn = source.columnAtPoint(evt.getPoint());
 
-            if (!source.isRowSelected(selectedRow)) {
-                source.changeSelection(selectedRow, selectedColumn, false, false);
+                if (!source.isRowSelected(selectedRow)) {
+                    source.changeSelection(selectedRow, selectedColumn, false, false);
+                }
+
+                jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
             }
-
-            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_SubjectDetailsTableMouseReleased
 
@@ -225,7 +230,6 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
-
 class SubjectTableModel extends AbstractTableModel {
         private String[] columnNames = {"Subject Code","Department","Subject Name","Short Name", "Credits"};
         private Object[][] data;

@@ -14,11 +14,13 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+
 /**
  *
  * @author srivathsa
  */
 public class ClassViewForm extends javax.swing.JFrame {
+    private String userRole;
 
     /**
      * Creates new form ClassViewForm
@@ -153,13 +155,15 @@ public class ClassViewForm extends javax.swing.JFrame {
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         // TODO add your handling code here:
-        if(SwingUtilities.isRightMouseButton(evt)){
-            JTable source = (JTable)evt.getSource();
-            selectedRow = source.rowAtPoint( evt.getPoint() );
-            selectedColumn = source.columnAtPoint( evt.getPoint() );
-            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+        userRole = LoginForm.userRole;
+        if (userRole.equals("sa") || userRole.equals("ds") || userRole.equals("hod")) {
+            if (SwingUtilities.isRightMouseButton(evt)) {
+                JTable source = (JTable) evt.getSource();
+                selectedRow = source.rowAtPoint(evt.getPoint());
+                selectedColumn = source.columnAtPoint(evt.getPoint());
+                jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
         }
-            
     }//GEN-LAST:event_jTable1MouseReleased
 
     /**
@@ -217,7 +221,6 @@ public class ClassViewForm extends javax.swing.JFrame {
     int selectedRow;
     int selectedColumn;
 }
-
 class ClassTableModel extends AbstractTableModel {
         private String[] columnNames = {"Room Number","Course","Department","Year","Section","Strength"};
         private Object[][] data;

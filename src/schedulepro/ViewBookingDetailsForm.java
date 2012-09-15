@@ -132,7 +132,7 @@ class BookingTableModel extends AbstractTableModel {
         
         ResultSet userResult;
         ResultSet periodResult;
-        ResultSet classResult;
+        ResultSet classResult,roomResult;
         int i = 0;
         while (result.next()) {
             if (result.getInt(7) == 0) {
@@ -144,9 +144,11 @@ class BookingTableModel extends AbstractTableModel {
             userResult.next();
             periodResult = Utilfunctions.executeQuery("SELECT `day` ,`timeFrom` ,`timeTo` FROM `periodconfig` WHERE `pconfigId`=" + result.getString(4));
             periodResult.next();
-            classResult = Utilfunctions.executeQuery("SELECT `roomNo`,`year`,`section` FROM `class` WHERE `classCode`='" + result.getString(5) + "'");
+            classResult = Utilfunctions.executeQuery("SELECT `roomId`,`year`,`section` FROM `class` WHERE `classCode`='" + result.getString(5) + "'");
             classResult.next();
-            Object[] values = {userResult.getString(1), classResult.getString(2), classResult.getString(3), classResult.getString(1), periodResult.getString(1), periodResult.getString(2), periodResult.getString(3), status};
+            roomResult = Utilfunctions.executeQuery("select roomNo from classroom where roomId='"+classResult.getString(1)+"'");
+            roomResult.next();
+            Object[] values = {userResult.getString(1), classResult.getString(2), classResult.getString(3), roomResult.getString(1), periodResult.getString(1), periodResult.getString(2), periodResult.getString(3), status};
             data[i] = values;
             issueIds[i++] = result.getInt(1);
             
