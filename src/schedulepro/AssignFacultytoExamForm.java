@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  * @author Sasi Praveen
  */
 public class AssignFacultytoExamForm extends javax.swing.JFrame {
+    public static ExamScheduleViewForm ChooseInvoker;
 
     private int examCode = 0;
     private String examDate = "";
@@ -171,6 +172,21 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        ChooseInvoker.jTable1.setValueAt(changeFacultyComboBox.getSelectedItem().toString(), ChooseInvoker.selectedRow, ChooseInvoker.selectedColumn);
+        try {
+            ChooseInvoker.jTable1.setModel(new ExamTableModel());
+
+            ChooseInvoker.jTable1.getColumnModel().getColumn(0).setPreferredWidth(120);
+            ChooseInvoker.jTable1.getColumnModel().getColumn(1).setPreferredWidth(300);
+            ChooseInvoker.jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+            ChooseInvoker.jTable1.getColumnModel().getColumn(3).setPreferredWidth(140);
+            ChooseInvoker.jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
+            ChooseInvoker.jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
+            ChooseInvoker.jTable1.getColumnModel().getColumn(6).setPreferredWidth(30);
+            ChooseInvoker.jTable1.getColumnModel().getColumn(7).setPreferredWidth(30);
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_assignButtonActionPerformed
 

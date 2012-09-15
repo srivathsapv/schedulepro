@@ -19,6 +19,9 @@ import javax.swing.JOptionPane;
  * @author srivathsa
  */
 public class SubjectConstraintForm extends javax.swing.JFrame {
+    private final String userRole;
+    private String dept;
+    private String query="";
 
     /**
      * Creates new form SubjectConstraintForm
@@ -37,11 +40,16 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
                 
             }
         });
-        String dept = "BME"; //change later        
+        
         DefaultListModel model = new DefaultListModel();
         model.addElement("Periods in which the subject is not prefered");
         jList1.setModel(model);
-        String query = "SELECT CONCAT(subcode,CONCAT(' - ',CONCAT(subname,CONCAT(' (',CONCAT(subShortName,')'))))) FROM subject WHERE dept = '" + dept + "' ORDER BY subcode";
+        userRole = LoginForm.userRole;
+        if(userRole.equals("sa")){
+            query = "SELECT CONCAT(subcode,CONCAT(' - ',CONCAT(subname,CONCAT(' (',CONCAT(subShortName,')'))))) FROM subject order by subcode";
+        }else{
+            query = "SELECT CONCAT(subcode,CONCAT(' - ',CONCAT(subname,CONCAT(' (',CONCAT(subShortName,')'))))) FROM subject WHERE dept = '" + LoginForm.userDept + "' ORDER BY subcode";
+        }
         Utilfunctions.populateComboBoxwithQuery(jComboBox1, query);
     }   
 
@@ -215,8 +223,8 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
         
         String value = jComboBox1.getSelectedItem().toString();
         subcode = value.substring(0,value.indexOf("-")-1);
-        String dept = "BME"; //change it later
-        String query = "SELECT credits FROM subject WHERE subcode = '" + subcode + "' AND dept = '" + dept + "'";
+        
+        String query = "SELECT credits FROM subject WHERE subcode = '" + subcode + "'";
         
         ResultSet rs = Utilfunctions.executeQuery(query);
         try {

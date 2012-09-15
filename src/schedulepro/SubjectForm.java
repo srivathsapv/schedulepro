@@ -15,13 +15,22 @@ import javax.swing.JOptionPane;
  * @author Administrator
  */
 public class SubjectForm extends javax.swing.JFrame {
+    private final String userRole;
 
     /**
      * Creates new form subject
      */
     public SubjectForm() {
         initComponents();
-        Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT dept FROM dept ORDER BY dept");
+        userRole = LoginForm.userRole;
+        if(userRole.equals("sa")){
+            Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT dept FROM dept ORDER BY dept");
+        }else {
+            jComboBox1.addItem(LoginForm.userDept);
+            jComboBox1.setSelectedItem(LoginForm.userDept);
+            jComboBox1.setEnabled(false);
+        }
+        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

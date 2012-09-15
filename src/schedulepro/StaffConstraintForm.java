@@ -27,43 +27,57 @@ public class StaffConstraintForm extends javax.swing.JFrame {
     private Vector day = new Vector();
     private Vector timeFrom = new Vector();
     private Vector timeTo = new Vector();
+    private final String userRole;
+    public static String userCode="";
+    private String setname=""; 
    
 
     /**
      * Creates new form StaffConstraintForm
      */
     public StaffConstraintForm() {
-            initComponents();
-            ResultSet result,r1;
+        initComponents();
+        ResultSet result, r1;
+        userRole = LoginForm.userRole;
+        if (userRole.equals("sa")) {
+            Utilfunctions.populateComboBoxwithQuery(facultyComboBox, "select CONCAT(name,'(',userCode,')') from user order by name");
+        } else if (userRole.equals("ds") || userRole.equals("hod")) {
+            Utilfunctions.populateComboBoxwithQuery(facultyComboBox, "select CONCAT(name,'(',userCode,')') from user where dept='" + LoginForm.userDept + "' order by name");
+        } else {
+            jLabel7.setVisible(false);
+            facultyComboBox.setVisible(false);
+            userCode = LoginForm.userCode;
+            jCheckBox1.setVisible(false);
             try {
-            result = Utilfunctions.executeQuery("select * from staffconstraint where userCode = '"+LoginForm.userCode+"'" );
-            if(result.next()){
-                workingPeriod = result.getString(2);
-               workingPeriodsTextField.setText(workingPeriod);
-               minInterval = result.getString(3);
-               minimumIntervalTextField.setText(minInterval);
-               flag =true;
+                result = Utilfunctions.executeQuery("select * from staffconstraint where userCode = '" + userCode + "'");
+                if (result.next()) {
+                    workingPeriod = result.getString(2);
+                    workingPeriodsTextField.setText(workingPeriod);
+                    minInterval = result.getString(3);
+                    minimumIntervalTextField.setText(minInterval);
+                    flag = true;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        DefaultListModel model = new DefaultListModel();
-        result = Utilfunctions.executeQuery("SELECT `workHourConfigId` FROM `userworkid` WHERE `userCode`='"+LoginForm.userCode+"'");
-        try {
-            while(result.next()){
-                r1 = Utilfunctions.executeQuery("SELECT * FROM `staffworkhour` WHERE `workHourConfigId`="+result.getString(1));
-                r1.next();
-                day.addElement(r1.getString(2));
-                timeFrom.addElement(r1.getString(3));
-                timeTo.addElement(r1.getString(4));
-                model.addElement(r1.getString(2)+" "+r1.getString(3)+" - "+r1.getString(4));
-                workHourConfigId.addElement(r1.getString(1));
+            DefaultListModel model = new DefaultListModel();
+            result = Utilfunctions.executeQuery("SELECT `workHourConfigId` FROM `userworkid` WHERE `userCode`='" + userCode + "'");
+            try {
+                while (result.next()) {
+                    r1 = Utilfunctions.executeQuery("SELECT * FROM `staffworkhour` WHERE `workHourConfigId`=" + result.getString(1));
+                    r1.next();
+                    day.addElement(r1.getString(2));
+                    timeFrom.addElement(r1.getString(3));
+                    timeTo.addElement(r1.getString(4));
+                    model.addElement(r1.getString(2) + " " + r1.getString(3) + " - " + r1.getString(4));
+                    workHourConfigId.addElement(r1.getString(1));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
+
+            workHourList.setModel(model);
         }
-        
-        workHourList.setModel(model);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -99,6 +113,9 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         addButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        facultyComboBox = new javax.swing.JComboBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - Faculty Constraints");
@@ -157,6 +174,21 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Faculty:");
+
+        facultyComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                facultyComboBoxItemStateChanged(evt);
+            }
+        });
+
+        jCheckBox1.setText("mine");
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,15 +202,22 @@ public class StaffConstraintForm extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel1))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(workingPeriodsTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                                    .addComponent(minimumIntervalTextField))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel5)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(workingPeriodsTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                            .addComponent(minimumIntervalTextField))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel5)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(facultyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jCheckBox1))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -194,7 +233,12 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(facultyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(workingPeriodsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +255,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(saveButton)
                         .addGap(20, 20, 20))
@@ -258,9 +302,9 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         int n;
         if (flag) {
-            n = Utilfunctions.executeUpdate("UPDATE `staffconstraint` SET `totalPPW`=" + workingPeriod + ",`minInterval`=" + minInterval + " WHERE userCode = '" + LoginForm.userCode + "'");
+            n = Utilfunctions.executeUpdate("UPDATE `staffconstraint` SET `totalPPW`=" + workingPeriod + ",`minInterval`=" + minInterval + " WHERE userCode = '" + userCode + "'");
         } else {
-            n = Utilfunctions.executeUpdate("INSERT INTO `staffconstraint`(`userCode`, `totalPPW`, `minInterval`) VALUES ('" + LoginForm.userCode + "'," + workingPeriod + "," + minInterval + ")");
+            n = Utilfunctions.executeUpdate("INSERT INTO `staffconstraint`(`userCode`, `totalPPW`, `minInterval`) VALUES ('" + userCode + "'," + workingPeriod + "," + minInterval + ")");
         }
         if (n != 1) {
             JOptionPane.showMessageDialog(null, "Please Check the errors");
@@ -301,7 +345,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             r = Utilfunctions.executeQuery("SELECT `pconfigId` FROM `periodconfig` WHERE day ='"+day.get(x) +"' and timeFrom and timeTo not between '"+timeFrom.get(x) +"' and '"+timeTo.get(x) +"'");
             try {
                 while(r.next()){
-                    Utilfunctions.executeUpdate("DELETE FROM `staffperiodexception` WHERE `userCode`='"+LoginForm.userCode+"' and `pconfigId`="+r.getString(1));
+                    Utilfunctions.executeUpdate("DELETE FROM `staffperiodexception` WHERE `userCode`='"+userCode+"' and `pconfigId`="+r.getString(1));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -311,6 +355,56 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             model.remove(x);
         }
     }//GEN-LAST:event_removeButtonActionPerformed
+
+    private void facultyComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_facultyComboBoxItemStateChanged
+        // TODO add your handling code here:
+        ResultSet result,r1;
+        userCode = Utilfunctions.getWithinBrackets(facultyComboBox.getSelectedItem().toString());
+        try {
+                result = Utilfunctions.executeQuery("select * from staffconstraint where userCode = '" + userCode + "'");
+                if (result.next()) {
+                    workingPeriod = result.getString(2);
+                    workingPeriodsTextField.setText(workingPeriod);
+                    minInterval = result.getString(3);
+                    minimumIntervalTextField.setText(minInterval);
+                    flag = true;
+                }else{
+                    workingPeriodsTextField.setText("");
+                    minimumIntervalTextField.setText("");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            DefaultListModel model = new DefaultListModel();
+            result = Utilfunctions.executeQuery("SELECT `workHourConfigId` FROM `userworkid` WHERE `userCode`='" + userCode + "'");
+            try {
+                while (result.next()) {
+                    r1 = Utilfunctions.executeQuery("SELECT * FROM `staffworkhour` WHERE `workHourConfigId`=" + result.getString(1));
+                    r1.next();
+                    day.addElement(r1.getString(2));
+                    timeFrom.addElement(r1.getString(3));
+                    timeTo.addElement(r1.getString(4));
+                    model.addElement(r1.getString(2) + " " + r1.getString(3) + " - " + r1.getString(4));
+                    workHourConfigId.addElement(r1.getString(1));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            workHourList.setModel(model);
+    }//GEN-LAST:event_facultyComboBoxItemStateChanged
+
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+        // TODO add your handling code here:
+        if(jCheckBox1.isSelected()){
+            setname = LoginForm.userName+"("+LoginForm.userCode+")";
+            facultyComboBox.setSelectedItem(setname);
+            facultyComboBox.setEnabled(false);
+        }else{
+            facultyComboBox.setEnabled(true);
+            userCode = Utilfunctions.getWithinBrackets(facultyComboBox.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
   
     /**
@@ -349,12 +443,15 @@ public class StaffConstraintForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JComboBox facultyComboBox;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField minimumIntervalTextField;
     private javax.swing.JButton removeButton;

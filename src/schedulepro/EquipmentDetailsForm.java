@@ -16,15 +16,22 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
     private int existingqty;
     private int netqty;
     private String equipId;
+    private final String userRole;
 
     /**
      * Creates new form AddEquipmentDetailsForm
      */
     public EquipmentDetailsForm() {
         initComponents();
-        Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT distinct(`dept`) FROM `dept`");
+        userRole = LoginForm.userRole;
+        if (userRole.equals("hod") || userRole.equals("ds")) {
+            departmentComboBox.addItem(LoginForm.userDept);
+            departmentComboBox.setSelectedItem(LoginForm.userDept);
+            departmentComboBox.setEnabled(false);
+        } else {
+            Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT distinct(`dept`) FROM `dept`");
+        }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

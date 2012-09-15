@@ -219,12 +219,19 @@ public class ClassViewForm extends javax.swing.JFrame {
 }
 
 class ClassTableModel extends AbstractTableModel {
-        private String[] columnNames = {"Room Number","Course","Year","Section","Strength"};
+        private String[] columnNames = {"Room Number","Course","Department","Year","Section","Strength"};
         private Object[][] data;
         private int classCodes[];
+        private final String userRole;
         public ClassTableModel() throws SQLException{
             ResultSet r;
-            String query = "SELECT * FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY year,section";
+            String query;
+            userRole = LoginForm.userRole;
+            if(userRole.equals("sa")){
+                query = "SELECT * FROM class ORDER BY year,section";
+            }else{
+                query = "SELECT * FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY year,section";
+            }
             ResultSet rs = Utilfunctions.executeQuery(query);
             int cnt = 0;
             while(rs.next())
@@ -237,7 +244,7 @@ class ClassTableModel extends AbstractTableModel {
             while(rs.next()){
                 r = Utilfunctions.executeQuery("Select roomNo from classroom where roomId="+rs.getString(6));
                 r.next();
-                String values[] = {r.getString(1),rs.getString(4),rs.getString(3),rs.getString(5),rs.getString(7)};
+                String values[] = {r.getString(1),rs.getString(4),rs.getString(2),rs.getString(3),rs.getString(5),rs.getString(7)};
                 data[i]=values;
                 classCodes[i++] = rs.getInt(1);
             }

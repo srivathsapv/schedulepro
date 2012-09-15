@@ -17,12 +17,51 @@ import javax.swing.JOptionPane;
  * @author Home
  */
 public class DashboardForm extends javax.swing.JFrame {
+    private final String userRole;
 
     /**
      * Creates new form testform
      */
     public DashboardForm() {
         initComponents();
+        
+        jMenu8.setVisible(false);
+        jMenuItem4.setVisible(false);
+        jMenu15.setVisible(false);
+        jMenuItem25.setVisible(false);
+        jMenuItem23.setVisible(false);
+        jMenuItem28.setVisible(false);
+        jMenuItem15.setVisible(false);
+        jMenu12.setVisible(false);
+        jMenu7.setVisible(false);
+        
+        userRole = LoginForm.userRole;
+        if(userRole.equals("sa")){
+            jMenu8.setVisible(true);
+            jMenuItem4.setVisible(true);
+            jMenu15.setVisible(true);
+            jMenuItem25.setVisible(true);
+            jMenuItem23.setVisible(true);
+            jMenuItem15.setVisible(true);
+            jMenu12.setVisible(true);
+            jMenu7.setVisible(true);
+        }else if(userRole.equals("hod")){
+            jMenuItem4.setVisible(true);
+            jMenuItem23.setVisible(true);
+            jMenuItem28.setVisible(true);
+            jMenuItem15.setVisible(true);
+            jMenu12.setVisible(true);
+            jMenu7.setVisible(true);
+        }else if(userRole.equals("ds")){
+            jMenu8.setVisible(true);
+            jMenuItem4.setVisible(true);
+            jMenu15.setVisible(true);
+            jMenuItem23.setVisible(true);
+            jMenuItem28.setVisible(true);
+            jMenuItem15.setVisible(true);
+            jMenu12.setVisible(true);
+            jMenu7.setVisible(true);
+        }
         jLabel1.setText("Welcome " + LoginForm.userSalutation + LoginForm.userName);
         Utilfunctions.setClosePrompt(this);
     }
@@ -166,6 +205,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu8.add(jMenuItem5);
 
         jMenuItem6.setText("Upload CSV File");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem6);
 
         jMenu1.add(jMenu8);
@@ -750,6 +794,24 @@ public class DashboardForm extends javax.swing.JFrame {
         this.setVisible(false);
         stcf.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        String tablename = "subject";
+        try {
+            try {
+                Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
+            } catch (SQLException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid data");
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments

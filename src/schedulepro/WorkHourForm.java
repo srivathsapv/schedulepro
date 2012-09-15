@@ -22,6 +22,7 @@ public class WorkHourForm extends javax.swing.JFrame {
     private static String timeFrom;
     private static String timeTo;
     private String day;
+    private String userCode;
 
     /**
      * Creates new form PeriodConfigForm
@@ -173,6 +174,7 @@ public class WorkHourForm extends javax.swing.JFrame {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         try {
             // TODO add your handling code here:
+            userCode = StaffConstraintForm.userCode;
             Calendar cl1 = Calendar.getInstance();
 
             cl1.set(Calendar.MINUTE, Integer.parseInt(jSpinner2.getValue().toString()));
@@ -208,10 +210,10 @@ public class WorkHourForm extends javax.swing.JFrame {
             }
             ResultSet r = Utilfunctions.executeQuery("select workHourConfigId from staffworkhour where day = '" + day + "' AND workHourFrom = '" + timeFrom + "' AND workHourTo ='" + timeTo + "'");
             r.next();
-            Utilfunctions.executeUpdate("INSERT INTO `userworkid`(`id`, `userCode`, `workHourConfigId`) VALUES (NULL,'" + LoginForm.userCode + "'," + r.getString(1) + ")");
+            Utilfunctions.executeUpdate("INSERT INTO `userworkid`(`id`, `userCode`, `workHourConfigId`) VALUES (NULL,'" + userCode + "'," + r.getString(1) + ")");
             r = Utilfunctions.executeQuery("SELECT `pconfigId` FROM `periodconfig` WHERE day ='"+day+"' and timeFrom and timeTo not between '"+timeFrom+"' and '"+timeTo+"'");
             while(r.next()){
-                Utilfunctions.executeUpdate("INSERT INTO `staffperiodexception`(`id`, `userCode`, `pconfigId`) VALUES (NULL,'"+LoginForm.userCode+"',"+r.getString(1)+")");
+                Utilfunctions.executeUpdate("INSERT INTO `staffperiodexception`(`id`, `userCode`, `pconfigId`) VALUES (NULL,'"+userCode+"',"+r.getString(1)+")");
             }
             StaffConstraintForm sf = new StaffConstraintForm();
             Utilfunctions.setIconImage(sf);

@@ -256,22 +256,30 @@ public class EquipmentViewForm extends javax.swing.JFrame {
     public static int equipmentId;
 }
 
+
 class EquipmentTableModel extends AbstractTableModel {
-        private String[] columnNames = {"Equipment ID","Equipment Name"};
+        private String[] columnNames = {"Equipment ID","Equipment Name","Department"};
         private Object[][] data;
+        private final String userRole;
 
         public EquipmentTableModel() throws SQLException{
-            String query = "SELECT equipId,equipName FROM equipment WHERE dept = '" + LoginForm.userDept + "'";
+            userRole = LoginForm.userRole;
+            String query;
+            if(userRole.equals("sa")){
+                query = "SELECT equipId,equipName,dept FROM equipment";
+            }else{
+                query = "SELECT equipId,equipName,dept FROM equipment WHERE dept = '" + LoginForm.userDept + "'";
+            }
             ResultSet rs = Utilfunctions.executeQuery(query);
             int cnt = 0;
             while(rs.next())
                 cnt++;
 
-            data = new Object[cnt][2];
+            data = new Object[cnt][3];
             rs=Utilfunctions.executeQuery(query);
             int i=0;
             while(rs.next()){
-                String values[] = {rs.getString(1),rs.getString(2)};
+                String values[] = {rs.getString(1),rs.getString(2),rs.getString(3)};
                 data[i++]=values;
             }
         }

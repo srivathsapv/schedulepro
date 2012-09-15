@@ -286,9 +286,16 @@ public class UserViewForm extends javax.swing.JFrame {
 class UserTableModel extends AbstractTableModel {
         private String[] columnNames = {"Login Id","Name","Role","Department"};
         private Object[][] data;
+        private final String userRole;
 	
         public UserTableModel() throws SQLException{
-            String query = "SELECT * FROM user WHERE dept = '" + LoginForm.userDept + "' ORDER BY name";
+            userRole = LoginForm.userRole;
+            String query;
+            if(userRole.equals("sa")){
+                query = "SELECT * FROM user ORDER BY name";
+            }else{
+                query = "SELECT * FROM user WHERE dept = '" + LoginForm.userDept + "' ORDER BY name";
+            }
             ResultSet rs = Utilfunctions.executeQuery(query);
             
             int cnt = 0;

@@ -21,14 +21,27 @@ import javax.swing.JOptionPane;
  * @author Sasi Praveen
  */
 public class CreateExamscheduleForm extends javax.swing.JFrame {
+    private final String userRole;
+    private String userDept="";
 
     /**
      * Creates new form CreateExamscheduleForm
      */
     public CreateExamscheduleForm() {
         initComponents();
-        Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='" + LoginForm.userDept + "'");
         Utilfunctions.populateComboBoxwithQuery(roomNoComboBox,"select roomNo from classroom");
+        userRole = LoginForm.userRole;
+            String query;
+            if(userRole.equals("sa")){
+                query = "SELECT dept from dept";
+                Utilfunctions.populateComboBoxwithQuery(departmentComboBox,query);
+            }else{
+                departmentComboBox.addItem(LoginForm.userDept);
+                departmentComboBox.setSelectedItem(LoginForm.userDept);
+                departmentComboBox.setEnabled(false);
+                userDept = LoginForm.userDept;
+                Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='" + userDept + "'");
+            }
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -70,6 +83,8 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         sectionComboBox = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         roomNoComboBox = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        departmentComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - Create Exam Schedule");
@@ -150,54 +165,63 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
 
         jLabel9.setText("Room No.:");
 
+        jLabel10.setText("Department:");
+
+        departmentComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                departmentComboBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(94, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
+                        .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6))
+                    .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(roomNoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(1, 1, 1))
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(yearComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 103, Short.MAX_VALUE)
-                                .addComponent(courseComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(roomNoComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(sectionComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 83, Short.MAX_VALUE))))
+                            .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(departmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel6))
-                                    .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(79, 79, 79)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                        .addGap(195, 195, 195)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,20 +230,24 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(departmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9)
                     .addComponent(roomNoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -238,7 +266,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -246,13 +274,13 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
 
     private void courseComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_courseComboBoxItemStateChanged
         // TODO add your handling code here:
-        Utilfunctions.populateComboBoxwithQuery(yearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' order by `year` asc");
+        Utilfunctions.populateComboBoxwithQuery(yearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='" + userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' order by `year` asc");
 
     }//GEN-LAST:event_courseComboBoxItemStateChanged
 
     private void yearComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_yearComboBoxItemStateChanged
         // TODO add your handling code here:
-        Utilfunctions.populateComboBoxwithQuery(sectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' AND year=" + yearComboBox.getSelectedItem() + " order by `year` asc");
+        Utilfunctions.populateComboBoxwithQuery(sectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='" + userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' AND year=" + yearComboBox.getSelectedItem() + " order by `year` asc");
     }//GEN-LAST:event_yearComboBoxItemStateChanged
 
     private void dateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateTextFieldFocusLost
@@ -307,7 +335,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         int classCode = 0;
         int n = 0;
         ResultSet r;
-        ResultSet result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND `year`=" + yearComboBox.getSelectedItem() + " AND `course`='" + courseComboBox.getSelectedItem() + "' AND section='" + sectionComboBox.getSelectedItem() + "'");
+        ResultSet result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='" + userDept + "' AND `year`=" + yearComboBox.getSelectedItem() + " AND `course`='" + courseComboBox.getSelectedItem() + "' AND section='" + sectionComboBox.getSelectedItem() + "'");
         r = Utilfunctions.executeQuery("select roomId from classroom where roomNo='"+roomNoComboBox.getSelectedItem()+"'");
         try {
             result.next();
@@ -350,6 +378,11 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
     private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
         changeDate();
     }//GEN-LAST:event_jTextField2FocusGained
+
+    private void departmentComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_departmentComboBoxItemStateChanged
+       userDept = departmentComboBox.getSelectedItem().toString();
+       Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='" + userDept + "'");
+    }//GEN-LAST:event_departmentComboBoxItemStateChanged
     
     private void changeDate(){
         if(jTextField2.getText().equals("")) return;
@@ -410,9 +443,11 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox courseComboBox;
     private javax.swing.JTextField dateTextField;
+    private javax.swing.JComboBox departmentComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

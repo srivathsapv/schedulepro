@@ -24,10 +24,11 @@ import javax.swing.table.TableColumn;
  * @author srivathsa
  */
 public class ExamScheduleViewForm extends javax.swing.JFrame {
-    private int selectedRow;
-    private int selectedColumn;
+    public int selectedRow;
+    public int selectedColumn;
     public static int examCode;
     public static String examDate;
+    private String userRole;
 
     /**
      * Creates new form ExamScheduleViewForm
@@ -172,40 +173,43 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         // TODO add your handling code here:
-        if (evt.getClickCount() == 2) {
-            evt.consume();
-            JTable source = (JTable) evt.getSource();
-            if (source.columnAtPoint(evt.getPoint()) == 3) {
-                PeriodConfigViewForm pcvf;
-                try {
-                    pcvf = new PeriodConfigViewForm();
-                    Utilfunctions.setLocation(pcvf);
-                    Utilfunctions.setIconImage(pcvf);
-                    PeriodConfigViewForm.source = "exam";
-                    PeriodConfigViewForm.srcTable = jTable1;
-                    PeriodConfigViewForm.tableRow = source.rowAtPoint(evt.getPoint());
-                    pcvf.setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ExamScheduleViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        userRole = LoginForm.userRole;
+        if (userRole.equals("sa") || userRole.equals("ds") || userRole.equals("hod")) {
+            if (evt.getClickCount() == 2) {
+                evt.consume();
+                JTable source = (JTable) evt.getSource();
+                if (source.columnAtPoint(evt.getPoint()) == 3) {
+                    PeriodConfigViewForm pcvf;
+                    try {
+                        pcvf = new PeriodConfigViewForm();
+                        Utilfunctions.setLocation(pcvf);
+                        Utilfunctions.setIconImage(pcvf);
+                        PeriodConfigViewForm.source = "exam";
+                        PeriodConfigViewForm.srcTable = jTable1;
+                        PeriodConfigViewForm.tableRow = source.rowAtPoint(evt.getPoint());
+                        pcvf.setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ExamScheduleViewForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-        } else if (SwingUtilities.isRightMouseButton(evt)) {
-            JTable source = (JTable) evt.getSource();
-            selectedRow = source.rowAtPoint(evt.getPoint());
-            selectedColumn = source.columnAtPoint(evt.getPoint());
-            examCode = ExamTableModel.examCodes[selectedRow];
-            examDate = ExamTableModel.examDates[selectedRow];
-            if (!source.isRowSelected(selectedRow)) {
-                source.changeSelection(selectedRow, selectedColumn, false, false);
-            }
+            } else if (SwingUtilities.isRightMouseButton(evt)) {
+                JTable source = (JTable) evt.getSource();
+                selectedRow = source.rowAtPoint(evt.getPoint());
+                selectedColumn = source.columnAtPoint(evt.getPoint());
+                examCode = ExamTableModel.examCodes[selectedRow];
+                examDate = ExamTableModel.examDates[selectedRow];
+                if (!source.isRowSelected(selectedRow)) {
+                    source.changeSelection(selectedRow, selectedColumn, false, false);
+                }
 
-            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+                jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
         }
-
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void assignFacultyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignFacultyMenuItemActionPerformed
         // TODO add your handling code here:
+        AssignFacultytoExamForm.ChooseInvoker = this;
         AssignFacultytoExamForm ef = new AssignFacultytoExamForm();
         Utilfunctions.setIconImage(ef);
         Utilfunctions.setLocation(ef);
@@ -263,7 +267,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
 class ExamTableModel extends AbstractTableModel {
@@ -280,9 +284,16 @@ class ExamTableModel extends AbstractTableModel {
         private String assignedFaculty="";
         private String[] roomId;
         private String roomNo;
+        private final String userRole;
         
         public ExamTableModel() throws SQLException{
-            String query = "SELECT `examCode`,`examName`,`subCode`,`examDate`,`pconfigId`,`classCode`,`roomId` FROM exam ORDER BY examName,examDate";
+            userRole = LoginForm.userRole;
+            String query;
+            if(userRole.equals("sa")){
+                query = query = "SELECT `examCode`,`examName`,`subCode`,`examDate`,`pconfigId`,`classCode`,`roomId` FROM exam ORDER BY examName,examDate";
+            }else{
+                query = "SELECT `examCode`,`examName`,`subCode`,`examDate`,`pconfigId`,`classCode`,`roomId` FROM exam where classCode = some (select classCode from class where dept='"+LoginForm.userDept+"') ORDER BY examName,examDate";
+            }
             ResultSet rs = Utilfunctions.executeQuery(query);
             
             int cnt = 0;

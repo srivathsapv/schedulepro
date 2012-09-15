@@ -31,7 +31,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         SubjectDetailsTable.setModel(new SubjectTableModel());
         SubjectDetailsTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         SubjectDetailsTable.getColumnModel().getColumn(0).setPreferredWidth(85);
-        SubjectDetailsTable.getColumnModel().getColumn(1).setPreferredWidth(500);
+        SubjectDetailsTable.getColumnModel().getColumn(2).setPreferredWidth(500);
         
         TableColumn col = SubjectDetailsTable.getColumnModel().getColumn(3);
         JComboBox comboBox = new JComboBox();
@@ -227,25 +227,34 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
 }
 
 class SubjectTableModel extends AbstractTableModel {
-        private String[] columnNames = {"Subject Code", "Subject Name","Short Name", "Credits"};
+        private String[] columnNames = {"Subject Code","Department","Subject Name","Short Name", "Credits"};
         private Object[][] data;
+        private final String userRole;
+        private final String query;
+        private final String query1;
 	
         public SubjectTableModel() throws SQLException{
-            //Remove it later
-            LoginForm.userDept = "CSE";
-            //Remove it later
-            
-            ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM `subject` WHERE dept = '" + LoginForm.userDept + "'");
+            userRole = LoginForm.userRole;
+            if(userRole.equals("sa")){
+                query = "SELECT COUNT(*) FROM `subject`";
+            }else{
+                query = "SELECT COUNT(*) FROM `subject` WHERE dept = '" + LoginForm.userDept + "'";
+            }
+            ResultSet rs_cnt = Utilfunctions.executeQuery(query);
             rs_cnt.next();
             int cnt = rs_cnt.getInt(1);
 
-            data = new Object[cnt][4];
+            data = new Object[cnt][5];
 
-            String query = "SELECT `subcode`, `subName`,`subShortName`, `credits` FROM `subject` where `dept` = '" + LoginForm.userDept + "' order by `subName` asc";
-            ResultSet result = Utilfunctions.executeQuery(query);
+            if(userRole.equals("sa")){
+                query1 = "SELECT `subcode`, `subName`,`subShortName`, `credits`,dept FROM `subject` order by `subName` asc";
+            }else{
+                query1 = "SELECT `subcode`, `subName`,`subShortName`, `credits`,dept FROM `subject` where `dept` = '" + LoginForm.userDept + "' order by `subName` asc";
+            }
+            ResultSet result = Utilfunctions.executeQuery(query1);
             int i =0;
             while (result.next()) {
-                String[] values = {result.getString(1), result.getString(2), result.getString(3),result.getString(4)};
+                String[] values = {result.getString(1),result.getString(5), result.getString(2), result.getString(3),result.getString(4)};
                 data[i++] = values;
             }
             

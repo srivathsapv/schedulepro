@@ -14,12 +14,18 @@ import javax.swing.JOptionPane;
  */
 public class UserSignupForm extends javax.swing.JFrame {
     private String departmentfull;
+    private final String userRole;
 
     /**
      * Creates new form UserSignup
      */
     public UserSignupForm() {
         initComponents();
+        userRole = LoginForm.userRole;
+        if(userRole.equals("hod")||userRole.equals("ds")){
+            departmentCombobox.setSelectedItem(LoginForm.userDept);
+            departmentCombobox.setEnabled(false);
+        }
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

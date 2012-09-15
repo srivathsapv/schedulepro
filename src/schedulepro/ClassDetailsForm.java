@@ -17,12 +17,19 @@ import javax.swing.JOptionPane;
  * @author Sasi Praveen
  */
 public class ClassDetailsForm extends javax.swing.JFrame {
+    private String userRole;
 
     /**
      * Creates new form ClassDetailsForm
      */
     public ClassDetailsForm() {
         initComponents();
+        userRole = LoginForm.userRole;
+        if(userRole.equals("sa")){
+            Utilfunctions.populateComboBoxwithQuery(courseComboBox, "select distinct(course) from class");
+        }else{
+            Utilfunctions.populateComboBoxwithQuery(courseComboBox, "select distinct(course) from class where dept='"+LoginForm.userDept+"' ");
+        }
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -101,7 +108,6 @@ public class ClassDetailsForm extends javax.swing.JFrame {
             }
         });
 
-        courseComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "B.E", "B.Tech", "M.E", "M.Tech" }));
         courseComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 courseComboBoxItemStateChanged(evt);
@@ -205,7 +211,13 @@ public class ClassDetailsForm extends javax.swing.JFrame {
     private void courseComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_courseComboBoxItemStateChanged
 
         // TODO add your handling code here:
-        Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT `dept` FROM `dept` WHERE `Course`=\"" + courseComboBox.getSelectedItem() + "\"");
+        if(userRole.equals("sa")){
+            Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT `dept` FROM `dept` WHERE `Course`=\"" + courseComboBox.getSelectedItem() + "\"");
+        }else{
+            departmentComboBox.addItem(LoginForm.userDept);
+            departmentComboBox.setSelectedItem(LoginForm.userDept);
+            departmentComboBox.setEnabled(false);
+        }
         yearComboBox.removeAllItems();
         if (courseComboBox.getSelectedItem() == "B.E" || courseComboBox.getSelectedItem() == "B.Tech") {
             yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"1", "2", "3", "4"}));
