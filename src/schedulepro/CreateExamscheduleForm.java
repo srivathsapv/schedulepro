@@ -221,7 +221,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(195, 195, 195)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,8 +340,19 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         try {
             result.next();
             r.next();
+            
+            String query = "SELECT COUNT(*) FROM exam WHERE examDate = '" + dateTextField.getText()
+                    + "' AND pconfigId = " + PeriodConfigViewForm.pConfigId + " AND "
+                    + " roomId = " + r.getInt(1);
+            ResultSet countrs = Utilfunctions.executeQuery(query);
+            countrs.next();
+            if(countrs.getInt(1) >= 1){
+                JOptionPane.showMessageDialog(null,"Room - " +roomNoComboBox.getSelectedItem().toString() + " not available. Already occupied for another exam" );
+                return;
+            }
+            
             classCode = Integer.parseInt(result.getString(1));
-            n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`, roomId) VALUES (NULL, '" + Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString()) + "', '" + dateTextField.getText() + "', " + PeriodConfigViewForm.pConfigId + ", " + classCode + ", '" + jTextField1.getText() + "', "+r.getString(1)+")");
+            n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`, roomId) VALUES (NULL, '" + Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString()) + "', '" + dateTextField.getText() + "', " + PeriodConfigViewForm.pConfigId + ", " + classCode + ", '" + jTextField1.getText() + "', '"+r.getString(1)+"')");
             if(n >= 1) JOptionPane.showMessageDialog(null,"Exam added successfully");
         } catch (SQLException ex) {
             Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);

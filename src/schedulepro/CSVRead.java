@@ -39,9 +39,14 @@ public class CSVRead {
         passwordField = pwdField;
     }
     
+    public void setDeptCheck(boolean check){
+        deptCheck = check;
+    }
+    
     public void insertRows() throws FileNotFoundException, IOException, SQLException, NoSuchAlgorithmException{
         String parentKeyColumnName = "";
         String[] dataArray;
+        int deptColumn=0;
         try{
             BufferedReader csv = new BufferedReader(new FileReader(this.filename));
             String dataRow = csv.readLine();            
@@ -49,19 +54,37 @@ public class CSVRead {
             while(dataRow != null){
                 if(i==1){
                     dataArray = dataRow.split(",");
-                    parentKeyColumnName = dataArray[parentKeyColumn-1];
+                    if(deptCheck){
+                        int k=0;
+                        for(String s:dataArray){
+                            if(s.equals("dept")){
+                                deptColumn = k;
+                                break;
+                            }
+                            k++;
+                        }
+                    }
+                    if(parentKeyColumn > 0)
+                        parentKeyColumnName = dataArray[parentKeyColumn-1];
                     dataRow = csv.readLine();                    
                 }
                 else {
                     dataArray = dataRow.split(",");
+                    if(deptCheck && !(dataArray[deptColumn]).equals(LoginForm.userDept.toUpperCase())){
+                        JOptionPane.showMessageDialog(null,"Invalid Department - Skipping Insertion of Row #"+(i-1));
+                        dataRow = csv.readLine();
+                        i++;
+                        continue;
+                    }
                     if(parentTable != null && parentKeyColumn != 0){  
                         String query = "SELECT * FROM "+parentTable + " WHERE " + parentKeyColumnName + " = '" + dataArray[parentKeyColumn-1] + "'";
                         ResultSet rs = Utilfunctions.executeQuery(query);
                         int cnt=0;
                         while(rs.next()) cnt++;
                         if(cnt == 0) {
-                            JOptionPane.showMessageDialog(null,"Invalid data found. Skipping insertion of this row");
+                            JOptionPane.showMessageDialog(null,"Invalid data found. Skipping insertion of row #"+(i-1));
                             dataRow = csv.readLine();
+                            i++;
                             continue;
                         }
                     }
@@ -97,4 +120,5 @@ public class CSVRead {
     String parentTable;
     int parentKeyColumn;
     int passwordField;
+    boolean deptCheck=false;
 }

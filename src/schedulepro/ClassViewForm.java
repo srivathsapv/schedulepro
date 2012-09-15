@@ -48,13 +48,13 @@ public class ClassViewForm extends javax.swing.JFrame {
         JComboBox courseCombo = new JComboBox();
         Utilfunctions.populateComboBoxwithQuery(courseCombo, "SELECT DISTINCT(course) FROM class");
         
-        TableColumn col = jTable1.getColumnModel().getColumn(1);
+        TableColumn col = jTable1.getColumnModel().getColumn(2);
         col.setCellEditor(new DefaultCellEditor(courseCombo));
         
-        col = jTable1.getColumnModel().getColumn(2);
+        col = jTable1.getColumnModel().getColumn(3);
         col.setCellEditor(new DefaultCellEditor(yearCombo));
         
-        col = jTable1.getColumnModel().getColumn(3);
+        col = jTable1.getColumnModel().getColumn(4);
         col.setCellEditor(new DefaultCellEditor(sectionCombo));
     }
 
@@ -305,21 +305,38 @@ class ClassTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object value, int row, int col) {
         String query;
+        if(value.toString().equals(data[row][col].toString())) return;
         if(col == 0){
-            query = "SELECT COUNT(*) FROM class WHERE roomNo = '" + value.toString() + "' AND classCode != '" + classCodes[row] + "'";
-            ResultSet rs = Utilfunctions.executeQuery(query);
+            query = "SELECT COUNT(*) FROM classroom WHERE roomNo = '" + value.toString() + "'";
+            ResultSet r1 = Utilfunctions.executeQuery(query);
             try {
-                rs.next();
-                if(rs.getInt(1) >= 1) {
-                    JOptionPane.showMessageDialog(null,"Room number cannot be duplicate");
-                    return;
+                r1.next();
+                int roomId=0;
+                if(r1.getInt(1) >= 1) {
+                    r1 = Utilfunctions.executeQuery("SELECT roomId FROM classroom WHERE roomNo = '" + value.toString() + "'");
+                    r1.next();
+                    query = "SELECT COUNT(*) FROM class WHERE roomId = " + r1.getInt(1) + " AND classCode != '" + classCodes[row] + "'";
+                    ResultSet rs = Utilfunctions.executeQuery(query);
+                    rs.next();
+                    if(rs.getInt(1) >= 1) {
+                        JOptionPane.showMessageDialog(null,"Room number cannot be duplicate");
+                        return;
+                    }
+                    roomId = r1.getInt(1);
                 }
+                else {
+                    query = "INSERT INTO classroom(roomNo) VALUES('" + value.toString() + "')";
+                    JOptionPane.showMessageDialog(null,query);
+                    Utilfunctions.generateKeys=true;
+                    roomId = Utilfunctions.executeUpdate(query);
+                }
+                query = "UPDATE class SET roomId = '" + roomId + "' WHERE classCode = '" + classCodes[row] + "'";
+                int n = Utilfunctions.executeUpdate(query);
+                if(n >= 1) JOptionPane.showMessageDialog(null,"Value updated successfuly");
             } catch (SQLException ex) {
                 Logger.getLogger(ClassTableModel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            query = "UPDATE class SET roomNo = '" + value.toString() + "' WHERE classCode = '" + classCodes[row] + "'";
-            int n = Utilfunctions.executeUpdate(query);
-            if(n >= 1) JOptionPane.showMessageDialog(null,"Value updated successfuly");
+            
         }
         else if(col == 4) {
             if(!Validation.isNumber(value.toString())) {

@@ -15,10 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.DateFormatSymbols;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -118,7 +115,12 @@ public class Utilfunctions {
             Class.forName("com.mysql.jdbc.Driver");
             String dbpwd = Utilfunctions.getDbConfig("password");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
-            PreparedStatement statement = con.prepareStatement(query);
+            PreparedStatement statement;
+            if(generateKeys)
+                 statement = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            else
+                statement = con.prepareStatement(query);
+            
             rowsAffected = statement.executeUpdate();
             
         } catch (Exception e) {
@@ -144,10 +146,16 @@ public class Utilfunctions {
 
         javax.swing.filechooser.FileFilter filter = new FileNameExtensionFilter("Comma Separated Values(CSV) Files", "csv");
         fopen.addChoosableFileFilter(filter);
+       
+        
 
         int ret = fopen.showDialog(null, "Open File");
         if (ret == JFileChooser.APPROVE_OPTION) {
             CSVRead loginCSV = new CSVRead();
+            String[] deptCheckTables = {"equipment","user","class","subject"};
+            if(Arrays.asList(deptCheckTables).contains(tablename) && !LoginForm.userRole.equals("sa")){
+                loginCSV.setDeptCheck(true);
+            }
             loginCSV.setFilename(fopen.getSelectedFile().toString());
             loginCSV.setTablename(tablename);
             if (parentTable != null) {
@@ -247,4 +255,5 @@ public class Utilfunctions {
     private static int width;
     private static int height;
     private static ResultSet result;
+    public static boolean generateKeys=false;
 }

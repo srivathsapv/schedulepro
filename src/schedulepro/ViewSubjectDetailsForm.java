@@ -44,6 +44,11 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         
         col.setCellEditor(new DefaultCellEditor(comboBox));
         
+        JComboBox deptComboBox = new JComboBox();
+        Utilfunctions.populateComboBoxwithQuery(deptComboBox, "SELECT dept FROM dept ORDER BY dept");
+        col = SubjectDetailsTable.getColumnModel().getColumn(1);
+        col.setCellEditor(new DefaultCellEditor(deptComboBox));
+        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -305,8 +310,14 @@ class SubjectTableModel extends AbstractTableModel {
             //no matter where the cell appears onscreen.
             if(col == 0)
                 return false;
-            else 
-                return true;
+            else {
+                /*if(!LoginForm.userRole.equals("sa") && col == 1)
+                    return false;
+                else*/
+                    return true;
+            }
+                
+                
         }
 
         /*
@@ -320,13 +331,13 @@ class SubjectTableModel extends AbstractTableModel {
                 return;
             }
             String dept = LoginForm.userDept;
-            if(col == 1){
+            if(col == 2){
                 ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM "
                                                               + "subject WHERE subName = '" 
                                                               + value.toString() + "' "
                                                               + "AND dept = '" + dept + "'");
-                if(!Validation.isalphanumeric(value.toString())){
-                    JOptionPane.showMessageDialog(null,"Invalid Subject Code");
+                if(!Validation.isStringWithSpace(value.toString())){
+                    JOptionPane.showMessageDialog(null,"Invalid Subject Name");
                     return;
                 }
                 try {
@@ -338,13 +349,33 @@ class SubjectTableModel extends AbstractTableModel {
                 } catch (SQLException ex) {
                     Logger.getLogger(SubjectTableModel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                String query = "UPDATE subject SET subName = '" 
+                String q1 = "UPDATE subject SET subName = '" 
                                 + value.toString() + "' WHERE subcode = '" 
                                 + subcode + "' AND dept = '" + dept + "'";
-                int n = Utilfunctions.executeUpdate(query);
+                int n = Utilfunctions.executeUpdate(q1);
                 if(n >= 1) JOptionPane.showMessageDialog(null,"Subject Name Updated");
             }
-            else if(col == 2){
+            else if(col == 1){
+                ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM "
+                                                              + "subject WHERE subName = '" 
+                                                              + value.toString() + "' "
+                                                              + "AND dept = '" + value.toString() + "'");
+                try {
+                    rs_cnt.next();
+                    if(rs_cnt.getInt(1) >= 1) {
+                        JOptionPane.showMessageDialog(null,"Duplicate Subject Name");
+                        return;
+                    }
+                    String q = "UPDATE subject SET dept = '" + value.toString() + "' WHERE subcode = '" + subcode + "'";
+                    int n = Utilfunctions.executeUpdate(q);
+                    if(n >= 1) JOptionPane.showMessageDialog(null,"Department updated successfully");
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            else if(col == 3){
                 ResultSet rs_cnt = Utilfunctions.executeQuery("SELECT COUNT(*) FROM "
                                                              + "subject WHERE subShortName = "
                                                              + "'" + value.toString()  + "' AND dept = '" 
@@ -363,16 +394,16 @@ class SubjectTableModel extends AbstractTableModel {
                     Logger.getLogger(SubjectTableModel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                String query = "UPDATE subject SET subShortName = '" 
+                String q2 = "UPDATE subject SET subShortName = '" 
                                + value.toString() + "' WHERE subcode = '" 
                                + subcode + "'";
-                int n = Utilfunctions.executeUpdate(query);
+                int n = Utilfunctions.executeUpdate(q2);
                 if(n >= 1) JOptionPane.showMessageDialog(null,"Subject Short Name Updated");
             }
-            else if(col == 3) {
-                String query = "UPDATE subject SET credits = " + value.toString() 
+            else if(col == 4) {
+                String q3 = "UPDATE subject SET credits = " + value.toString() 
                                 + " WHERE subcode = '" + subcode + "'";
-                int n = Utilfunctions.executeUpdate(query);
+                int n = Utilfunctions.executeUpdate(q3);
                 if(n >= 1) JOptionPane.showMessageDialog(null,"Credits updated");
             }
             

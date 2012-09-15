@@ -402,7 +402,7 @@ class ExamTableModel extends AbstractTableModel {
         public boolean isCellEditable(int row, int col) {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
-            if(col == 3) return false;
+            if(col == 3 || col == 9) return false;
             else return true;
         }
 
@@ -418,6 +418,11 @@ class ExamTableModel extends AbstractTableModel {
             df.setLenient(false);
             String dept=data[row][4].toString(),course=data[row][5].toString(),year=data[row][6].toString(),section=data[row][7].toString();
             ResultSet rs;
+            
+            if(value.equals(data[row][col].toString())) {
+                return;
+            }
+            
             switch(col){
                 case 0:
                     examNames[row] = value.toString();
@@ -481,6 +486,29 @@ class ExamTableModel extends AbstractTableModel {
                                                            + " does not exist");
                     }
                     break;  
+                case 8:
+                    query = "SELECT COUNT(*) FROM classroom WHERE roomNo = '" + value.toString()  + "'";
+                    rs = Utilfunctions.executeQuery(query);
+                    try {
+                        rs.next();
+                        if(rs.getInt(1) == 1){
+                            query = "SELECT roomId FROM classroom WHERE roomNo = '" + value.toString() + "'";
+                            rs = Utilfunctions.executeQuery(query);
+                            rs.next();
+                            int roomId = rs.getInt(1);
+                            query = "UPDATE exam SET roomId = '" + roomId + "' WHERE examCode = '" + examCodes[row] + "'";
+                            int x = Utilfunctions.executeUpdate(query);
+                            if(x >= 1) JOptionPane.showMessageDialog(null,"Value Updates Successfully");
+                        }
+                        else {
+                            query = "INSERT INTO classroom(roomNo) VALUES('" + value.toString() + "')";
+                            int x = Utilfunctions.executeUpdate(query);
+                            if(x >= 1) JOptionPane.showMessageDialog(null,"Value Updates Successfully");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ExamTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
             }
             
             //a schedule should not have a subject occuring more than once
@@ -557,10 +585,10 @@ class ExamTableModel extends AbstractTableModel {
                 Logger.getLogger(ExamTableModel.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            String fDate = "";
-            try {
-                Date dt = df.parse(examDates[row]);
+            String fDate="";
+            try {    
                 SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+                Date dt = df2.parse(examDates[row]);
                 fDate = df2.format(dt);
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(null,"Invalid Date");
