@@ -23,6 +23,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
     private boolean flag = false;
     private String Query;
     private Vector assignedFaculty = new Vector();
+    private String userRole;
 
     /**
      * Creates new form AssignFacultytoExamForm
@@ -60,7 +61,12 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             while(result.next()){
                 assignedFaculty.addElement(result.getString(1));
             }
+            userRole = LoginForm.userRole;
+            if(userRole.equals("sa")){
+                Query = "SELECT userCode, CONCAT(name,'(',userCode,')') FROM user order by name asc";
+            }else{
             Query = "SELECT userCode, CONCAT(name,'(',userCode,')') FROM user WHERE  dept =  '" + LoginForm.userDept + "' order by name asc";
+            }
             r1 = Utilfunctions.executeQuery(Query);
             while(r1.next()){
                 //System.out.println(r1.getString(1)+"\n"+r1.getString(2));
@@ -151,6 +157,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         ResultSet r1;
         ResultSet r2;
         ResultSet r3;
+        ResultSet r4;
         if (changeFacultyComboBox.getSelectedItem().toString().contains("green")) {
             if (flag) {
                 Utilfunctions.executeUpdate("UPDATE `examinvigilation` SET `userCode`='" + Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString()) + "' WHERE `examCode`=" + examCode);
@@ -158,35 +165,37 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
                 Utilfunctions.executeUpdate("INSERT INTO `examinvigilation`(`id`, `examCode`, `userCode`) VALUES (NULL," + examCode + ",'" + Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString()) + "')");
             }
             this.setVisible(false);
-        } else {
+            ChooseInvoker.jTable1.setValueAt(changeFacultyComboBox.getSelectedItem().toString(), ChooseInvoker.selectedRow, 9);
             try {
-                r = Utilfunctions.executeQuery("select examCode from examinvigilation where userCode ='"+Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString())+"'");
-                r.next();
-                r1 = Utilfunctions.executeQuery("select examDate, classCode, subCode from exam where examCode ="+r.getString(1));
-                r1.next();
-                r2 = Utilfunctions.executeQuery("select CONCAT(subName,'(',subcode,')') from subject where subcode = '"+r1.getString(3)+"'");
-                r2.next();
-                r3 = Utilfunctions.executeQuery("select year, course, section, roomNo from class where classCode = "+r1.getString(2));
-                r3.next();
-                JOptionPane.showMessageDialog(null, "Alreay assigned to:\nSubject = "+r2.getString(1)+"\nClass = "+r3.getString(1)+"-"+r3.getString(3)+" "+r3.getString(2)+"\nRoom No. = "+r3.getString(4));
+                ChooseInvoker.jTable1.setModel(new ExamTableModel());
+
+                ChooseInvoker.jTable1.getColumnModel().getColumn(0).setPreferredWidth(120);
+                ChooseInvoker.jTable1.getColumnModel().getColumn(1).setPreferredWidth(300);
+                ChooseInvoker.jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+                ChooseInvoker.jTable1.getColumnModel().getColumn(3).setPreferredWidth(140);
+                ChooseInvoker.jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
+                ChooseInvoker.jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
+                ChooseInvoker.jTable1.getColumnModel().getColumn(6).setPreferredWidth(30);
+                ChooseInvoker.jTable1.getColumnModel().getColumn(7).setPreferredWidth(30);
             } catch (SQLException ex) {
                 Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        ChooseInvoker.jTable1.setValueAt(changeFacultyComboBox.getSelectedItem().toString(), ChooseInvoker.selectedRow, ChooseInvoker.selectedColumn);
-        try {
-            ChooseInvoker.jTable1.setModel(new ExamTableModel());
-
-            ChooseInvoker.jTable1.getColumnModel().getColumn(0).setPreferredWidth(120);
-            ChooseInvoker.jTable1.getColumnModel().getColumn(1).setPreferredWidth(300);
-            ChooseInvoker.jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
-            ChooseInvoker.jTable1.getColumnModel().getColumn(3).setPreferredWidth(140);
-            ChooseInvoker.jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
-            ChooseInvoker.jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
-            ChooseInvoker.jTable1.getColumnModel().getColumn(6).setPreferredWidth(30);
-            ChooseInvoker.jTable1.getColumnModel().getColumn(7).setPreferredWidth(30);
-        } catch (SQLException ex) {
-            Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            try {
+                r = Utilfunctions.executeQuery("select examCode from examinvigilation where userCode ='" + Utilfunctions.getWithinBrackets(changeFacultyComboBox.getSelectedItem().toString()) + "'");
+                r.next();
+                r1 = Utilfunctions.executeQuery("select examDate, classCode, subCode, roomId from exam where examCode =" + r.getString(1));
+                r1.next();
+                r2 = Utilfunctions.executeQuery("select CONCAT(subName,'(',subcode,')') from subject where subcode = '" + r1.getString(3) + "'");
+                r2.next();
+                r3 = Utilfunctions.executeQuery("select year, course, section from class where classCode = " + r1.getString(2));
+                r3.next();
+                r4 = Utilfunctions.executeQuery("select roomNo from classroom where roomId=" + r1.getString(4));
+                r4.next();
+                JOptionPane.showMessageDialog(null, "Alreay assigned to:\nSubject = " + r2.getString(1) + "\nClass = " + r3.getString(1) + "-" + r3.getString(3) + " " + r3.getString(2) + "\nRoom No. = " + r4.getString(1));
+            } catch (SQLException ex) {
+                Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_assignButtonActionPerformed
 
