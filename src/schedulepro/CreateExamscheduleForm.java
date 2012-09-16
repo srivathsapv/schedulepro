@@ -370,7 +370,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
             ResultSet result;
             ResultSet result1;
             ResultSet result2;
-            result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='" + LoginForm.userDept + "' AND `year`=" + yearComboBox.getSelectedItem() + " AND section = '" + sectionComboBox.getSelectedItem() + "' AND `course`='" + courseComboBox.getSelectedItem() + "'");
+            result = Utilfunctions.executeQuery("SELECT `classCode` FROM `class` WHERE `dept`='" + userDept + "' AND `year`=" + yearComboBox.getSelectedItem() + " AND section = '" + sectionComboBox.getSelectedItem() + "' AND `course`='" + courseComboBox.getSelectedItem() + "'");
             if (result.next()) {
                 result1 = Utilfunctions.executeQuery("SELECT `subCode` FROM `subclass` WHERE `classCode`=" + result.getString(1));
                 while (result1.next()) {

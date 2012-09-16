@@ -107,6 +107,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         assignFacultyMenuItem = new javax.swing.JMenuItem();
+        deleteMenuItem = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -118,6 +119,14 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
             }
         });
         jPopupMenu1.add(assignFacultyMenuItem);
+
+        deleteMenuItem.setText("Delete");
+        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMenuItemActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(deleteMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - View Exam Schedule");
@@ -150,13 +159,15 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(375, 375, 375)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(375, 375, 375)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,6 +227,21 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         ef.setVisible(true);
     }//GEN-LAST:event_assignFacultyMenuItemActionPerformed
 
+    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
+        // TODO add your handling code here:
+        int opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this exam?","Delete Exam",JOptionPane.YES_NO_OPTION);
+        if(opt == JOptionPane.YES_OPTION){
+            Utilfunctions.executeUpdate("DELETE FROM exam WHERE examCode = '" + ExamTableModel.examCodes[selectedRow] + "'");
+            Utilfunctions.executeUpdate("DELETE FROM `examinvigilation` WHERE `examCode`='" + ExamTableModel.examCodes[selectedRow] + "'");
+            ExamTableModel model = (ExamTableModel)jTable1.getModel();
+            try {
+                jTable1.setModel(new ExamTableModel());
+            } catch (SQLException ex) {
+                Logger.getLogger(EquipmentViewForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_deleteMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,6 +290,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem assignFacultyMenuItem;
+    private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -328,7 +355,7 @@ class ExamTableModel extends AbstractTableModel {
                 query = "select roomNo from classroom where roomId="+rs.getString(7);
                 ResultSet roomResult = Utilfunctions.executeQuery(query);
                 if(roomResult.next()){
-                    roomNo = rs.getString(7);
+                    roomNo = roomResult.getString(1);
                 }else
                 {
                     roomNo="";

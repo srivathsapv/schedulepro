@@ -486,7 +486,7 @@ public class DashboardForm extends javax.swing.JFrame {
             this.setVisible(false);
             LoginForm lf = new LoginForm();
             Utilfunctions.setLocation(lf);
-            Utilfunctions.setLocation(lf);
+            Utilfunctions.setIconImage(lf);
             lf.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
