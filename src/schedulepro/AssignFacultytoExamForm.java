@@ -60,7 +60,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             while(result.next()){
                 assignedFaculty.addElement(result.getString(1));
             }
-            Query = "SELECT userCode, CONCAT(name,'(',userCode,')') FROM user WHERE  dept =  '" + LoginForm.userDept + "' order by name asc";
+            Query = "SELECT userCode, CONCAT(name,'(',userCode,')') FROM user WHERE order by name asc";
             r1 = Utilfunctions.executeQuery(Query);
             while(r1.next()){
                 //System.out.println(r1.getString(1)+"\n"+r1.getString(2));

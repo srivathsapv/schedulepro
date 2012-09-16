@@ -68,9 +68,18 @@ public class ClassViewForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+
+        jMenuItem2.setText("View Assigned Faculty");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
 
         jMenuItem1.setText("Delete");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -166,6 +175,23 @@ public class ClassViewForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1MouseReleased
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            ClassTableModel model = (ClassTableModel)jTable1.getModel();
+            ViewAssignedFacultyForm.classCode = model.getClassCode(selectedRow);
+            ViewAssignedFacultyForm aff;
+            aff = new ViewAssignedFacultyForm();
+            Utilfunctions.setIconImage(aff);
+            Utilfunctions.setLocation(aff);
+            this.setVisible(false);
+            aff.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -214,6 +240,7 @@ public class ClassViewForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
