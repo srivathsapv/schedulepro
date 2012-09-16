@@ -96,9 +96,11 @@ public class Utilfunctions {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
             PreparedStatement statement = con.prepareStatement(query);
             result = statement.executeQuery();
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
         return result;
     }
 
@@ -116,19 +118,36 @@ public class Utilfunctions {
             String dbpwd = Utilfunctions.getDbConfig("password");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
             PreparedStatement statement;
-            if(generateKeys)
-                 statement = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
-            else
-                statement = con.prepareStatement(query);
+            statement = con.prepareStatement(query);
             
             rowsAffected = statement.executeUpdate();
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return rowsAffected;
     }
-
+    
+    public static int insertWithGeneratedKey(String query){
+        int lastInsertId=0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String dbpwd = Utilfunctions.getDbConfig("password");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
+            
+            PreparedStatement statement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.executeUpdate();
+            
+            ResultSet keys = statement.getGeneratedKeys();
+            keys.next();
+            lastInsertId = keys.getInt(1);
+            
+            return lastInsertId;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return lastInsertId;
+    }
+    
     public static void setClosePrompt(JFrame jf) {
         jf.addWindowListener(new WindowAdapter() {
             @Override
@@ -255,5 +274,4 @@ public class Utilfunctions {
     private static int width;
     private static int height;
     private static ResultSet result;
-    public static boolean generateKeys=false;
 }

@@ -129,7 +129,7 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
                     etm.fireTableCellUpdated(tableRow,3);
                     this.setVisible(false);
                 }
-                else if(source.equals("subconstraint")){
+                else if(source.equals("subconstraint") || source.equals("staffconstraint")){
                     Boolean dup = false;
                     String configString = rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5);
                     if(rs.getInt(5) == 2) {
@@ -145,10 +145,17 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
                     if(dup) JOptionPane.showMessageDialog(null,"Already Added");
                     else {
                         srcListModel.addElement(configString);
-                        SubjectConstraintForm.pConfigs.add(pConfigId);
+                        if(source.equals("subconstraint"))
+                            SubjectConstraintForm.pConfigs.add(pConfigId);
+                        else
+                            StaffConstraintForm.pConfigs.add(pConfigId);
                     }
                     
                     this.setVisible(false);
+                }
+                else if(source.equals("examschedule") && rs.getInt(5) != 3){
+                    JOptionPane.showMessageDialog(null,"Only exam slots can be chosen");
+                    return;
                 }
                 else {
                     pConfigTextField.setText(rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5));
@@ -234,7 +241,6 @@ class PeriodConfigTableModel extends AbstractTableModel {
         ResultSet rs = Utilfunctions.executeQuery(query);
         rs.next();
         int rows = rs.getInt(1);
-        System.out.println(rows);
         data = new Object[rows][7];
         pConfig = new int[rows][7];
         
@@ -247,8 +253,10 @@ class PeriodConfigTableModel extends AbstractTableModel {
             while(rs.next()){
                 if(rs.getInt(5) == 1)
                     ptype = "Period";
-                else
+                else if(rs.getInt(5) == 2)
                     ptype = "Recess";
+                else 
+                    ptype = "Exam";
                 data[k][i] = rs.getString(3) + "\n to \n" + rs.getString(4) + "\n(" + ptype + ")";
                 pConfig[k++][i] = Integer.parseInt(rs.getString(1));
             }

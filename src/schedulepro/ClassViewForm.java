@@ -354,8 +354,8 @@ class ClassTableModel extends AbstractTableModel {
                 else {
                     query = "INSERT INTO classroom(roomNo) VALUES('" + value.toString() + "')";
                     JOptionPane.showMessageDialog(null,query);
-                    Utilfunctions.generateKeys=true;
-                    roomId = Utilfunctions.executeUpdate(query);
+                    
+                    roomId = Utilfunctions.insertWithGeneratedKey(query);
                 }
                 query = "UPDATE class SET roomId = '" + roomId + "' WHERE classCode = '" + classCodes[row] + "'";
                 int n = Utilfunctions.executeUpdate(query);

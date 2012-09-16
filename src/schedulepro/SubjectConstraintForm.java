@@ -375,8 +375,6 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
             if(rs.getInt(1) == 0) {
                 query = "INSERT INTO subjectconstraint VALUES('" + subcode + "'," + ppw + "," + minInterval + ")";
                 n = Utilfunctions.executeUpdate(query);
-                
-                
             }
             else {
                 query = "UPDATE subjectconstraint SET totalPPW = " + ppw +", minInterval = " + minInterval + " WHERE subcode = '" + subcode + "'";

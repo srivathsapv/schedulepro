@@ -172,49 +172,73 @@ public class WorkHourForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        
+        // TODO add your handling code here:
+        userCode = StaffConstraintForm.userCode;
+        
+        String h1,h2,m1,m2;
+        int t1,t2;
+        
+        if(jComboBox2.getSelectedItem().toString().equals("AM") || jSpinner1.getValue().toString().equals("12")){
+            h1 = jSpinner1.getValue().toString();
+            m1 = jSpinner2.getValue().toString();
+            
+        }
+        else{
+            h1 = String.valueOf(Integer.parseInt(jSpinner1.getValue().toString())+12);
+            m1 = jSpinner2.getValue().toString();
+        }
+        t1 = (Integer.parseInt(h1) * 100) + Integer.parseInt(m1);
+        
+        if(jComboBox3.getSelectedItem().toString().equals("AM") || jSpinner3.getValue().toString().equals("12")){
+            h2 = jSpinner3.getValue().toString();
+            m2 = jSpinner4.getValue().toString();
+            
+        }
+        else{
+            h2 = String.valueOf(Integer.parseInt(jSpinner3.getValue().toString())+12);
+            m2 = jSpinner4.getValue().toString();
+        }
+        t2 = (Integer.parseInt(h2) * 100) + Integer.parseInt(m2);
+        if(t1 >= t2) {
+            JOptionPane.showMessageDialog(null,"Start time cannot be later than end time");
+            return;
+        }
+        
+        timeFrom = h1 + ":" + m1;
+        timeTo = h2 + ":" + m2;
+        day = jComboBox1.getSelectedItem().toString();
+
+        String query = "SELECT COUNT(*) FROM staffworkhour WHERE workHourFrom = '" + timeFrom +
+                        "' AND workHourTo = '" + timeTo + "' AND day = '" + day + "'";
+        ResultSet cnt_rs = Utilfunctions.executeQuery(query);
         try {
-            // TODO add your handling code here:
-            userCode = StaffConstraintForm.userCode;
-            Calendar cl1 = Calendar.getInstance();
-
-            cl1.set(Calendar.MINUTE, Integer.parseInt(jSpinner2.getValue().toString()));
-            cl1.set(Calendar.HOUR, Integer.parseInt(jSpinner1.getValue().toString()));
-
-            if (jComboBox2.getSelectedItem().toString().equals("AM")) {
-                cl1.set(Calendar.AM_PM, Calendar.AM);
-            } else {
-                cl1.set(Calendar.AM_PM, Calendar.PM);
+            cnt_rs.next();
+            int workHourConfigId=0;
+            
+            if(cnt_rs.getInt(1) >= 1){    
+                query = "SELECT * FROM staffworkhour WHERE workHourFrom = '" + timeFrom +
+                        "' AND workHourTo = '" + timeTo + "' AND day = '" + day + "'";
+                ResultSet rs = Utilfunctions.executeQuery(query);
+                rs.next();
+                workHourConfigId=rs.getInt(1);             
+                ResultSet rs2 = Utilfunctions.executeQuery("SELECT COUNT(*) FROM userworkid WHERE userCode = '" + userCode + "' AND workHourConfigId = " + rs.getInt(1));
+                rs2.next();
+                if(rs2.getInt(1) >= 1){
+                    JOptionPane.showMessageDialog(null,"Duplicate Work Hour data");
+                    return;
+                }
             }
-
-            Calendar cl2 = Calendar.getInstance();
-            cl2.set(Calendar.HOUR, Integer.parseInt(jSpinner3.getValue().toString()));
-            cl2.set(Calendar.MINUTE, Integer.parseInt(jSpinner4.getValue().toString()));
-            if (jComboBox3.getSelectedItem().toString().equals("AM")) {
-                cl2.set(Calendar.AM_PM, Calendar.AM);
-            } else {
-                cl2.set(Calendar.AM_PM, Calendar.PM);
+            else {
+                workHourConfigId = Utilfunctions.insertWithGeneratedKey("INSERT INTO staffworkhour(day,workHourFrom,workHourTo) VALUES('" + day + "','" + timeFrom + "','" + timeTo + "')");
             }
-
-            if (cl1.compareTo(cl2) == 1) {
-                JOptionPane.showMessageDialog(null, "Start time cannot be later than end time");
-                return;
-            }
-
-            timeFrom = cl1.getTime().getHours() + ":" + cl1.getTime().getMinutes();
-            timeTo = cl2.getTime().getHours() + ":" + cl2.getTime().getMinutes();
-            day = jComboBox1.getSelectedItem().toString();
-
-            int n = Utilfunctions.executeUpdate("INSERT INTO staffworkhour(workHourConfigId,day,workHourFrom,workHourTo) VALUES(NULL,'" + day + "','" + timeFrom + "','" + timeTo + "')");
-            if (n == 1) {
-                JOptionPane.showMessageDialog(null, "Work Hour added successfully");
-            }
-            ResultSet r = Utilfunctions.executeQuery("select workHourConfigId from staffworkhour where day = '" + day + "' AND workHourFrom = '" + timeFrom + "' AND workHourTo ='" + timeTo + "'");
-            r.next();
-            Utilfunctions.executeUpdate("INSERT INTO `userworkid`(`id`, `userCode`, `workHourConfigId`) VALUES (NULL,'" + userCode + "'," + r.getString(1) + ")");
-            r = Utilfunctions.executeQuery("SELECT `pconfigId` FROM `periodconfig` WHERE day ='"+day+"' and timeFrom and timeTo not between '"+timeFrom+"' and '"+timeTo+"'");
+            
+            Utilfunctions.executeUpdate("INSERT INTO userworkid(userCode,workHourConfigId) VALUES('" + userCode + "'," + workHourConfigId + ")"); 
+            
+            /*ResultSet r = Utilfunctions.executeQuery("SELECT `pconfigId` FROM `periodconfig` WHERE day ='"+day+"' and timeFrom and timeTo not between '"+timeFrom+"' and '"+timeTo+"'");
             while(r.next()){
                 Utilfunctions.executeUpdate("INSERT INTO `staffperiodexception`(`id`, `userCode`, `pconfigId`) VALUES (NULL,'"+userCode+"',"+r.getString(1)+")");
-            }
+            }*/
             StaffConstraintForm sf = new StaffConstraintForm();
             Utilfunctions.setIconImage(sf);
             Utilfunctions.setLocation(sf);
@@ -223,6 +247,8 @@ public class WorkHourForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(WorkHourForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
     }//GEN-LAST:event_addButtonActionPerformed
 
     /**

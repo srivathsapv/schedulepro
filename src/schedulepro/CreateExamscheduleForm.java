@@ -308,6 +308,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         if (!dateTextField.getText().isEmpty()) {
             PeriodConfigViewForm.pConfigChooseInvoker = this;
             PeriodConfigViewForm.pConfigTextField = jTextField2;
+            PeriodConfigViewForm.source = "examschedule";
             try {
                 PeriodConfigViewForm pcv = new PeriodConfigViewForm();
                 Utilfunctions.setIconImage(pcv);

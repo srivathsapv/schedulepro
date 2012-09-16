@@ -224,9 +224,10 @@
     <Component class="javax.swing.JComboBox" name="jComboBox4">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
+          <StringArray count="3">
             <StringItem index="0" value="Subject"/>
             <StringItem index="1" value="Recess"/>
+            <StringItem index="2" value="Exam"/>
           </StringArray>
         </Property>
       </Properties>

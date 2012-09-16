@@ -8,7 +8,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -99,7 +98,7 @@ public class PeriodConfigForm extends javax.swing.JFrame {
 
         jLabel2.setText("to");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Subject", "Recess" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Subject", "Recess", "Exam" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -217,7 +216,8 @@ public class PeriodConfigForm extends javax.swing.JFrame {
         String day = jComboBox1.getSelectedItem().toString();
         int type;
         if(jComboBox4.getSelectedItem().toString().equals("Subject")) type = 1;
-        else type = 2;
+        else if(jComboBox4.getSelectedItem().toString().equals("Recess")) type = 2;
+        else type = 3;
         
         String query = "SELECT * FROM periodconfig WHERE day = '" + day + "' AND " +
                         " timeFrom = '" + timeFrom + "' AND timeTo = '" + timeTo + "' AND pType = " + type;
