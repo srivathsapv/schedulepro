@@ -68,7 +68,6 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - Period Configuration");
-        setResizable(false);
 
         jTable1.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -81,7 +80,6 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
         ));
         jTable1.setCellSelectionEnabled(true);
         jTable1.setMinimumSize(new java.awt.Dimension(100, 72));
-        jTable1.setPreferredSize(new java.awt.Dimension(400, 400));
         jTable1.setRequestFocusEnabled(false);
         jTable1.setRowHeight(80);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -236,6 +234,7 @@ class PeriodConfigTableModel extends AbstractTableModel {
         ResultSet rs = Utilfunctions.executeQuery(query);
         rs.next();
         int rows = rs.getInt(1);
+        System.out.println(rows);
         data = new Object[rows][7];
         pConfig = new int[rows][7];
         
