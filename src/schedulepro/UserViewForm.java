@@ -4,8 +4,6 @@
  */
 package schedulepro;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.security.NoSuchAlgorithmException;
@@ -57,6 +55,11 @@ public class UserViewForm extends javax.swing.JFrame {
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         col.setCellRenderer(renderer);
+        
+        col = usersTable.getColumnModel().getColumn(3);
+        JComboBox deptCombo = new JComboBox();
+        Utilfunctions.populateComboBoxwithQuery(deptCombo,"SELECT dept FROM dept ORDER BY dept");
+        col.setCellEditor(new DefaultCellEditor(deptCombo));
         
     }
 
@@ -284,7 +287,7 @@ public class UserViewForm extends javax.swing.JFrame {
 }
 
 class UserTableModel extends AbstractTableModel {
-        private String[] columnNames = {"Login Id","Name","Role","Department"};
+        private String[] columnNames = {"User Code","Name","Role","Department"};
         private Object[][] data;
         private final String userRole;
 	
@@ -315,7 +318,7 @@ class UserTableModel extends AbstractTableModel {
                 query = "SELECT * FROM login WHERE userCode = '" + rs.getString(1) + "'";
                 ResultSet rs2 = Utilfunctions.executeQuery(query);
                 rs2.next();
-                Object[] values = {rs2.getString(1),rs.getString(2),hm.get(rs2.getString(4)),rs.getString(4)};
+                Object[] values = {rs2.getString(2),rs.getString(2),hm.get(rs2.getString(4)),rs.getString(4)};
                 data[i++] = values;
             }
             
@@ -360,7 +363,7 @@ class UserTableModel extends AbstractTableModel {
         public boolean isCellEditable(int row, int col) {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
-            if (col < 2) {
+            if (col == 0) {
                 return false;
             } else {
                 return true;
@@ -373,22 +376,39 @@ class UserTableModel extends AbstractTableModel {
      */
     @Override
         public void setValueAt(Object value, int row, int col) {
+            if(value.toString().equals(data[row][col].toString())) return;
+            if(col == 1){
+                if(!Validation.isStringWithSpace(value.toString())){
+                    JOptionPane.showMessageDialog(null,"Invalid Name");
+                    return;
+                }
+                String query = "UPDATE user SET name = '" + value.toString() + "' WHERE userCode = '" + data[row][0] + "'";
+                int n = Utilfunctions.executeUpdate(query);
+                if(n >= 1)
+                    JOptionPane.showMessageDialog(null,"Name Changed");
+            }
+            else if(col == 2){
+                HashMap hm = new HashMap();
+                hm.put("Head of the Department","hod");
+                hm.put("Staff","staff");
+                hm.put("Department Secretary","ds");
+                hm.put("System Administrator","sa");
+
+                String role = value.toString();
+
+                String query = "UPDATE login SET role = '" + hm.get(role) + "' WHERE userCode = '" + data[row][0] + "'";
+                int n = Utilfunctions.executeUpdate(query);
+                if(n >= 1)
+                    JOptionPane.showMessageDialog(null,"Role Changed");
+            }
+            else if(col == 3){
+                String query = "UPDATE user SET dept = '" + value.toString() + "' WHERE userCode = '" + data[row][0] + "'";
+                int n = Utilfunctions.executeUpdate(query);
+                if(n >= 1)
+                    JOptionPane.showMessageDialog(null,"Department Changed");
+            }
             data[row][col] = value;
             fireTableCellUpdated(row, col);
-            
-            HashMap hm = new HashMap();
-            hm.put("Head of the Department","hod");
-            hm.put("Staff","staff");
-            hm.put("Department Secretary","ds");
-            hm.put("System Administrator","sa");
-
-            
-            String role = value.toString();
-
-            String query = "UPDATE login SET role = '" + hm.get(role) + "' WHERE id = '" + data[row][0] + "'";
-            int n = Utilfunctions.executeUpdate(query);
-            if(n >= 1)
-                JOptionPane.showMessageDialog(null,"Role Changed");
         }
     }
 
