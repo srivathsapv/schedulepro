@@ -182,35 +182,38 @@ public class PeriodConfigForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Calendar cl1 = Calendar.getInstance();        
         
-        cl1.set(Calendar.MINUTE,Integer.parseInt(jSpinner2.getValue().toString()));
-        cl1.set(Calendar.HOUR,Integer.parseInt(jSpinner1.getValue().toString()));
+        String h1,h2,m1,m2;
+        int t1,t2;
         
-        if(jComboBox2.getSelectedItem().toString().equals("AM")){
-            cl1.set(Calendar.AM_PM,Calendar.AM);            
+        if(jComboBox2.getSelectedItem().toString().equals("AM") || jSpinner1.getValue().toString().equals("12")){
+            h1 = jSpinner1.getValue().toString();
+            m1 = jSpinner2.getValue().toString();
+            
         }
-        else {
-            cl1.set(Calendar.AM_PM,Calendar.PM);
+        else{
+            h1 = String.valueOf(Integer.parseInt(jSpinner1.getValue().toString())+12);
+            m1 = jSpinner2.getValue().toString();
         }
+        t1 = (Integer.parseInt(h1) * 100) + Integer.parseInt(m1);
         
-        Calendar cl2 = Calendar.getInstance();
-        cl2.set(Calendar.HOUR,Integer.parseInt(jSpinner3.getValue().toString()));
-        cl2.set(Calendar.MINUTE,Integer.parseInt(jSpinner4.getValue().toString()));
-        if(jComboBox3.getSelectedItem().toString().equals("AM")){
-            cl2.set(Calendar.AM_PM,Calendar.AM);
+        if(jComboBox3.getSelectedItem().toString().equals("AM") || jSpinner3.getValue().toString().equals("12")){
+            h2 = jSpinner3.getValue().toString();
+            m2 = jSpinner4.getValue().toString();
+            
         }
-        else {
-            cl2.set(Calendar.AM_PM,Calendar.PM);
+        else{
+            h2 = String.valueOf(Integer.parseInt(jSpinner3.getValue().toString())+12);
+            m2 = jSpinner4.getValue().toString();
         }
-        
-        if(cl1.compareTo(cl2) == 1) {
+        t2 = (Integer.parseInt(h2) * 100) + Integer.parseInt(m2);
+        if(t1 >= t2) {
             JOptionPane.showMessageDialog(null,"Start time cannot be later than end time");
             return;
         }
         
-        String timeFrom = cl1.getTime().getHours() + ":" + cl1.getTime().getMinutes();
-        String timeTo = cl2.getTime().getHours() + ":" + cl2.getTime().getMinutes();
+        String timeFrom = h1 + ":" + m1;
+        String timeTo = h2 + ":" + m2;
         String day = jComboBox1.getSelectedItem().toString();
         int type;
         if(jComboBox4.getSelectedItem().toString().equals("Subject")) type = 1;
@@ -234,11 +237,7 @@ public class PeriodConfigForm extends javax.swing.JFrame {
         
         int n = Utilfunctions.executeUpdate("INSERT INTO periodconfig(day,timeFrom,timeTo,pType) VALUES('" + day + "','" + timeFrom + "','" + timeTo + "','" + type + "')");
         if(n == 1) JOptionPane.showMessageDialog(null,"Period Configuration added successfully");
-        this.setVisible(false);
-        DashboardForm df = new DashboardForm();
-        Utilfunctions.setIconImage(df);
-        Utilfunctions.setLocation(df);
-        df.setVisible(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
