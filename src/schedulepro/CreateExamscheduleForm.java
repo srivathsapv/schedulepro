@@ -346,14 +346,18 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                     + " roomId = " + r.getInt(1);
             ResultSet countrs = Utilfunctions.executeQuery(query);
             countrs.next();
+            boolean cont=true;
             if(countrs.getInt(1) >= 1){
-                JOptionPane.showMessageDialog(null,"Room - " +roomNoComboBox.getSelectedItem().toString() + " not available. Already occupied for another exam" );
-                return;
+                int opt = JOptionPane.showConfirmDialog(null, "Room - " +roomNoComboBox.getSelectedItem().toString() + " already occupied for another exam. Want to accomodate another class?", "SchedulePro - Logoff", JOptionPane.YES_NO_OPTION);
+                if(opt != JOptionPane.YES_OPTION){
+                    cont=false;
+                }   
             }
-            
-            classCode = Integer.parseInt(result.getString(1));
-            n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`, roomId) VALUES (NULL, '" + Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString()) + "', '" + dateTextField.getText() + "', " + PeriodConfigViewForm.pConfigId + ", " + classCode + ", '" + jTextField1.getText() + "', '"+r.getString(1)+"')");
-            if(n >= 1) JOptionPane.showMessageDialog(null,"Exam added successfully");
+            if(cont){
+                classCode = Integer.parseInt(result.getString(1));
+                n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`, roomId) VALUES (NULL, '" + Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString()) + "', '" + dateTextField.getText() + "', " + PeriodConfigViewForm.pConfigId + ", " + classCode + ", '" + jTextField1.getText() + "', '"+r.getString(1)+"')");
+                if(n >= 1) JOptionPane.showMessageDialog(null,"Exam added successfully");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
         }
