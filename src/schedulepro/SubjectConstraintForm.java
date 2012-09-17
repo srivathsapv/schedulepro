@@ -350,7 +350,9 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int ppw = Integer.parseInt(jTextField1.getText());
         int minInterval = Integer.parseInt(jTextField2.getText());
-        int comb = Integer.parseInt(jTextField3.getText());
+        int comb;
+        if(jTextField3.getText().equals("")) comb = 0;
+        else comb = Integer.parseInt(jTextField3.getText());
         
         if(!Validation.isNumber(jTextField1.getText())){
             JOptionPane.showMessageDialog(null,"Periods/Week should be a numeric value");
@@ -360,7 +362,7 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Minimum Interval should be a numeric value");
             return;
         }
-        if(!Validation.isNumber(jTextField3.getText())){
+        if(!Validation.isNumber(jTextField3.getText()) && comb != 0){
             JOptionPane.showMessageDialog(null,"Combination number should be a numeric value");
             return;
         }
@@ -373,7 +375,7 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
             int n=0;
             int m=0;
             if(rs.getInt(1) == 0) {
-                query = "INSERT INTO subjectconstraint VALUES('" + subcode + "'," + ppw + "," + minInterval + ")";
+                query = "INSERT INTO subjectconstraint VALUES('" + subcode + "'," + ppw + "," + minInterval + "," + comb + ")";
                 n = Utilfunctions.executeUpdate(query);
             }
             else {

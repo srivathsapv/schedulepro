@@ -1,0 +1,2 @@
+schedulepro.SubjectTableModel
+schedulepro.ViewSubjectDetailsForm

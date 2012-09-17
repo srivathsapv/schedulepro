@@ -254,9 +254,11 @@ class PeriodConfigTableModel extends AbstractTableModel {
                 if(rs.getInt(5) == 1)
                     ptype = "Period";
                 else if(rs.getInt(5) == 2)
-                    ptype = "Recess";
-                else 
+                    ptype = "Lunch";
+                else if(rs.getInt(5) == 3)
                     ptype = "Exam";
+                else 
+                    ptype = "Recess";
                 data[k][i] = rs.getString(3) + "\n to \n" + rs.getString(4) + "\n(" + ptype + ")";
                 pConfig[k++][i] = Integer.parseInt(rs.getString(1));
             }

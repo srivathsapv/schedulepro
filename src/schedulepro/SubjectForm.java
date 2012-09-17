@@ -188,7 +188,6 @@ public class SubjectForm extends javax.swing.JFrame {
         
         if (test == 1) {
             JOptionPane.showMessageDialog(null, "Inserted");
-            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Error");
         }  // TODO add your handling code here:
