@@ -430,7 +430,12 @@ class ExamTableModel extends AbstractTableModel {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
             if(col == 3 || col == 9) return false;
-            else return true;
+            else if(!LoginForm.userRole.equals("sa") && col == 4){
+                return false;
+            }
+            else {
+                return true;
+            }
         }
 
     /*

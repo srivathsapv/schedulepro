@@ -319,7 +319,13 @@ class ClassTableModel extends AbstractTableModel {
     public boolean isCellEditable(int row, int col) {
         //Note that the data/cell address is constant,
         //no matter where the cell appears onscreen.
-        return true;
+        if(!LoginForm.userRole.equals("sa") && col == 2){
+            return false;
+        }
+        else {
+            return true;
+        }
+        
     }
     
     public int getClassCode(int row){

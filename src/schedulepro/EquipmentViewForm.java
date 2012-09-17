@@ -332,7 +332,12 @@ class EquipmentTableModel extends AbstractTableModel {
         //Note that the data/cell address is constant,
         //no matter where the cell appears onscreen.
         if (col == 1) {
-            return true;
+            if(!LoginForm.userRole.equals("sa")||!LoginForm.userRole.equals("ds")||!LoginForm.userRole.equals("hod")){
+                return false;
+            }
+            else {
+                return true;
+            }
         } 
         else {
             return false;

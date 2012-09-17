@@ -45,7 +45,10 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         col.setCellEditor(new DefaultCellEditor(comboBox));
         
         JComboBox deptComboBox = new JComboBox();
+        
         Utilfunctions.populateComboBoxwithQuery(deptComboBox, "SELECT dept FROM dept ORDER BY dept");
+        
+            
         col = SubjectDetailsTable.getColumnModel().getColumn(1);
         col.setCellEditor(new DefaultCellEditor(deptComboBox));
         
@@ -311,9 +314,9 @@ class SubjectTableModel extends AbstractTableModel {
             if(col == 0)
                 return false;
             else {
-                /*if(!LoginForm.userRole.equals("sa") && col == 1)
+                if(!LoginForm.userRole.equals("sa") && col == 1)
                     return false;
-                else*/
+                else
                     return true;
             }
                 
