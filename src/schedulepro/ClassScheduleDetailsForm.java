@@ -21,6 +21,11 @@ public class ClassScheduleDetailsForm extends javax.swing.JFrame {
      */
     public ClassScheduleDetailsForm() {
         initComponents();
+        if(LoginForm.userRole.equals("staff")){
+            jTextField1.setEditable(false);
+            jTextField2.setEditable(false);
+            jButton1.setVisible(false);
+        }
         ResultSet cnt_rs = Utilfunctions.executeQuery("SELECT COUNT(*) FROM classschedule WHERE classCode = " + classCode + "");
         try {
             cnt_rs.next();

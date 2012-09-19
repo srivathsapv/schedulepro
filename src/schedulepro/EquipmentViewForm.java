@@ -32,11 +32,9 @@ public class EquipmentViewForm extends javax.swing.JFrame {
      */
     public EquipmentViewForm() throws SQLException {
         initComponents();
-        jMenuItem1.setVisible(false);
         jMenuItem4.setVisible(false);
         userRole = LoginForm.userRole;
         if (userRole.equals("sa") || userRole.equals("ds") || userRole.equals("hod")) {
-            jMenuItem1.setVisible(true);
             jMenuItem4.setVisible(true);
         }
         addWindowListener(new WindowAdapter() {
@@ -67,7 +65,6 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -88,9 +85,6 @@ public class EquipmentViewForm extends javax.swing.JFrame {
             }
         });
         jPopupMenu1.add(jMenuItem6);
-
-        jMenuItem1.setText("Edit Equipment Name");
-        jPopupMenu1.add(jMenuItem1);
 
         jMenuItem4.setText("Delete");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +123,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(179, 179, 179)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(104, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,7 +247,6 @@ public class EquipmentViewForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

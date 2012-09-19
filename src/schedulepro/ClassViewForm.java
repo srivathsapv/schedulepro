@@ -27,6 +27,11 @@ public class ClassViewForm extends javax.swing.JFrame {
      */
     public ClassViewForm() throws SQLException {
         initComponents();
+        jMenuItem1.setVisible(false);
+        userRole = LoginForm.userRole;
+        if (userRole.equals("sa") || userRole.equals("ds") || userRole.equals("hod")) {
+           jMenuItem1.setVisible(true);
+        }
         jTable1.setModel(new ClassTableModel());
         addWindowListener(new WindowAdapter() {
             @Override
@@ -179,15 +184,12 @@ public class ClassViewForm extends javax.swing.JFrame {
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         // TODO add your handling code here:
-        userRole = LoginForm.userRole;
-        if (userRole.equals("sa") || userRole.equals("ds") || userRole.equals("hod")) {
             if (SwingUtilities.isRightMouseButton(evt)) {
                 JTable source = (JTable) evt.getSource();
                 selectedRow = source.rowAtPoint(evt.getPoint());
                 selectedColumn = source.columnAtPoint(evt.getPoint());
                 jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
             }
-        }
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
