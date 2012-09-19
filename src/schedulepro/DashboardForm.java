@@ -109,6 +109,7 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu15 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem25 = new javax.swing.JMenuItem();
@@ -256,13 +257,21 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu15.add(jMenuItem13);
 
-        jMenuItem14.setText("Upload CSV File");
+        jMenuItem14.setText("Upload Class CSV");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem14ActionPerformed(evt);
             }
         });
         jMenu15.add(jMenuItem14);
+
+        jMenuItem12.setText("Upload Rooms CSV");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu15.add(jMenuItem12);
 
         jMenu3.add(jMenu15);
 
@@ -503,12 +512,16 @@ public class DashboardForm extends javax.swing.JFrame {
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
         String tablename = "class";
+        String parentTable = "classroom";
+        int parentKeyColumn = 6;
         try {
             try {
-                Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
+                try {
+                    Utilfunctions.showCSVFileOpenDialog(tablename, parentTable, parentKeyColumn, 0);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (SQLException ex) {
-                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (FileNotFoundException ex) {
@@ -646,7 +659,7 @@ public class DashboardForm extends javax.swing.JFrame {
     private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
         // TODO add your handling code here:
         String tablename = "login";
-        String parentTable = "login";
+        String parentTable = "user";
         int parentKeyColumn = 2;
         try {
             try {
@@ -813,6 +826,26 @@ public class DashboardForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+        String tablename = "classroom";
+        try {
+            try {
+                try {
+                    Utilfunctions.showCSVFileOpenDialog(tablename, null, 0, 0);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid data");
+        }
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -883,6 +916,7 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;

@@ -48,8 +48,14 @@ public class ClassViewForm extends javax.swing.JFrame {
         JComboBox courseCombo = new JComboBox();
         Utilfunctions.populateComboBoxwithQuery(courseCombo, "SELECT DISTINCT(course) FROM class");
         
-        TableColumn col = jTable1.getColumnModel().getColumn(2);
+        JComboBox deptCombo = new JComboBox();
+        Utilfunctions.populateComboBoxwithQuery(deptCombo, "SELECT DISTINCT(dept) FROM class");
+        
+        TableColumn col = jTable1.getColumnModel().getColumn(1);
         col.setCellEditor(new DefaultCellEditor(courseCombo));
+        
+        col = jTable1.getColumnModel().getColumn(2);
+        col.setCellEditor(new DefaultCellEditor(deptCombo));
         
         col = jTable1.getColumnModel().getColumn(3);
         col.setCellEditor(new DefaultCellEditor(yearCombo));
@@ -359,6 +365,12 @@ class ClassTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object value, int row, int col) {
         String query;
+        String userDept;
+        if(LoginForm.userRole.equals("sa")){
+            userDept = (data[row][2]).toString();
+        }else{
+            userDept = LoginForm.userDept;
+        }
         if(value.toString().equals(data[row][col].toString())) return;
         if(col == 0){
             query = "SELECT COUNT(*) FROM classroom WHERE roomNo = '" + value.toString() + "'";
@@ -392,7 +404,7 @@ class ClassTableModel extends AbstractTableModel {
             }
             
         }
-        else if(col == 4) {
+        else if(col == 5) {
             if(!Validation.isNumber(value.toString())) {
                 JOptionPane.showMessageDialog(null,"Invalid Value for Class Strength");
                 return;
@@ -403,8 +415,8 @@ class ClassTableModel extends AbstractTableModel {
         }
         else if(col == 1) {
             query = "SELECT COUNT(*) FROM class WHERE course = '" + value.toString() + 
-                    "' AND year = '" + (data[row][2]).toString() + "' AND section = '" + 
-                    (data[row][3]).toString() + "' AND classCode != '" + classCodes[row] + "' AND dept = '" + LoginForm.userDept + "'";
+                    "' AND year = '" + (data[row][3]).toString() + "' AND section = '" + 
+                    (data[row][4]).toString() + "' AND classCode != '" + classCodes[row] + "' AND dept = '" + userDept + "'";
             ResultSet rs = Utilfunctions.executeQuery(query);
             try {
                 rs.next();
@@ -420,10 +432,10 @@ class ClassTableModel extends AbstractTableModel {
             if(n >= 1) JOptionPane.showMessageDialog(null,"Value updated successfuly");
             
         }
-        else if(col == 2){
+        else if(col == 3){
             query = "SELECT COUNT(*) FROM class WHERE course = '" + (data[row][1]).toString() + 
                     "' AND year = '" + value.toString() + "' AND section = '" + 
-                    (data[row][3]).toString() + "' AND classCode != '" + classCodes[row] + "' AND dept = '" + LoginForm.userDept + "'";
+                    (data[row][4]).toString() + "' AND classCode != '" + classCodes[row] + "' AND dept = '" + userDept + "'";
             ResultSet rs = Utilfunctions.executeQuery(query);
             try {
                 rs.next();
@@ -438,10 +450,10 @@ class ClassTableModel extends AbstractTableModel {
             int n = Utilfunctions.executeUpdate(query);
             if(n >= 1) JOptionPane.showMessageDialog(null,"Value updated successfuly");
         }
-        else if(col == 3){
+        else if(col == 4){
             query = "SELECT COUNT(*) FROM class WHERE course = '" + (data[row][1]).toString() + 
-                    "' AND year = '" + (data[row][2]).toString() + "' AND section = '" + 
-                    value.toString() + "' AND classCode != '" + classCodes[row] + "' AND dept = '" + LoginForm.userDept + "'";
+                    "' AND year = '" + (data[row][3]).toString() + "' AND section = '" + 
+                    value.toString() + "' AND classCode != '" + classCodes[row] + "' AND dept = '" + userDept + "'";
             ResultSet rs = Utilfunctions.executeQuery(query);
             try {
                 rs.next();
@@ -453,6 +465,23 @@ class ClassTableModel extends AbstractTableModel {
                 Logger.getLogger(ClassTableModel.class.getName()).log(Level.SEVERE, null, ex);
             }
             query = "UPDATE class SET section = '" + value.toString() + "' WHERE classCode = '" + classCodes[row] + "'";
+            int n = Utilfunctions.executeUpdate(query);
+            if(n >= 1) JOptionPane.showMessageDialog(null,"Value updated successfuly");
+        }else if(col == 2){
+            query = "SELECT COUNT(*) FROM class WHERE course = '" + (data[row][1]).toString() + 
+                    "' AND year = '" + (data[row][3]).toString() + "' AND section = '" + 
+                    (data[row][4]).toString() + "' AND classCode != '" + classCodes[row] + "' AND dept = '" + value.toString() + "'";
+            ResultSet rs = Utilfunctions.executeQuery(query);
+            try {
+                rs.next();
+                if(rs.getInt(1) >= 1) {
+                    JOptionPane.showMessageDialog(null,"Duplicate Class");
+                    return;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            query = "UPDATE class SET dept = '" + value.toString() + "' WHERE classCode = '" + classCodes[row] + "'";
             int n = Utilfunctions.executeUpdate(query);
             if(n >= 1) JOptionPane.showMessageDialog(null,"Value updated successfuly");
         }
