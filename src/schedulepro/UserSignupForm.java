@@ -350,7 +350,7 @@ public class UserSignupForm extends javax.swing.JFrame {
 
     private void idnumberTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idnumberTextFocusLost
         if (!idnumberText.getText().isEmpty()) {
-            if (!Validation.isNumber(idnumberText.getText())) {
+            if (!Validation.isalphanumeric(idnumberText.getText())) {
                 JOptionPane.showMessageDialog(null, "Invalid ID number");
                 idnumberText.setText("");
                 idnumberText.requestFocus();

@@ -1,2 +1,0 @@
-schedulepro.Item
-schedulepro.RedRenderer

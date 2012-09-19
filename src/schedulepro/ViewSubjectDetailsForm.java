@@ -314,7 +314,7 @@ class SubjectTableModel extends AbstractTableModel {
             if(col == 0)
                 return false;
             else {
-                if(!LoginForm.userRole.equals("sa") && col == 1)
+                if(!LoginForm.userRole.equals("sa") && (col == 1))
                     return false;
                 else
                     return true;
