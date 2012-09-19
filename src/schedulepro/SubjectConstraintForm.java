@@ -77,6 +77,8 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - Subject Constraints");
@@ -152,6 +154,8 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Clash Check");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,22 +163,18 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(82, 82, 82))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(229, 229, 229)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(68, 68, 68))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(229, 229, 229))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,14 +191,24 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jTextField1)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
                                 .addGap(25, 25, 25)
-                                .addComponent(jTextField3))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField3)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jCheckBox1)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,13 +234,17 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jCheckBox1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -245,37 +259,45 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
         String value = jComboBox1.getSelectedItem().toString();
         subcode = value.substring(0,value.indexOf("-")-1);
         
-        String query = "SELECT credits FROM subject WHERE subcode = '" + subcode + "'";
+        String que = "SELECT credits FROM subject WHERE subcode = '" + subcode + "'";
         
-        ResultSet rs = Utilfunctions.executeQuery(query);
+        ResultSet rs = Utilfunctions.executeQuery(que);
         try {
             rs.next();
             jLabel3.setText("No. of Credits - " + rs.getString(1));
             
-            query = "SELECT COUNT(*) FROM subjectconstraint WHERE subcode = '" + subcode + "'";
-            rs = Utilfunctions.executeQuery(query);
+            que = "SELECT COUNT(*) FROM subjectconstraint WHERE subcode = '" + subcode + "'";
+            rs = Utilfunctions.executeQuery(que);
             rs.next();
             
             if(rs.getInt(1) >= 1) {
-                query = "SELECT * FROM subjectconstraint WHERE subcode = '" + subcode + "'";
-                rs = Utilfunctions.executeQuery(query);
+                que = "SELECT * FROM subjectconstraint WHERE subcode = '" + subcode + "'";
+                rs = Utilfunctions.executeQuery(que);
                 rs.next();
                 jTextField1.setText(rs.getString(2));
                 jTextField2.setText(rs.getString(3));
+                jTextField3.setText(rs.getString(4));
+                if(rs.getInt(5) == 1)
+                    jCheckBox1.setSelected(true);
+                else
+                    jCheckBox1.setSelected(false);
             }
             else {
                 jTextField1.setText("");
                 jTextField2.setText("");
+                jTextField3.setText("");
+                jCheckBox1.setSelected(false);
             }
             
-            query = "SELECT COUNT(*) FROM subperiodexception WHERE subcode = '" + subcode + "'";
-            rs = Utilfunctions.executeQuery(query);
+            que = "SELECT COUNT(*) FROM subperiodexception WHERE subcode = '" + subcode + "'";
+            rs = Utilfunctions.executeQuery(que);
             rs.next();
             DefaultListModel model = (DefaultListModel)jList1.getModel();
             if(rs.getInt(1) >= 1){
-                query = "SELECT s.subCode,s.pconfigId,p.day,p.timeFrom,p.timeTo FROM subperiodexception s,periodconfig p WHERE s.pconfigId = p.pconfigId";
-                rs = Utilfunctions.executeQuery(query);
-                
+                que = "SELECT s.subCode,s.pconfigId,p.day,p.timeFrom,p.timeTo FROM subperiodexception s,periodconfig p WHERE s.pconfigId = p.pconfigId AND s.subCode = '" + subcode + "'";
+                rs = Utilfunctions.executeQuery(que);
+                if(!model.isEmpty()) model.clear();
+                if(!pConfigs.isEmpty()) pConfigs.clear();
                 while(rs.next()){
                     model.addElement(rs.getString(3).substring(0,3) + " - " + rs.getString(4).substring(0,5) + " to " + rs.getString(5).substring(0,5)); 
                     pConfigs.add(rs.getInt(2));
@@ -285,9 +307,7 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
             else {
                 model.clear();
                 pConfigs.clear();
-                model.addElement("Periods in which the subject is not prefered");
             }
-            
         } catch (SQLException ex) {
             Logger.getLogger(SubjectConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -310,7 +330,7 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        if(jList1.getSelectedIndex() > 0) {
+        if(jList1.getSelectedIndex() >= 0) {
             jButton2.setEnabled(true);
         }
         else {
@@ -323,7 +343,20 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
         int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this period?", "SchedulePro - Subject Constraints", JOptionPane.YES_NO_OPTION);
         if(n==JOptionPane.YES_OPTION){    
             DefaultListModel model = (DefaultListModel)jList1.getModel();
-            pConfigs.removeElementAt(x-1);
+            for(int i=0;i<pConfigs.size();i++){
+                ResultSet crs = Utilfunctions.executeQuery("SELECT * FROM periodconfig where pconfigId = " + pConfigs.get(i));
+                try {
+                    crs.next();
+                    String config_string = crs.getString(2).substring(0,3) + " - " + crs.getString(3).substring(0,5) + " to " + crs.getString(4).substring(0,5);               
+                    if(config_string.equals(model.get(x))){
+                        int m = Utilfunctions.executeUpdate("DELETE FROM subperiodexception WHERE subCode = '" + subcode + "' AND pconfigId = " + pConfigs.get(i));
+                        pConfigs.removeElementAt(i);
+                        break;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
+                }                
+            }
             model.remove(x);
             
         }
@@ -367,27 +400,34 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
             return;
         }
         
+        if(ppw < comb){
+            JOptionPane.showMessageDialog(null,"Combined number should be less than or equal to total periods/week");
+            return;
+        }
         
-        String query = "SELECT COUNT(*) FROM subjectconstraint WHERE subcode = '" + subcode + "'";
-        ResultSet rs = Utilfunctions.executeQuery(query);
+        int cCheck=0;
+        if(jCheckBox1.isSelected())
+            cCheck=1;
+        
+        String que2 = "SELECT COUNT(*) FROM subjectconstraint WHERE subcode = '" + subcode + "'";
+        ResultSet rs = Utilfunctions.executeQuery(que2);
         try {
             rs.next();
             int n=0;
             int m=0;
             if(rs.getInt(1) == 0) {
-                query = "INSERT INTO subjectconstraint VALUES('" + subcode + "'," + ppw + "," + minInterval + "," + comb + ")";
-                n = Utilfunctions.executeUpdate(query);
+                que2 = "INSERT INTO subjectconstraint VALUES('" + subcode + "'," + ppw + "," + minInterval + "," + comb + ")";
+                n = Utilfunctions.executeUpdate(que2);
             }
             else {
-                query = "UPDATE subjectconstraint SET totalPPW = " + ppw +", minInterval = " + minInterval + " WHERE subcode = '" + subcode + "'";
-                m=Utilfunctions.executeUpdate(query);
-                query = "DELETE FROM subperiodexception WHERE subCode = '" + subcode + "'";
-                m=Utilfunctions.executeUpdate(query);
+                que2 = "UPDATE subjectconstraint SET totalPPW = " + ppw +", minInterval = " + minInterval + ",combinedNo = " + comb + ",clashCheck = " + cCheck + " WHERE subcode = '" + subcode + "'";
+                m=Utilfunctions.executeUpdate(que2);   
             }
-            
+            que2="DELETE FROM subperiodexception WHERE subCode = '" + subcode + "'";
+            m=Utilfunctions.executeUpdate(que2);
             for(int i=0;i<pConfigs.size();i++){
-                query = "INSERT INTO subperiodexception(subCode,pconfigId) VALUES('" + subcode + "'," + Integer.parseInt(pConfigs.get(i).toString()) + ")";
-                m=Utilfunctions.executeUpdate(query);
+                que2 = "INSERT INTO subperiodexception(subCode,pconfigId) VALUES('" + subcode + "'," + Integer.parseInt(pConfigs.get(i).toString()) + ")";
+                m=Utilfunctions.executeUpdate(que2);
             }
             if(n+m >= 1) JOptionPane.showMessageDialog(null,"Subject Constraints saved");
         } catch (SQLException ex) {
@@ -446,6 +486,7 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -453,12 +494,13 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
-    private String subcode;
+    private static String subcode;
     public static Vector pConfigs;
 }

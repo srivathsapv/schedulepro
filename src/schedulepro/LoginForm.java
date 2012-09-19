@@ -6,6 +6,8 @@ package schedulepro;
 
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -138,6 +140,15 @@ public class LoginForm extends javax.swing.JFrame {
     private void LoginAuthentication()
     {
         try {
+            ResultSet count_rs = Utilfunctions.executeQuery("SELECT COUNT(*) FROM login WHERE id = '" + usernameText.getText() + "' AND password = '" + Utilfunctions.MD5(passwordText.getText()).toString(16)+"'");
+            count_rs.next();
+            if(count_rs.getInt(1) == 0){
+                JOptionPane.showMessageDialog(null, "Invalid Username or Password");
+                usernameText.setText("");
+                passwordText.setText("");
+                usernameText.requestFocus();
+                return;
+            }
             String query = "SELECT * FROM `login` WHERE  `id` = '" + usernameText.getText() + "' AND  `password` =  '"+Utilfunctions.MD5(passwordText.getText()).toString(16)+"'";
             ResultSet result = Utilfunctions.executeQuery(query);
             result.next();
@@ -158,10 +169,7 @@ public class LoginForm extends javax.swing.JFrame {
             Utilfunctions.setLocation(tf);
             tf.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid Username or Password");
-            usernameText.setText("");
-            passwordText.setText("");
-            usernameText.requestFocus();
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed

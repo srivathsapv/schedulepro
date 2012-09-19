@@ -16,8 +16,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.DateFormatSymbols;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -94,6 +92,7 @@ public class Utilfunctions {
     }
 
     public static ResultSet executeQuery(String query) {
+        
         try {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -101,7 +100,9 @@ public class Utilfunctions {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
             String dbpwd = Utilfunctions.getDbConfig("password");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
+            if(con == null)
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
+            
             PreparedStatement statement = con.prepareStatement(query);
             result = statement.executeQuery();
             
@@ -124,7 +125,8 @@ public class Utilfunctions {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String dbpwd = Utilfunctions.getDbConfig("password");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
+            if(con == null)
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
             PreparedStatement statement;
             statement = con.prepareStatement(query);
             
@@ -140,7 +142,8 @@ public class Utilfunctions {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String dbpwd = Utilfunctions.getDbConfig("password");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
+            if(con == null)
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
             
             PreparedStatement statement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.executeUpdate();
@@ -206,7 +209,7 @@ public class Utilfunctions {
         }
     }
 
-    public static void populateComboBoxwithQuery(JComboBox ComboBox, String Query) {
+    public static void populateComboBoxwithQuery(JComboBox ComboBox, String Query) throws SQLException {
         ComboBox.removeAllItems();
         ResultSet result = Utilfunctions.executeQuery(Query);
         try {
@@ -283,4 +286,5 @@ public class Utilfunctions {
     private static int width;
     private static int height;
     private static ResultSet result;
+    private static Connection con;
 }

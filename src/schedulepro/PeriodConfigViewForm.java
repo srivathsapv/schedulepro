@@ -132,8 +132,8 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
                 else if(source.equals("subconstraint") || source.equals("staffconstraint")){
                     Boolean dup = false;
                     String configString = rs.getString(2).substring(0,3) + " - " + rs.getString(3).substring(0,5) + " to " + rs.getString(4).substring(0,5);
-                    if(rs.getInt(5) == 2) {
-                        JOptionPane.showMessageDialog(null,"Cannot choose a recess period");
+                    if(rs.getInt(5) != 1) {
+                        JOptionPane.showMessageDialog(null,"Choose only subject period slots");
                         return;
                     }
                     for(int i=0;i<srcListModel.size();i++){

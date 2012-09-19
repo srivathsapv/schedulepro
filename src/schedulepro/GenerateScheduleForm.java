@@ -5,12 +5,13 @@
 package schedulepro;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,6 +64,9 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - Generate Schedule");
@@ -114,38 +118,53 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        jLabel6.setText("Room");
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        jLabel7.setText("Room");
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
+        jLabel8.setText("Room");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(165, 165, 165)))
+                        .addGap(101, 101, 101))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(47, 47, 47)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)))
-                                    .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))))
-                        .addGap(79, 79, 79))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(265, 265, 265))))
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))))))
+                        .addGap(79, 79, 79))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +179,13 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(jRadioButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton2)
@@ -170,7 +195,7 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -179,7 +204,7 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         try {
             // TODO add your handling code here:
-            int classCode = Utilfunctions.getClassCode(jComboBox1.getSelectedItem().toString());
+            classCode = Utilfunctions.getClassCode(jComboBox1.getSelectedItem().toString());
             ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM class WHERE classCode = " + classCode);
             rs.next();
             int strength = rs.getInt(7);
@@ -188,6 +213,43 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
             String roomNo = rs2.getString(1);
             jLabel3.setText("Room - " + roomNo);
             jLabel4.setText("Strength - " + strength);
+            
+            ResultSet ppw = Utilfunctions.executeQuery("SELECT SUM(totalPPW) FROM subjectconstraint"
+                                                + " WHERE subCode IN (SELECT subCode FROM subclass WHERE classCode = " + classCode + ")");
+            ppw.next();
+            
+            jLabel6.setText("Sum of total periods/week: " + ppw.getInt(1));
+            
+            ResultSet cls = Utilfunctions.executeQuery("SELECT COUNT(*) FROM classperiod WHERE pconfigId IN(SELECT pconfigId FROM periodconfig WHERE pType = 1) AND classCode = " + classCode);
+            cls.next();
+            
+            jLabel7.setText("Total periods slots alloted: " + cls.getInt(1));
+            
+            if(ppw.getInt(1) < cls.getInt(1)){
+                jLabel6.setForeground(Color.red);
+                jLabel7.setForeground(Color.red);
+                jLabel8.setText("<html><body>Cannot generate timetable. Total periods/week of all <br>"
+                                                 + "subjects is less than the number of period slots <br>"
+                                                 + "alloted to this class. Go to subject constraints <br>"
+                                                 + "and increase the number of periods/week</body></html>");
+                jLabel8.setForeground(Color.red);
+                jButton1.setEnabled(false);
+            }
+            else if(ppw.getInt(1) > cls.getInt(1)){
+                jLabel6.setForeground(Color.red);
+                jLabel7.setForeground(Color.red);
+                jLabel8.setText("<html><body>Cannot generate timetable. Total periods/week of all <br>"
+                                                 + "subjects is more than the number of period slots <br>"
+                                                 + "alloted to this class. Go to subject constraints <br>"
+                                                 + "and reduce the number of periods/week</body></html>");
+                jLabel8.setForeground(Color.red);
+                jButton1.setEnabled(false);
+            }
+            else {
+                jLabel6.setForeground(Color.green);
+                jLabel7.setForeground(Color.green);
+                jLabel8.setVisible(false);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(GenerateScheduleForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -209,7 +271,38 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //generate the schedule
+        try {
+            ResultSet subclass = Utilfunctions.executeQuery("SELECT * FROM subclass WHERE classCode = " + classCode);
+            while(subclass.next()){
+                ResultSet periodconfig = Utilfunctions.executeQuery("SELECT * FROM periodconfig "
+                + " WHERE pconfigId NOT IN(SELECT pconfigId FROM staffperiodexception WHERE userCode = '" + subclass.getString(4) + "') "
+                + "AND pconfigId NOT IN(SELECT pconfigId FROM subperiodexception WHERE subCode = '" + subclass.getString(3) + "')"
+                        + " AND pconfigId NOT IN(SELECT pconfigId FROM staffperiod WHERE userCode = '" + subclass.getString(4) + "') AND pType = 1");
+                Vector assignable_periods = new Vector<Integer>();
+                while(periodconfig.next()) {
+                    ResultSet workhour = 
+                    Utilfunctions.executeQuery("SELECT u.userCode,w.day,w.workHourFrom,"
+                                            + "w.workHourTo FROM userworkid u,staffworkhour w "
+                                            + "WHERE w.workHourConfigId = u.workHourConfigId "
+                                            + "AND u.userCode = '" + subclass.getString(4) + "'");
+                    boolean overlaps = false;
+                    while(workhour.next()){
+                        if(workhour.getString(2).equals(periodconfig.getString(2))){
+                            if(!ConstraintsCheck.isPeriodOverlap(workhour.getString(3),workhour.getString(4),periodconfig.getString(3),periodconfig.getString(4))) {
+                                overlaps=true;
+                                break;
+                            }
+                        }
+                    }
+                    if(!overlaps) assignable_periods.add(periodconfig.getInt(1));
+                }
+                System.out.println(assignable_periods.size());
+            }     
+            //end generate
+        } catch (SQLException ex) {
+            Logger.getLogger(GenerateScheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -267,9 +360,13 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList jList1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+    private static int classCode;
 }
