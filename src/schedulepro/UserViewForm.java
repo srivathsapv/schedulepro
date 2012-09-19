@@ -80,6 +80,7 @@ public class UserViewForm extends javax.swing.JFrame {
         userPopupMenu = new javax.swing.JPopupMenu();
         changeRoleMenuItem = new javax.swing.JMenuItem();
         resetPasswordMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
         usersLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -100,6 +101,14 @@ public class UserViewForm extends javax.swing.JFrame {
             }
         });
         userPopupMenu.add(resetPasswordMenuItem);
+
+        jMenuItem1.setText("View subjects Handled");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        userPopupMenu.add(jMenuItem1);
 
         deleteMenuItem.setText("Delete");
         deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -236,6 +245,21 @@ public class UserViewForm extends javax.swing.JFrame {
         cf.setVisible(true);
     }//GEN-LAST:event_changeRoleMenuItemActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        UserTableModel model = (UserTableModel)usersTable.getModel();
+        SubjectsTakenForm.userCode = model.getValueAt(selectedRow,0).toString();
+        try {
+            SubjectsTakenForm stf = new SubjectsTakenForm();
+            Utilfunctions.setIconImage(stf);
+            Utilfunctions.setLocation(stf);
+            stf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -277,6 +301,7 @@ public class UserViewForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem changeRoleMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem resetPasswordMenuItem;
     private javax.swing.JPopupMenu userPopupMenu;

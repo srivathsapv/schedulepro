@@ -78,10 +78,10 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
 
             }
         ));
-        jTable1.setCellSelectionEnabled(true);
         jTable1.setMinimumSize(new java.awt.Dimension(100, 72));
         jTable1.setRequestFocusEnabled(false);
         jTable1.setRowHeight(80);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -103,7 +103,7 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -111,7 +111,7 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        if(evt.getClickCount() == 2 && !source.equals("dashboard")) {
+        if(evt.getClickCount() == 2 && !source.equals("dashboard") && !source.equals("classperiodconfig")) {
             evt.consume();
             JTable sourceTable = (JTable)evt.getSource();
             int row = sourceTable.rowAtPoint(evt.getPoint());

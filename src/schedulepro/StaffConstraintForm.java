@@ -38,7 +38,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         initComponents();
         
         DefaultListModel model1 = new DefaultListModel();
-        model1.addElement("Periods in which the subject is not prefered");
+        model1.addElement("Periods Exceptions");
         
         jList1.setModel(model1);
         pConfigs = new Vector();
@@ -502,6 +502,8 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         ResultSet rs = Utilfunctions.executeQuery(query);
         try {
             DefaultListModel model = (DefaultListModel)jList1.getModel();
+            model.clear();
+            model.addElement("Period Exceptions");
             while(rs.next()){
                 query = "SELECT * FROM periodconfig WHERE pconfigId = " + rs.getInt(3);
                 ResultSet rs2 = Utilfunctions.executeQuery(query);

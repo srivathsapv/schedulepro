@@ -34,6 +34,7 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuItem15.setVisible(false);
         jMenu12.setVisible(false);
         jMenu7.setVisible(false);
+        jMenuItem23.setVisible(false);
         
         userRole = LoginForm.userRole;
         if(userRole.equals("sa")){
@@ -45,6 +46,7 @@ public class DashboardForm extends javax.swing.JFrame {
             jMenuItem15.setVisible(true);
             jMenu12.setVisible(true);
             jMenu7.setVisible(true);
+            jMenuItem23.setVisible(true);
         }else if(userRole.equals("hod")){
             jMenuItem4.setVisible(true);
             jMenuItem23.setVisible(true);
@@ -52,6 +54,7 @@ public class DashboardForm extends javax.swing.JFrame {
             jMenuItem15.setVisible(true);
             jMenu12.setVisible(true);
             jMenu7.setVisible(true);
+            jMenuItem23.setVisible(true);
         }else if(userRole.equals("ds")){
             jMenu8.setVisible(true);
             jMenuItem4.setVisible(true);
@@ -61,6 +64,7 @@ public class DashboardForm extends javax.swing.JFrame {
             jMenuItem15.setVisible(true);
             jMenu12.setVisible(true);
             jMenu7.setVisible(true);
+            jMenuItem23.setVisible(true);
         }
         jLabel1.setText("Welcome " + LoginForm.userSalutation + LoginForm.userName);
         Utilfunctions.setClosePrompt(this);
@@ -299,6 +303,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu16.setText("Academic Schedule");
 
         jMenuItem23.setText("Generate");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
         jMenu16.add(jMenuItem23);
 
         jMenuItem28.setText("Assign Faculty");
@@ -812,6 +821,19 @@ public class DashboardForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Invalid data");
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+        // TODO add your handling code here:
+        GenerateScheduleForm scf = null;
+        try {
+            scf = new GenerateScheduleForm();
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Utilfunctions.setIconImage(scf);
+        Utilfunctions.setLocation(scf);
+        scf.setVisible(true);
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
 
     /**
      * @param args the command line arguments

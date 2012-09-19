@@ -16,6 +16,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.DateFormatSymbols;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -54,7 +56,13 @@ public class Utilfunctions {
             JOptionPane.showMessageDialog(null, "Unexpected Error. Exiting application");
         }
     }
-
+    
+    public static int getClassCode(String classString) throws SQLException{
+        ResultSet rs = Utilfunctions.executeQuery("SELECT classCode FROM class WHERE CONCAT(course,' ',dept,' ',year,' - ',section) = '" + classString + "'");
+        rs.next();
+        return rs.getInt(1);
+    }   
+    
     public static String getDbConfig(String field) {
         String value = "";
         try {
@@ -206,6 +214,7 @@ public class Utilfunctions {
                 ComboBox.addItem(result.getString(1));
             }
         } catch (Exception e) {
+            //Logger.getLogger(DayWisePeriodConfigChooseForm.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(null, e);
         }
     }

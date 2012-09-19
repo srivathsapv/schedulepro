@@ -172,7 +172,6 @@ public class WorkHourForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        
         // TODO add your handling code here:
         userCode = StaffConstraintForm.userCode;
         

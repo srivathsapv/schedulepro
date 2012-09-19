@@ -82,7 +82,7 @@ public class ClassViewForm extends javax.swing.JFrame {
         });
         jPopupMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Class Schedule Details");
+        jMenuItem3.setText("View/Assign Period Slots");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -204,12 +204,16 @@ public class ClassViewForm extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         ClassTableModel model = (ClassTableModel)jTable1.getModel();
-        ClassScheduleDetailsForm.classCode = model.getClassCode(selectedRow);
-        ClassScheduleDetailsForm csdf = new ClassScheduleDetailsForm();
-        Utilfunctions.setIconImage(csdf);
-        Utilfunctions.setLocation(csdf);
+        AssignClassPeriodConfigForm.classCode = model.getClassCode(selectedRow);
+        try {
+            AssignClassPeriodConfigForm acf = new AssignClassPeriodConfigForm();
+            Utilfunctions.setIconImage(acf);
+            Utilfunctions.setLocation(acf);
+            acf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        csdf.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
