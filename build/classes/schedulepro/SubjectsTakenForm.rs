@@ -1,2 +1,0 @@
-schedulepro.SubjectsTakenTableModel
-schedulepro.SubjectsTakenForm

@@ -235,7 +235,7 @@ class ClassScheduleTableModel extends AbstractTableModel {
                 data[i++][0] = day_rs.getString(1);
             }
             i=1;
-            ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classPeriod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = 'Monday')");
+            ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classperiod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = 'Monday')");
             while(table_rs.next()) {
                 data[0][i] = table_rs.getString(1);
                 System.out.println(data[0][i]);
