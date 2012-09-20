@@ -46,8 +46,8 @@ public class SplashForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
         setIconImages(null);
-        setResizable(false);
         setUndecorated(true);
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/schedulepro/logo.png"))); // NOI18N
 

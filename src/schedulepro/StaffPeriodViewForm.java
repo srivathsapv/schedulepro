@@ -4,35 +4,29 @@
  */
 package schedulepro;
 
-import java.awt.Component;
-import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+
 
 /**
  *
  * @author Sasi Praveen
  */
-public class ClassPeriodViewForm extends javax.swing.JFrame {
+public class StaffPeriodViewForm extends javax.swing.JFrame {
     
     //private ClassScheduleTableModel model;
     /**
      * Creates new form ClassPeriodViewForm
      */
-    public ClassPeriodViewForm() {
+    public StaffPeriodViewForm() {
         try {
-            initComponents();
-            
-            Utilfunctions.populateComboBoxwithQuery(classComboBox, "SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class");
+            initComponents();  
+            Utilfunctions.populateComboBoxwithQuery(staffComboBox, "SELECT CONCAT(name,'(',userCode,')') FROM `user`");
         } catch (SQLException ex) {
-            Logger.getLogger(ClassPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -48,21 +42,21 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        classComboBox = new javax.swing.JComboBox();
+        staffComboBox = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - Class Schedule");
 
-        jLabel1.setText("Choose class:");
+        jLabel1.setText("Choose Faculty:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel2.setText("Class Schedule");
+        jLabel2.setText("Staff Schedule");
 
-        classComboBox.addActionListener(new java.awt.event.ActionListener() {
+        staffComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                classComboBoxActionPerformed(evt);
+                staffComboBoxActionPerformed(evt);
             }
         });
 
@@ -97,7 +91,7 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(classComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(staffComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(452, 452, 452)
                                 .addComponent(jLabel2)))
@@ -111,7 +105,7 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(classComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(staffComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(16, 16, 16)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
@@ -121,12 +115,12 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void classComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classComboBoxActionPerformed
+    private void staffComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffComboBoxActionPerformed
         try {
-            classCode = Utilfunctions.getClassCode(classComboBox.getSelectedItem().toString());
+            userCode = Utilfunctions.getWithinBrackets(staffComboBox.getSelectedItem().toString());
             //System.out.println(classCode);
-            //if(classCode == 4)
-            jTable1.setModel(new ClassScheduleTableModel());
+            if(userCode.equals("10070"))
+            jTable1.setModel(new StaffScheduleTableModel());
             /*for(int i=0;i<model.getColumnCount();i++){
                 TableColumn col;
                 col = jTable1.getColumnModel().getColumn(i);
@@ -134,9 +128,9 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
                //col.setPreferredWidth(60);
             }*/
         } catch (SQLException ex) {
-            Logger.getLogger(ClassPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_classComboBoxActionPerformed
+    }//GEN-LAST:event_staffComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,13 +149,13 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClassPeriodViewForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffPeriodViewForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClassPeriodViewForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffPeriodViewForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClassPeriodViewForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffPeriodViewForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClassPeriodViewForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffPeriodViewForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -169,41 +163,40 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ClassPeriodViewForm().setVisible(true);
+                new StaffPeriodViewForm().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox classComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox staffComboBox;
     // End of variables declaration//GEN-END:variables
-    public static int classCode;
+    public static String userCode;
 }
-
-class ClassScheduleTableModel extends AbstractTableModel {
+class StaffScheduleTableModel extends AbstractTableModel {
         private String[] columnNames = {};
         private Object[][] data;
         
-        public ClassScheduleTableModel() throws SQLException{
+        public StaffScheduleTableModel() throws SQLException{
             ResultSet columncnt_rs = Utilfunctions.executeQuery("SELECT COUNT(DISTINCT(CONCAT(timeFrom,'-',timeTo))) FROM periodconfig"
-                    + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = "+ClassPeriodViewForm.classCode+") AND pType != 3");
+                    + " WHERE pconfigId IN(SELECT pconfigId FROM staffperiod WHERE userCode = '"+StaffPeriodViewForm.userCode+"') AND pType != 3");
             columncnt_rs.next();
             
             int cols = columncnt_rs.getInt(1);
             columnNames = new String[columncnt_rs.getInt(1)+1];
             
             ResultSet column_rs = Utilfunctions.executeQuery("SELECT DISTINCT(CONCAT(timeFrom,'-',timeTo)) FROM periodconfig"
-                    + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = "+ClassPeriodViewForm.classCode+") AND pType != 3");
+                    + " WHERE pconfigId IN(SELECT pconfigId FROM staffperiod WHERE userCode = '"+StaffPeriodViewForm.userCode+"') AND pType != 3");
             int i=1;
             while(column_rs.next()){
                 columnNames[i++] = column_rs.getString(1);
             } 
             
             ResultSet daycnt_rs = Utilfunctions.executeQuery("select count(distinct(day)) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from classperiod where classCode = "+ClassPeriodViewForm.classCode+") and pType != 3");
+                    + "pconfigId IN(select pconfigId from staffperiod where userCode = '"+StaffPeriodViewForm.userCode+"') and pType != 3");
             daycnt_rs.next();
             
             int rows = daycnt_rs.getInt(1);
@@ -211,20 +204,27 @@ class ClassScheduleTableModel extends AbstractTableModel {
             data = new Object[rows][cols+1];
             
             ResultSet day_rs = Utilfunctions.executeQuery("select distinct(day) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from classperiod where classCode = "+ClassPeriodViewForm.classCode+") and pType != 3");
+                    + "pconfigId IN(select pconfigId from staffperiod where userCode = '"+StaffPeriodViewForm.userCode+"') and pType != 3");
             i=0;
             
-            ResultSet shortname_rs;
+            ResultSet classname_rs;
             while(day_rs.next()){
-                ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classPeriod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = '" + day_rs.getString(1) + "')");
+                ResultSet table_rs = Utilfunctions.executeQuery("select classCode from staffPeriod where userCode = "+StaffPeriodViewForm.userCode+" and "
+                        + "pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = '" + day_rs.getString(1) + "')");
                 //System.out.println("Assigning for " + day_rs.getString(1));
                 String[] values = new String[cols+1];
                 values[0] = day_rs.getString(1);
                 int k=1;
+                String classname;
                 while(table_rs.next()){
-                    shortname_rs = Utilfunctions.executeQuery("select subShortName from subject where subCode='"+table_rs.getString(1)+"'");
-                    shortname_rs.next();
-                    values[k++]=shortname_rs.getString(1);
+                    if(table_rs.getInt(1) == 0){
+                        classname = "Break";
+                    }else{
+                    classname_rs = Utilfunctions.executeQuery("SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class where classCode= "+table_rs.getString(1));
+                    classname_rs.next();
+                    classname = classname_rs.getString(1);
+                    }
+                    values[k++]=classname;
                     //System.out.println("----"+table_rs.getString(1));
                 }
                 data[i++] = values;
@@ -288,37 +288,3 @@ class ClassScheduleTableModel extends AbstractTableModel {
 
 }  
 
-class MyTableHeaderRenderer extends JLabel implements TableCellRenderer {
-    // This method is called each time a column header
-    // using this renderer needs to be rendered.
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
-        // 'value' is column header value of column 'vColIndex'
-        // rowIndex is always -1
-        // isSelected is always false
-        // hasFocus is always false
-
-        // Configure the component with the specified value
-        setFont(new Font("Tahoma",Font.BOLD,16));
-        
-        setText(value.toString());
-
-        // Set tool tip if desired
-        setToolTipText((String)value);
-        //setPreferredSize(new Dimension(120,30));
-
-        // Since the renderer is a component, return itself
-        return this;
-    }
-
-    // The following methods override the defaults for performance reasons
-    @Override
-    public void validate() {}
-    @Override
-    public void revalidate() {}
-    @Override
-    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
-    @Override
-    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
-}
