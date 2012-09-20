@@ -8,7 +8,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -32,11 +31,15 @@ public class WorkHourForm extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                StaffConstraintForm sf = new StaffConstraintForm();
-                Utilfunctions.setIconImage(sf);
-                Utilfunctions.setLocation(sf);
-                setVisible(false);
-                sf.setVisible(true);
+                try {
+                    StaffConstraintForm sf = new StaffConstraintForm();
+                    Utilfunctions.setIconImage(sf);
+                    Utilfunctions.setLocation(sf);
+                    setVisible(false);
+                    sf.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(WorkHourForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         jComboBox1.setSelectedIndex(0);

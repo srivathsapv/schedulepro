@@ -20,7 +20,7 @@ public class DayWisePeriodConfigChooseForm extends javax.swing.JFrame {
     /**
      * Creates new form DayWisePeriodConfigChooseForm
      */
-    public DayWisePeriodConfigChooseForm() {
+    public DayWisePeriodConfigChooseForm() throws SQLException {
         initComponents();
         Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT DISTINCT(day) FROM periodconfig");
     }
@@ -182,7 +182,11 @@ public class DayWisePeriodConfigChooseForm extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                new DayWisePeriodConfigChooseForm().setVisible(true);
+                try {
+                    new DayWisePeriodConfigChooseForm().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(DayWisePeriodConfigChooseForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

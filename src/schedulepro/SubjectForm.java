@@ -3,6 +3,9 @@ package schedulepro;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -24,7 +27,11 @@ public class SubjectForm extends javax.swing.JFrame {
         initComponents();
         userRole = LoginForm.userRole;
         if(userRole.equals("sa")){
-            Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT dept FROM dept ORDER BY dept");
+            try {
+                Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT dept FROM dept ORDER BY dept");
+            } catch (SQLException ex) {
+                Logger.getLogger(SubjectForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else {
             jComboBox1.addItem(LoginForm.userDept);
             jComboBox1.setSelectedItem(LoginForm.userDept);

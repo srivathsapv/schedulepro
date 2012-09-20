@@ -4,6 +4,7 @@
  */
 package schedulepro;
 
+import java.awt.print.PrinterException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -330,6 +331,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu17.setText("View Schedule");
 
         jMenuItem21.setText("By Class");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
         jMenu17.add(jMenuItem21);
 
         jMenuItem22.setText("By Faculty");
@@ -510,12 +516,16 @@ public class DashboardForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        // TODO add your handling code here:
-        ClassDetailsForm cdf = new ClassDetailsForm();
-        Utilfunctions.setIconImage(cdf);
-        Utilfunctions.setLocation(cdf);
-        this.setVisible(false);
-        cdf.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            ClassDetailsForm cdf = new ClassDetailsForm();
+            Utilfunctions.setIconImage(cdf);
+            Utilfunctions.setLocation(cdf);
+            this.setVisible(false);
+            cdf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -793,6 +803,8 @@ public class DashboardForm extends javax.swing.JFrame {
             Utilfunctions.setLocation(cvf);
             this.setVisible(false);
             cvf.setVisible(true);
+        } catch (PrinterException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -800,21 +812,29 @@ public class DashboardForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        SubjectConstraintForm scf = new SubjectConstraintForm();
-        Utilfunctions.setIconImage(scf);
-        Utilfunctions.setLocation(scf);
-        this.setVisible(false);
-        scf.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            SubjectConstraintForm scf = new SubjectConstraintForm();
+            Utilfunctions.setIconImage(scf);
+            Utilfunctions.setLocation(scf);
+            this.setVisible(false);
+            scf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        // TODO add your handling code here:
-        StaffConstraintForm stcf = new StaffConstraintForm();
-        Utilfunctions.setIconImage(stcf);
-        Utilfunctions.setLocation(stcf);
-        this.setVisible(false);
-        stcf.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            StaffConstraintForm stcf = new StaffConstraintForm();
+            Utilfunctions.setIconImage(stcf);
+            Utilfunctions.setLocation(stcf);
+            this.setVisible(false);
+            stcf.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -867,6 +887,19 @@ public class DashboardForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Invalid data");
         }
     }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+        // TODO add your handling code here:
+        try{
+            ClassPeriodViewForm cpvf = new ClassPeriodViewForm();
+            Utilfunctions.setIconImage(cpvf);
+            Utilfunctions.setLocation(cpvf);
+            cpvf.setVisible(true);
+        }
+        catch(Exception e){
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -34,7 +34,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
     /**
      * Creates new form StaffConstraintForm
      */
-    public StaffConstraintForm() {
+    public StaffConstraintForm() throws SQLException {
         initComponents();
         
         DefaultListModel model1 = new DefaultListModel();
@@ -547,7 +547,11 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StaffConstraintForm().setVisible(true);
+                try {
+                    new StaffConstraintForm().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

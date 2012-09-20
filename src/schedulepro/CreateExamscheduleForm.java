@@ -21,38 +21,42 @@ import javax.swing.JOptionPane;
  * @author Sasi Praveen
  */
 public class CreateExamscheduleForm extends javax.swing.JFrame {
-    private final String userRole;
+    private String userRole="";
     private String userDept="";
 
     /**
      * Creates new form CreateExamscheduleForm
      */
     public CreateExamscheduleForm() {
-        initComponents();
-        Utilfunctions.populateComboBoxwithQuery(roomNoComboBox,"select roomNo from classroom");
-        userRole = LoginForm.userRole;
-            String query;
-            if(userRole.equals("sa")){
-                query = "SELECT dept from dept";
-                Utilfunctions.populateComboBoxwithQuery(departmentComboBox,query);
-            }else{
-                departmentComboBox.addItem(LoginForm.userDept);
-                departmentComboBox.setSelectedItem(LoginForm.userDept);
-                departmentComboBox.setEnabled(false);
-                userDept = LoginForm.userDept;
-                Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='" + userDept + "'");
-            }
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                DashboardForm df = new DashboardForm();
-                Utilfunctions.setIconImage(df);
-                Utilfunctions.setLocation(df);
-                e.getWindow().setVisible(false);
-                df.setVisible(true);
+        try {
+            initComponents();
+            Utilfunctions.populateComboBoxwithQuery(roomNoComboBox,"select roomNo from classroom");
+            userRole = LoginForm.userRole;
+                String query;
+                if(userRole.equals("sa")){
+                    query = "SELECT dept from dept";
+                    Utilfunctions.populateComboBoxwithQuery(departmentComboBox,query);
+                }else{
+                    departmentComboBox.addItem(LoginForm.userDept);
+                    departmentComboBox.setSelectedItem(LoginForm.userDept);
+                    departmentComboBox.setEnabled(false);
+                    userDept = LoginForm.userDept;
+                    Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='" + userDept + "'");
+                }
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    DashboardForm df = new DashboardForm();
+                    Utilfunctions.setIconImage(df);
+                    Utilfunctions.setLocation(df);
+                    e.getWindow().setVisible(false);
+                    df.setVisible(true);
 
-            }
-        });
+                }
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -273,14 +277,23 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void courseComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_courseComboBoxItemStateChanged
-        // TODO add your handling code here:
-        Utilfunctions.populateComboBoxwithQuery(yearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='" + userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' order by `year` asc");
+        try {
+            // TODO add your handling code here:
+            Utilfunctions.populateComboBoxwithQuery(yearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='" + userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' order by `year` asc");
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_courseComboBoxItemStateChanged
 
     private void yearComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_yearComboBoxItemStateChanged
-        // TODO add your handling code here:
-        Utilfunctions.populateComboBoxwithQuery(sectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='" + userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' AND year=" + yearComboBox.getSelectedItem() + " order by `year` asc");
+        try {
+            // TODO add your handling code here:
+
+            Utilfunctions.populateComboBoxwithQuery(sectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='" + userDept + "' AND course='" + courseComboBox.getSelectedItem() + "' AND year=" + yearComboBox.getSelectedItem() + " order by `year` asc");
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_yearComboBoxItemStateChanged
 
     private void dateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateTextFieldFocusLost
@@ -396,8 +409,12 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2FocusGained
 
     private void departmentComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_departmentComboBoxItemStateChanged
-       userDept = departmentComboBox.getSelectedItem().toString();
-       Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='" + userDept + "'");
+        try {
+            userDept = departmentComboBox.getSelectedItem().toString();
+            Utilfunctions.populateComboBoxwithQuery(courseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='" + userDept + "'");
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_departmentComboBoxItemStateChanged
     
     private void changeDate(){

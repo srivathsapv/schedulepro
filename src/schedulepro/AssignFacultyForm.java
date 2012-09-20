@@ -8,6 +8,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,21 +22,25 @@ public class AssignFacultyForm extends javax.swing.JFrame {
      * Creates new form AssignFacultyForm
      */
     public AssignFacultyForm() {
-        initComponents();
-        Utilfunctions.populateComboBoxwithQuery(selectCourseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='"+LoginForm.userDept+"'");
-        Utilfunctions.populateComboBoxwithQuery(selectSubjectComboBox, "select CONCAT(`subName`,'(',`subcode`,')') from `subject` WHERE `dept`='"+LoginForm.userDept+"' order by `subName` asc");
-        Utilfunctions.populateComboBoxwithQuery(selectFacultyComboBox, "SELECT CONCAT(`name`,'(',`userCode`,')') FROM `user` WHERE `dept`='"+LoginForm.userDept+"' order by `name` asc");
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                DashboardForm df = new DashboardForm();
-                Utilfunctions.setIconImage(df);
-                Utilfunctions.setLocation(df);
-                e.getWindow().setVisible(false);
-                df.setVisible(true);
+        try {
+            initComponents();
+            Utilfunctions.populateComboBoxwithQuery(selectCourseComboBox, "SELECT DISTINCT(`course`) FROM `class` WHERE dept='"+LoginForm.userDept+"'");
+            Utilfunctions.populateComboBoxwithQuery(selectSubjectComboBox, "select CONCAT(`subName`,'(',`subcode`,')') from `subject` WHERE `dept`='"+LoginForm.userDept+"' order by `subName` asc");
+            Utilfunctions.populateComboBoxwithQuery(selectFacultyComboBox, "SELECT CONCAT(`name`,'(',`userCode`,')') FROM `user` WHERE `dept`='"+LoginForm.userDept+"' order by `name` asc");
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    DashboardForm df = new DashboardForm();
+                    Utilfunctions.setIconImage(df);
+                    Utilfunctions.setLocation(df);
+                    e.getWindow().setVisible(false);
+                    df.setVisible(true);
 
-            }
-        });
+                }
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignFacultyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -168,9 +174,13 @@ public class AssignFacultyForm extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void selectCourseComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectCourseComboBoxItemStateChanged
-        // TODO add your handling code here:
-        Utilfunctions.populateComboBoxwithQuery(selectYearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND course='"+selectCourseComboBox.getSelectedItem()+"' order by `year` asc");
-        Utilfunctions.populateComboBoxwithQuery(selectSectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND course='"+selectCourseComboBox.getSelectedItem()+"' order by `section` asc");
+        try {
+            // TODO add your handling code here:
+            Utilfunctions.populateComboBoxwithQuery(selectYearComboBox, "SELECT distinct(`year`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND course='"+selectCourseComboBox.getSelectedItem()+"' order by `year` asc");
+            Utilfunctions.populateComboBoxwithQuery(selectSectionComboBox, "SELECT distinct(`section`) FROM `class` WHERE `dept`='"+LoginForm.userDept+"' AND course='"+selectCourseComboBox.getSelectedItem()+"' order by `section` asc");
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignFacultyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_selectCourseComboBoxItemStateChanged
 
     /**

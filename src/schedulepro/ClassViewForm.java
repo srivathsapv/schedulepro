@@ -6,6 +6,7 @@ package schedulepro;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.print.PrinterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,7 +26,7 @@ public class ClassViewForm extends javax.swing.JFrame {
     /**
      * Creates new form ClassViewForm
      */
-    public ClassViewForm() throws SQLException {
+    public ClassViewForm() throws SQLException, PrinterException {
         initComponents();
         jMenuItem1.setVisible(false);
         userRole = LoginForm.userRole;
@@ -33,6 +34,7 @@ public class ClassViewForm extends javax.swing.JFrame {
            jMenuItem1.setVisible(true);
         }
         jTable1.setModel(new ClassTableModel());
+        //jTable1.print();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -263,8 +265,14 @@ public class ClassViewForm extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    new ClassViewForm().setVisible(true);
-                } catch (SQLException ex) {
+                    try {
+                        new ClassViewForm().setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ClassViewForm.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (PrinterException ex) {
+                        Logger.getLogger(ClassViewForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } catch (Exception ex) {
                     Logger.getLogger(ClassViewForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

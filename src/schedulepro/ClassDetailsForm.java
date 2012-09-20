@@ -22,7 +22,7 @@ public class ClassDetailsForm extends javax.swing.JFrame {
     /**
      * Creates new form ClassDetailsForm
      */
-    public ClassDetailsForm() {
+    public ClassDetailsForm() throws SQLException {
         initComponents();
         userRole = LoginForm.userRole;
         if(userRole.equals("sa")){
@@ -212,7 +212,11 @@ public class ClassDetailsForm extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         if(userRole.equals("sa")){
-            Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT `dept` FROM `dept` WHERE `Course`=\"" + courseComboBox.getSelectedItem() + "\"");
+            try {
+                Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT `dept` FROM `dept` WHERE `Course`=\"" + courseComboBox.getSelectedItem() + "\"");
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassDetailsForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             departmentComboBox.addItem(LoginForm.userDept);
             departmentComboBox.setSelectedItem(LoginForm.userDept);
@@ -335,7 +339,11 @@ public class ClassDetailsForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClassDetailsForm().setVisible(true);
+                try {
+                    new ClassDetailsForm().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClassDetailsForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

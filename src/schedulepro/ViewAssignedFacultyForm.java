@@ -6,6 +6,7 @@ package schedulepro;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.print.PrinterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -61,6 +62,8 @@ public class ViewAssignedFacultyForm extends javax.swing.JFrame {
                     Utilfunctions.setLocation(cf);
                     e.getWindow().setVisible(false);
                     cf.setVisible(true);
+                } catch (PrinterException ex) {
+                    Logger.getLogger(ViewAssignedFacultyForm.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(ViewAssignedFacultyForm.class.getName()).log(Level.SEVERE, null, ex);
                 }

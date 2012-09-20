@@ -5,6 +5,9 @@
 package schedulepro;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +32,11 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
             departmentComboBox.setSelectedItem(LoginForm.userDept);
             departmentComboBox.setEnabled(false);
         } else {
-            Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT distinct(`dept`) FROM `dept`");
+            try {
+                Utilfunctions.populateComboBoxwithQuery(departmentComboBox, "SELECT distinct(`dept`) FROM `dept`");
+            } catch (SQLException ex) {
+                Logger.getLogger(EquipmentDetailsForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     /**

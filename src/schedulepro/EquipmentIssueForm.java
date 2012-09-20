@@ -20,20 +20,24 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
      * Creates new form EquipmentIssueForm
      */
     public EquipmentIssueForm() {
-        initComponents();
-        Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT DISTINCT(year) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY year");
-        Utilfunctions.populateComboBoxwithQuery(jComboBox2,"SELECT DISTINCT(section) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY section");
-        Utilfunctions.populateComboBoxwithQuery(jComboBox3,"SELECT DISTINCT(course) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY course");
-        
-        for(int i=1;i<=31;i++)
-            jComboBox4.addItem(Integer.toString(i));
-        
-        for(int i=2000;i<=2020;i++)
-            jComboBox6.addItem(Integer.toString(i));
-        
-        String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-        for(int i=0;i<months.length;i++)
-            jComboBox5.addItem(months[i]);
+        try {
+            initComponents();
+            Utilfunctions.populateComboBoxwithQuery(jComboBox1, "SELECT DISTINCT(year) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY year");
+            Utilfunctions.populateComboBoxwithQuery(jComboBox2,"SELECT DISTINCT(section) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY section");
+            Utilfunctions.populateComboBoxwithQuery(jComboBox3,"SELECT DISTINCT(course) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY course");
+            
+            for(int i=1;i<=31;i++)
+                jComboBox4.addItem(Integer.toString(i));
+            
+            for(int i=2000;i<=2020;i++)
+                jComboBox6.addItem(Integer.toString(i));
+            
+            String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+            for(int i=0;i<months.length;i++)
+                jComboBox5.addItem(months[i]);
+        } catch (SQLException ex) {
+            Logger.getLogger(EquipmentIssueForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

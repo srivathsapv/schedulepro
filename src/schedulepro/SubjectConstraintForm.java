@@ -26,7 +26,7 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
     /**
      * Creates new form SubjectConstraintForm
      */
-    public SubjectConstraintForm() {
+    public SubjectConstraintForm() throws SQLException {
         initComponents();
         pConfigs = new Vector();
         addWindowListener(new WindowAdapter() {
@@ -478,7 +478,11 @@ public class SubjectConstraintForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new SubjectConstraintForm().setVisible(true);
+                try {
+                    new SubjectConstraintForm().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
