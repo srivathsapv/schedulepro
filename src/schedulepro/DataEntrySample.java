@@ -13,14 +13,14 @@ import java.sql.SQLException;
  */
 public class DataEntrySample {
     public static void main(String args[]) throws SQLException{
-        ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM class ORDER BY classCode");
         
+        ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM subjectconstraint ORDER BY RAND() LIMIT 0,15");
         while(rs.next()){
-            ResultSet prs = Utilfunctions.executeQuery("SELECT * FROM periodconfig WHERE pType = 4");
-            while(prs.next()){
-                int n = Utilfunctions.executeUpdate("INSERT INTO classperiod(classCode,pconfigId) VALUES(" + rs.getInt(1) + "," + prs.getInt(1) + ")");
-                System.out.println("Inserted " + rs.getInt(1) + "," + prs.getInt(1));
+            if(rs.getInt(4) != 3){
+                int n = Utilfunctions.executeUpdate("UPDATE subjectconstraint SET combinedNo = 2 WHERE subCode = '" + rs.getString(1) + "'");
+                System.out.println("Changed for " + rs.getString(1));
             }
         }
+        
     }
 }

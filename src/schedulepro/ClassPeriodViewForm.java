@@ -5,7 +5,6 @@
 package schedulepro;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,15 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.JTextPane;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -196,7 +189,7 @@ class ClassScheduleTableModel extends AbstractTableModel {
         private Object[][] data;
         
         public ClassScheduleTableModel() throws SQLException{
-            ClassPeriodViewForm.classCode = 4;
+            ClassPeriodViewForm.classCode = 1;
             ResultSet columncnt_rs = Utilfunctions.executeQuery("SELECT COUNT(DISTINCT(CONCAT(timeFrom,'-',timeTo))) FROM periodconfig"
                     + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = "+ClassPeriodViewForm.classCode+") AND pType != 3");
             columncnt_rs.next();
@@ -212,7 +205,7 @@ class ClassScheduleTableModel extends AbstractTableModel {
             } 
             
             ResultSet daycnt_rs = Utilfunctions.executeQuery("select count(distinct(day)) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from classperiod where classCode = 4) and pType != 3");
+                    + "pconfigId IN(select pconfigId from classperiod where classCode = "+ClassPeriodViewForm.classCode+") and pType != 3");
             daycnt_rs.next();
             
             int rows = daycnt_rs.getInt(1);
@@ -220,17 +213,16 @@ class ClassScheduleTableModel extends AbstractTableModel {
             data = new Object[rows][cols+1];
             
             ResultSet day_rs = Utilfunctions.executeQuery("select distinct(day) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from classperiod where classCode = 4) and pType != 3");
+                    + "pconfigId IN(select pconfigId from classperiod where classCode = "+ClassPeriodViewForm.classCode+") and pType != 3");
             i=0;
             while(day_rs.next()){
-                ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classPeriod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = '" + day_rs.getString(1) + "')");
-                System.out.println("Assigning for " + day_rs.getString(1));
+                ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classperiod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = '" + day_rs.getString(1) + "')");
+                
                 String[] values = new String[cols+1];
                 values[0] = day_rs.getString(1);
                 int k=1;
                 while(table_rs.next()){
                     values[k++]=table_rs.getString(1);
-                    System.out.println("----"+table_rs.getString(1));
                 }
                 data[i++] = values;
             }
@@ -240,7 +232,7 @@ class ClassScheduleTableModel extends AbstractTableModel {
                 data[i++][0] = day_rs.getString(1);
             }
             i=1;
-            ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classPeriod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = 'Monday')");
+            ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classperiod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = 'Monday')");
             while(table_rs.next()) {
                 data[0][i] = table_rs.getString(1);
                 System.out.println(data[0][i]);

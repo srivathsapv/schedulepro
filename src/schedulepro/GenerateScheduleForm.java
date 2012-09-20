@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
  * @author srivathsa
  */
 public class GenerateScheduleForm extends javax.swing.JFrame {
-
     /**
      * Creates new form GenerateScheduleForm
      */
@@ -26,10 +25,11 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
         initComponents();
         
         String query = "";
-        if(LoginForm.userRole.equals("sa"))
+        
+        //if(LoginForm.userRole.equals("sa"))
             query = "SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class ORDER BY classCode";
-        else
-            query = "SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY classCode";
+        //else
+            //query = "SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class WHERE dept = '" + LoginForm.userDept + "' ORDER BY classCode";
         
         Utilfunctions.populateComboBoxwithQuery(jComboBox1, query);
         
@@ -273,12 +273,59 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //generate the schedule
         try {
+            classCode = 1;
             ResultSet subclass = Utilfunctions.executeQuery("SELECT * FROM subclass WHERE classCode = " + classCode);
             while(subclass.next()){
+                
+                /*
+                 * Get the concerned subject's constraints
+                 */
+                ResultSet subconstraint = Utilfunctions.executeQuery("SELECT * FROM subjectconstraint WHERE subCode = '" + subclass.getString(3) + "'");
+                subconstraint.next();
+                
+                /*
+                 * Get the concerned staff's constraints
+                 */
+                ResultSet staffconstraint = Utilfunctions.executeQuery("SELECT * FROM staffconstraint WHERE userCode = '" + subclass.getString(4) + "'");
+                staffconstraint.next();
+                
+                /*
+                 * check if total periods assigned to user is <= his totalPPW. if no -> report
+                 * error
+                 */
+                    /*obtain no. of periods assigned already to the user + no. of periods going to be 
+                     * assigned
+                     */
+                     ResultSet periods_assigned = Utilfunctions.executeQuery("SELECT COUNT(*) + " 
+                             + subconstraint.getInt(2) + " FROM staffperiod WHERE "
+                             + "userCode = '" + subclass.getString(4) + "'");
+                     periods_assigned.next();
+                     
+                     if(periods_assigned.getInt(1) > staffconstraint.getInt(2)){
+                         ResultSet user = Utilfunctions.executeQuery("SELECT * FROM user WHERE userCode = '" + subclass.getString(4) + "'");
+                         user.next();
+                         
+                         String name = user.getString(1) + " - " + user.getString(3) + user.getString(2) + "(" + user.getString(4) + ")";
+                         
+                         JOptionPane.showMessageDialog(null,"Cannot generate schedule.\n"
+                                 + "Total periods/week constraint of " + name + " is being violated.\n"
+                                 + "Go to staffconstraints and increase the total periods/week");
+                         return;
+                     }
+                //end of total periods assigned check     
+                
+                /*choose the assignable pconfigs by applying the following filters
+                 * filter #0 - the pconfig should belong to the period slots assigned to that class
+                 * filter #1 - the pconfig should not belong to subperiodexception of the subject
+                 * filter #2 - the pconfig should not belong to staffperiodexception of the staff who is handling the subject
+                 * filter #3 - the pconfig should not be assigned to that faculty already
+                 * filter #4 - the pconfig should not be assigned to that class already
+                 * filter #5 - the pconfig should lie in between the work hours of the staff
+                 */
                 ResultSet periodconfig = Utilfunctions.executeQuery("SELECT * FROM periodconfig "
-                + " WHERE pconfigId NOT IN(SELECT pconfigId FROM staffperiodexception WHERE userCode = '" + subclass.getString(4) + "') "
+                + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = " + classCode + ") AND pconfigId NOT IN(SELECT pconfigId FROM staffperiodexception WHERE userCode = '" + subclass.getString(4) + "') "
                 + "AND pconfigId NOT IN(SELECT pconfigId FROM subperiodexception WHERE subCode = '" + subclass.getString(3) + "')"
-                        + " AND pconfigId NOT IN(SELECT pconfigId FROM staffperiod WHERE userCode = '" + subclass.getString(4) + "') AND pType = 1");
+                        + " AND pconfigId NOT IN(SELECT pconfigId FROM staffperiod WHERE userCode = '" + subclass.getString(4) + "') AND pconfigId NOT IN(SELECT pconfigId FROM classperiod WHERE IFNULL(subCode,0) != 0 AND classCode = " + classCode + ") AND pType = 1");
                 Vector assignable_periods = new Vector<Integer>();
                 while(periodconfig.next()) {
                     ResultSet workhour = 
@@ -286,18 +333,77 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                                             + "w.workHourTo FROM userworkid u,staffworkhour w "
                                             + "WHERE w.workHourConfigId = u.workHourConfigId "
                                             + "AND u.userCode = '" + subclass.getString(4) + "'");
-                    boolean overlaps = false;
+                    boolean overlaps = true;
                     while(workhour.next()){
                         if(workhour.getString(2).equals(periodconfig.getString(2))){
                             if(!ConstraintsCheck.isPeriodOverlap(workhour.getString(3),workhour.getString(4),periodconfig.getString(3),periodconfig.getString(4))) {
-                                overlaps=true;
+                                overlaps=false;
                                 break;
                             }
                         }
                     }
-                    if(!overlaps) assignable_periods.add(periodconfig.getInt(1));
+                    if(overlaps) assignable_periods.add(periodconfig.getInt(1));
                 }
-                System.out.println(assignable_periods.size());
+                
+                //filter #6 - clash check
+                if(subconstraint.getInt(5) == 1){
+                    Vector<Integer> clashes = new Vector<Integer>();
+                    for(int i=0;i<assignable_periods.size();i++){
+                        ResultSet clash_count = Utilfunctions.executeQuery("SELECT COUNT(*) FROM"
+                                + " classperiod WHERE classCode != " + classCode + " AND "
+                                + " subCode = '" + subclass.getString(4) + "'"
+                                + " AND pconfigId = " + assignable_periods.get(i));
+                        clash_count.next();
+                        if(clash_count.getInt(1) >= 1){
+                            clashes.add(i);
+                        }
+                    }
+                    
+                    for(int p:clashes)
+                        assignable_periods.removeElementAt(p);
+                }
+                
+                /**
+                 * filter #7 - combined number
+                 * if combined number > 0 then assignable_periods should contain only those
+                 * pconfigIds that occur as a continous sequence. 
+                 * 
+                 * for example if combined number = 3 pconfigIds should contain only those 
+                 * period slots which occur as triplets
+                 * 
+                 * for simplicity we will retain the 1st pconfigId of the triplet in
+                 * assignable_periods
+                 */
+                int cno = 0;
+                if(subconstraint.getInt(4) > 0){
+                    cno = subconstraint.getInt(4);
+                    Vector<Integer> vc = new Vector<Integer>();
+
+                    String ass_str = assignable_periods.toString();
+                    ass_str = ass_str.substring(1,ass_str.length()-1);
+                    ResultSet days = Utilfunctions.executeQuery("SELECT DISTINCT(day) FROM periodconfig"
+                            + " WHERE pconfigId IN(" + ass_str + ")");
+                    while(days.next()){
+                        ConstraintsCheck.getCombinedpconfigs(vc,days.getString(1), assignable_periods, classCode, cno);
+                    }
+                }
+                
+                /**
+                 * filter #8 - min interval of subject
+                 */
+                
+                /**
+                 * filter #9 - min interval of staff
+                 */
+                
+                /**
+                 * filter #10 - reduce the assignable_periods to randomized set
+                 * of length = totalPPW of that subject
+                 */
+                
+                /**
+                 * insert subcode into the assignable periods
+                 */
             }     
             //end generate
         } catch (SQLException ex) {
