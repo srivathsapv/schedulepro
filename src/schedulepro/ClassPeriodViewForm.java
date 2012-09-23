@@ -12,7 +12,9 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -20,7 +22,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Sasi Praveen
  */
 public class ClassPeriodViewForm extends javax.swing.JFrame {
-    
+
     //private ClassScheduleTableModel model;
     /**
      * Creates new form ClassPeriodViewForm
@@ -28,12 +30,13 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
     public ClassPeriodViewForm() {
         try {
             initComponents();
-            
+
             Utilfunctions.populateComboBoxwithQuery(classComboBox, "SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class");
         } catch (SQLException ex) {
             Logger.getLogger(ClassPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         addWindowListener(new WindowAdapter() {
+
             @Override
             public void windowClosing(WindowEvent e) {
                 DashboardForm df = new DashboardForm();
@@ -54,6 +57,8 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         classComboBox = new javax.swing.JComboBox();
@@ -64,6 +69,14 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+
+        jMenuItem1.setText("View Substitution");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SchedulePro - Class Schedule");
@@ -109,6 +122,11 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
             }
         ));
         jTable1.setRowHeight(30);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,7 +196,7 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
             jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
             jTable2.getColumnModel().getColumn(0).setPreferredWidth(20);
             jTable2.getColumnModel().getColumn(1).setPreferredWidth(100);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ClassPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -187,22 +205,66 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
         try {
             // TODO add your handling code here:
-            MessageFormat header = new MessageFormat("Schedule for: "+classComboBox.getSelectedItem().toString());
+            MessageFormat header = new MessageFormat("Schedule for: " + classComboBox.getSelectedItem().toString());
             jTable1.print(JTable.PrintMode.FIT_WIDTH, header, null);
         } catch (PrinterException ex) {
             Logger.getLogger(ClassPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_printButtonActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        // TODO add your handling code here:
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            JTable source = (JTable) evt.getSource();
+            selectedRow = source.rowAtPoint(evt.getPoint());
+            selectedColumn = source.columnAtPoint(evt.getPoint());
+            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        ClassScheduleTableModel model = (ClassScheduleTableModel) jTable1.getModel();
+        try {
+            if(model.getValueAt(selectedRow,selectedColumn).equals("Break") || 
+                    model.getValueAt(selectedRow,selectedColumn).equals("Lunch") || selectedColumn == 0)
+                return;
+            
+            ResultSet sub_rs = Utilfunctions.executeQuery("SELECT subCode FROM subject WHERE subShortName = '" + model.getValueAt(selectedRow,selectedColumn) + "'");
+            sub_rs.next();
+            
+            ResultSet subclass_rs = Utilfunctions.executeQuery("SELECT userCode FROM subclass WHERE subCode = '" + sub_rs.getString(1) + "' AND classCode = " + classCode);
+            subclass_rs.next();
+            
+            int pconfigId = model.getpconfigId(selectedRow,selectedColumn);
+            ViewSubstitionForm.classCode = classCode;
+            ViewSubstitionForm.pconfigId = pconfigId;
+            ViewSubstitionForm.subCode = sub_rs.getString(1);
+            ViewSubstitionForm.unavailable_faculty = subclass_rs.getString(1);
+            ViewSubstitionForm vsf = new ViewSubstitionForm();
+            Utilfunctions.setLocation(vsf);
+            Utilfunctions.setIconImage(vsf);
+            vsf.setVisible(true);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /*
+         * Set the Nimbus look and feel
+         */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -222,8 +284,11 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /*
+         * Create and display the form
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 new ClassPeriodViewForm().setVisible(true);
@@ -236,6 +301,8 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
@@ -243,208 +310,209 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
     private javax.swing.JButton printButton;
     // End of variables declaration//GEN-END:variables
     public static int classCode;
+    public static int selectedRow;
+    public static int selectedColumn;
 }
 
 class ClassScheduleTableModel extends AbstractTableModel {
-        private String[] columnNames = {};
-        private Object[][] data;
+
+    public String[] columnNames = {};
+    public Object[][] data;
+    public ClassScheduleTableModel() throws SQLException {
+        ResultSet columncnt_rs = Utilfunctions.executeQuery("SELECT COUNT(DISTINCT(CONCAT(timeFrom,'-',timeTo))) FROM periodconfig"
+                + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = " + ClassPeriodViewForm.classCode + ") AND pType != 3");
+        columncnt_rs.next();
+
+        int cols = columncnt_rs.getInt(1);
+        columnNames = new String[columncnt_rs.getInt(1) + 1];
+        ResultSet column_rs = Utilfunctions.executeQuery("SELECT DISTINCT(CONCAT(timeFrom,'-',timeTo)),timeFrom,timeTo FROM periodconfig"
+                + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = " + ClassPeriodViewForm.classCode + ") AND pType != 3");
+        int i = 1;
+        while (column_rs.next()) {
+            columnNames[i++] = "<html><body><b>" + column_rs.getString(1).substring(0, 5) + "-" + column_rs.getString(1).substring(9, 14) + "</b></body></html>";
+        }
+
+        ResultSet daycnt_rs = Utilfunctions.executeQuery("select count(distinct(day)) from periodconfig where "
+                + "pconfigId IN(select pconfigId from classperiod where classCode = " + ClassPeriodViewForm.classCode + ") and pType != 3");
+        daycnt_rs.next();
+
+        int rows = daycnt_rs.getInt(1);
+
+        data = new Object[rows][cols + 1];
         
-        public ClassScheduleTableModel() throws SQLException{
-            ResultSet columncnt_rs = Utilfunctions.executeQuery("SELECT COUNT(DISTINCT(CONCAT(timeFrom,'-',timeTo))) FROM periodconfig"
-                    + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = "+ClassPeriodViewForm.classCode+") AND pType != 3");
-            columncnt_rs.next();
-            
-            int cols = columncnt_rs.getInt(1);
-            columnNames = new String[columncnt_rs.getInt(1)+1];
-            
-            ResultSet column_rs = Utilfunctions.executeQuery("SELECT DISTINCT(CONCAT(timeFrom,'-',timeTo)) FROM periodconfig"
-                    + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = "+ClassPeriodViewForm.classCode+") AND pType != 3");
-            int i=1;
-            while(column_rs.next()){
-                columnNames[i++] = "<html><body><b>" + column_rs.getString(1).substring(0, 5)+" - "+column_rs.getString(1).substring(9, 14) + "</b></body></html>";
-            } 
-            
-            ResultSet daycnt_rs = Utilfunctions.executeQuery("select count(distinct(day)) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from classperiod where classCode = "+ClassPeriodViewForm.classCode+") and pType != 3");
-            daycnt_rs.next();
-            
-            int rows = daycnt_rs.getInt(1);
-            
-            data = new Object[rows][cols+1];
-            
-            ResultSet day_rs = Utilfunctions.executeQuery("select distinct(day) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from classperiod where classCode = "+ClassPeriodViewForm.classCode+") and pType != 3");
-            i=0;
-            
-            ResultSet shortname_rs;
-            while(day_rs.next()){
-                //JOptionPane.showMessageDialog(null,day_rs.getString(1));
-                //JOptionPane.showMessageDialog(null,"select subCode from classperiod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = '" + day_rs.getString(1) + "')");
-                ResultSet table_rs = Utilfunctions.executeQuery(
-                        "select subCode,pconfigId from classperiod"
-                        + " where classCode = "+ClassPeriodViewForm.classCode
-                        + " and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` "
-                        + "WHERE `pType` != 3 and day = '" + day_rs.getString(1) + "') ORDER BY TIMEFROM(pconfigId)");
-                //System.out.println("Assigning for " + day_rs.getString(1));
-                String[] values = new String[cols+1];
-                values[0] = "<html><body><b>" + day_rs.getString(1) + "</b></body></html>";
-                int k=1;
-                while(table_rs.next()){
-                    if(table_rs.getString(1).equals("-")){
-                        ResultSet pType = Utilfunctions.executeQuery("SELECT pType FROM periodconfig WHERE pconfigId = " + table_rs.getInt(2));
-                        pType.next();
-                        
-                        if(pType.getInt(1) == 2){
-                            values[k++] = "Lunch";
-                        }
-                        else if(pType.getInt(1) == 4){
-                            values[k++] = "Break";
-                        }
+        ResultSet day_rs = Utilfunctions.executeQuery("select distinct(day) from periodconfig where "
+                + "pconfigId IN(select pconfigId from classperiod where classCode = " + ClassPeriodViewForm.classCode + ") and pType != 3");
+        i = 0;
+
+        ResultSet shortname_rs;
+        while (day_rs.next()) {
+            ResultSet table_rs = Utilfunctions.executeQuery(
+                    "select subCode,pconfigId from classperiod"
+                    + " where classCode = " + ClassPeriodViewForm.classCode
+                    + " and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` "
+                    + "WHERE `pType` != 3 and day = '" + day_rs.getString(1) + "') ORDER BY TIMEFROM(pconfigId)");
+            String[] values = new String[cols + 1];
+            values[0] = day_rs.getString(1);
+            int k = 1;
+            while (table_rs.next()) {
+                if (table_rs.getString(1).equals("-")) {
+                    ResultSet pType = Utilfunctions.executeQuery("SELECT pType FROM periodconfig WHERE pconfigId = " + table_rs.getInt(2));
+                    pType.next();
+
+                    if (pType.getInt(1) == 2) {
+                        values[k++] = "Lunch";
+                    } else if (pType.getInt(1) == 4) {
+                        values[k++] = "Break";
                     }
-                    else {
-                        shortname_rs = Utilfunctions.executeQuery("select subShortName from subject where subCode='"+table_rs.getString(1)+"'");
-                        shortname_rs.next();
-                        values[k++]=shortname_rs.getString(1);
-                    }
+                } else {
+                    shortname_rs = Utilfunctions.executeQuery("select subShortName,subCode from subject where subCode='" + table_rs.getString(1) + "'");
+                    shortname_rs.next();
                     
-                    //System.out.println("----"+table_rs.getString(1));
+                    values[k++] = shortname_rs.getString(1);
                 }
-                data[i++] = values;
+
+                //System.out.println("----"+table_rs.getString(1));
             }
+            data[i++] = values;
         }
-    
-    @Override
-        public int getColumnCount() {
-            return columnNames.length;
-        }
-
-    @Override
-        public int getRowCount() {
-            return data.length;
-        }
-
-    @Override
-        public String getColumnName(int col) {
-            return columnNames[col];
-        }
-
-    @Override
-        public Object getValueAt(int row, int col) {
-            return data[row][col];
-        }
-
-    /*
-    * JTable uses this method to determine the default renderer/
-    * editor for each cell.  If we didn't implement this method,
-    * then the last column would contain text ("true"/"false"),
-    * rather than a check box.
-    */
-    @Override
-        public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
-        }
-
-    
-   
-    /*
-    * Don't need to implement this method unless your table's
-    * data can change.
-    */
-    @Override
-    public void setValueAt(Object value, int row, int col) {
-        
     }
 
-}  
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    @Override
+    public int getRowCount() {
+        return data.length;
+    }
+
+    @Override
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
+
+    @Override
+    public Object getValueAt(int row, int col) {
+        if(col!=0)
+            return data[row][col];
+        else
+            return "<html><body><b>" + data[row][col] + "</b></body></html>";
+    }
+    
+    public int getpconfigId(int row,int col) throws SQLException{
+        String colm = columnNames[col];
+        String timeFrom = colm.substring(15,20) + ":00";
+        String timeTo = colm.substring(21,26) + ":00";
+        String day = (data[row][0]).toString();
+        String query = "SELECT pconfigId FROM periodconfig WHERE timeFrom = '" + timeFrom + "' AND timeTo = '" + timeTo + "' AND day = '" + day + "' AND pType = 1";
+        
+        ResultSet pc = Utilfunctions.executeQuery(query);
+        pc.next();
+        
+        return pc.getInt(1);
+    }
+    
+    
+    /*
+     * JTable uses this method to determine the default renderer/ editor for
+     * each cell. If we didn't implement this method, then the last column would
+     * contain text ("true"/"false"), rather than a check box.
+     */
+    @Override
+    public Class getColumnClass(int c) {
+        return getValueAt(0, c).getClass();
+    }
+
+    /*
+     * Don't need to implement this method unless your table's data can change.
+     */
+    @Override
+    public void setValueAt(Object value, int row, int col) {
+    }
+}
 
 class ClassScheduleDetailsTableModel extends AbstractTableModel {
-        private String[] columnNames = {"Abbrevation","Subject Name","Assigned Faculty"};
-        private Object[][] data;
-        
-        public ClassScheduleDetailsTableModel() throws SQLException{
-            ResultSet rowcnt_rs = Utilfunctions.executeQuery("SELECT COUNT(*) FROM subclass"
-                    + " WHERE classCode = "+ClassPeriodViewForm.classCode);
-            rowcnt_rs.next();
-         
-            data = new Object[rowcnt_rs.getInt(1)][3];
-            
-            
-            ResultSet details_rs = Utilfunctions.executeQuery("SELECT subCode,userCode FROM subclass"
-                    + " WHERE classCode = "+ClassPeriodViewForm.classCode);
-            int i=0;
-            //ResultSet user_rs,subject_rs;
-            
-            while(details_rs.next()){
-                String[] values = new String[3];
-                //System.out.println(details_rs.getString(1)+" "+details_rs.getString(2));
-                ResultSet user_rs = Utilfunctions.executeQuery("select CONCAT(name,'(',dept,')') from user where"
-                        + " userCode = '"+details_rs.getString(2)+"'");
-                user_rs.next();
-                ResultSet subject_rs = Utilfunctions.executeQuery("select subShortName,subName from subject "
-                        + "where subCode ='"+details_rs.getString(1)+"'");
-                subject_rs.next();
-                //System.out.println(subject_rs.getString(1)+" "+subject_rs.getString(2)+" "+user_rs.getString(1));
-                values[0] = subject_rs.getString(1);
-                values[1] = subject_rs.getString(2);
-                values[2] = user_rs.getString(1);
-                data[i++]=values;
-            }
-  
-            
-            /*while(day_rs.next()){
-                System.out.println(day_rs.getString(1) + " " + i);
-                data[i++][0] = day_rs.getString(1);
-            }
-            i=1;
-            ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classperiod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = 'Monday')");
-            while(table_rs.next()) {
-                data[0][i] = table_rs.getString(1);
-                System.out.println(data[0][i]);
-                i++;
-            } */ 
-           
-        }
-    
-    @Override
-        public int getColumnCount() {
-            return columnNames.length;
+
+    private String[] columnNames = {"Abbrevation", "Subject Name", "Assigned Faculty"};
+    private Object[][] data;
+
+    public ClassScheduleDetailsTableModel() throws SQLException {
+        ResultSet rowcnt_rs = Utilfunctions.executeQuery("SELECT COUNT(*) FROM subclass"
+                + " WHERE classCode = " + ClassPeriodViewForm.classCode);
+        rowcnt_rs.next();
+
+        data = new Object[rowcnt_rs.getInt(1)][3];
+
+
+        ResultSet details_rs = Utilfunctions.executeQuery("SELECT subCode,userCode FROM subclass"
+                + " WHERE classCode = " + ClassPeriodViewForm.classCode);
+        int i = 0;
+        //ResultSet user_rs,subject_rs;
+
+        while (details_rs.next()) {
+            String[] values = new String[3];
+            //System.out.println(details_rs.getString(1)+" "+details_rs.getString(2));
+            ResultSet user_rs = Utilfunctions.executeQuery("select CONCAT(name,'(',dept,')') from user where"
+                    + " userCode = '" + details_rs.getString(2) + "'");
+            user_rs.next();
+            ResultSet subject_rs = Utilfunctions.executeQuery("select subShortName,subName from subject "
+                    + "where subCode ='" + details_rs.getString(1) + "'");
+            subject_rs.next();
+            //System.out.println(subject_rs.getString(1)+" "+subject_rs.getString(2)+" "+user_rs.getString(1));
+            values[0] = subject_rs.getString(1);
+            values[1] = subject_rs.getString(2);
+            values[2] = user_rs.getString(1);
+            data[i++] = values;
         }
 
-    @Override
-        public int getRowCount() {
-            return data.length;
-        }
 
-    @Override
-        public String getColumnName(int col) {
-            return columnNames[col];
-        }
+        /*
+         * while(day_rs.next()){ System.out.println(day_rs.getString(1) + " " +
+         * i); data[i++][0] = day_rs.getString(1); } i=1; ResultSet table_rs =
+         * Utilfunctions.executeQuery("select subCode from classperiod where
+         * classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT
+         * `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day =
+         * 'Monday')"); while(table_rs.next()) { data[0][i] =
+         * table_rs.getString(1); System.out.println(data[0][i]); i++; }
+         */
 
-    @Override
-        public Object getValueAt(int row, int col) {
-            return data[row][col];
-        }
-
-    /*
-    * JTable uses this method to determine the default renderer/
-    * editor for each cell.  If we didn't implement this method,
-    * then the last column would contain text ("true"/"false"),
-    * rather than a check box.
-    */
-    @Override
-        public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
-        }
-
-    
-   
-    /*
-    * Don't need to implement this method unless your table's
-    * data can change.
-    */
-    @Override
-    public void setValueAt(Object value, int row, int col) {
-        
     }
 
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    @Override
+    public int getRowCount() {
+        return data.length;
+    }
+
+    @Override
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
+
+    @Override
+    public Object getValueAt(int row, int col) {
+        return data[row][col];
+    }
+
+    /*
+     * JTable uses this method to determine the default renderer/ editor for
+     * each cell. If we didn't implement this method, then the last column would
+     * contain text ("true"/"false"), rather than a check box.
+     */
+    @Override
+    public Class getColumnClass(int c) {
+        return getValueAt(0, c).getClass();
+    }
+
+    /*
+     * Don't need to implement this method unless your table's data can change.
+     */
+    @Override
+    public void setValueAt(Object value, int row, int col) {
+    }
 }
