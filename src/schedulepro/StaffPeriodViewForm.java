@@ -4,10 +4,13 @@
  */
 package schedulepro;
 
+import java.awt.print.PrinterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -28,7 +31,16 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(StaffPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        /*addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                DashboardForm df = new DashboardForm();
+                Utilfunctions.setIconImage(df);
+                Utilfunctions.setLocation(df);
+                e.getWindow().setVisible(false);
+                df.setVisible(true);
+            }
+        });*/
     }
 
     /**
@@ -43,7 +55,8 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         staffComboBox = new javax.swing.JComboBox();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        printButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -60,8 +73,12 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(1200, 500));
+        printButton.setText("Print");
+        printButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printButtonActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,31 +88,31 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
 
             }
         ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jTable1.setPreferredSize(new java.awt.Dimension(1200, 160));
-        jTable1.setRowHeight(30);
-        jScrollPane2.setViewportView(jTable1);
+        jTable1.setRowHeight(40);
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(442, 442, 442)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(403, 403, 403)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(staffComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(452, 452, 452)
-                                .addComponent(jLabel2)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(staffComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 462, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -107,8 +124,10 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(staffComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addComponent(printButton)
                 .addContainerGap())
         );
 
@@ -131,6 +150,15 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
             Logger.getLogger(StaffPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_staffComboBoxActionPerformed
+
+    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            jTable1.print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(StaffPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_printButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,8 +198,9 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton printButton;
     private javax.swing.JComboBox staffComboBox;
     // End of variables declaration//GEN-END:variables
     public static String userCode;
@@ -179,6 +208,7 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
 class StaffScheduleTableModel extends AbstractTableModel {
         private String[] columnNames = {};
         private Object[][] data;
+        private Vector time = new Vector();
         
         public StaffScheduleTableModel() throws SQLException{
             ResultSet columncnt_rs = Utilfunctions.executeQuery("SELECT COUNT(DISTINCT(CONCAT(timeFrom,'-',timeTo))) FROM periodconfig"
@@ -192,57 +222,45 @@ class StaffScheduleTableModel extends AbstractTableModel {
                     + " WHERE pconfigId IN(SELECT pconfigId FROM staffperiod WHERE userCode = '"+StaffPeriodViewForm.userCode+"') AND pType != 3");
             int i=1;
             while(column_rs.next()){
-                columnNames[i++] = column_rs.getString(1);
+                time.addElement(column_rs.getString(1));
+                columnNames[i++] = column_rs.getString(1).substring(0, 5)+" - "+column_rs.getString(1).substring(9, 14);
             } 
             
             ResultSet daycnt_rs = Utilfunctions.executeQuery("select count(distinct(day)) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from staffperiod where userCode = '"+StaffPeriodViewForm.userCode+"') and pType != 3");
+                    + "pconfigId IN(select pconfigId from staffperiod where userCode = "+StaffPeriodViewForm.userCode+") and pType != 3");
             daycnt_rs.next();
-            
-            int rows = daycnt_rs.getInt(1);
-            
-            data = new Object[rows][cols+1];
+            data = new Object[daycnt_rs.getInt(1)][columncnt_rs.getInt(1)+1];
             
             ResultSet day_rs = Utilfunctions.executeQuery("select distinct(day) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from staffperiod where userCode = '"+StaffPeriodViewForm.userCode+"') and pType != 3");
-            i=0;
-            
-            ResultSet classname_rs;
+                    + "pconfigId IN(select pconfigId from staffperiod where userCode = "+StaffPeriodViewForm.userCode+") and pType != 3");
+            int k=0;
             while(day_rs.next()){
-                ResultSet table_rs = Utilfunctions.executeQuery("select classCode from staffPeriod where userCode = "+StaffPeriodViewForm.userCode+" and "
-                        + "pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = '" + day_rs.getString(1) + "')");
-                //System.out.println("Assigning for " + day_rs.getString(1));
-                String[] values = new String[cols+1];
-                values[0] = day_rs.getString(1);
-                int k=1;
-                String classname;
-                while(table_rs.next()){
-                    if(table_rs.getInt(1) == 0){
-                        classname = "Break";
-                    }else{
-                    classname_rs = Utilfunctions.executeQuery("SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class where classCode= "+table_rs.getString(1));
+            String[] values = new String[columncnt_rs.getInt(1)+1];
+            values[0]="<html><body><b>"+day_rs.getString(1)+"</b></body></html>";
+            for(i=0;i<time.size();i++){
+                ResultSet result_pf = Utilfunctions.executeQuery("select pconfigId from periodconfig where day = '"+day_rs.getString(1)+"' and CONCAT(timeFrom,'-',timeTo)='"+time.elementAt(i)+"'");
+                if(result_pf.next()){
+                    ResultSet periodcheck_rs = Utilfunctions.executeQuery("select classCode from staffperiod where pconfigId ="+result_pf.getString(1));
+                    if(periodcheck_rs.next())   {
+                    ResultSet classname_rs = Utilfunctions.executeQuery("SELECT CONCAT(course,' ',dept,' ',year,' - ',section),roomId FROM class where classCode= "+periodcheck_rs.getString(1));
                     classname_rs.next();
-                    classname = classname_rs.getString(1);
-                    }
-                    values[k++]=classname;
-                    //System.out.println("----"+table_rs.getString(1));
+                    ResultSet room_rs = Utilfunctions.executeQuery("select roomNo from classroom where roomId ="+classname_rs.getString(2));
+                    room_rs.next();
+                    String roomNo = room_rs.getString(1);
+                    String classname = classname_rs.getString(1);
+                    System.out.println(classname+" "+roomNo);
+                    values[i+1]="<html><body>" + classname + "<br>(" + roomNo + ")</body></html>";
+                }else{
+                        System.out.println("-");
+                    values[i+1]="-----";
                 }
-                data[i++] = values;
             }
-            
-            /*while(day_rs.next()){
-                System.out.println(day_rs.getString(1) + " " + i);
-                data[i++][0] = day_rs.getString(1);
-            }
-            i=1;
-            ResultSet table_rs = Utilfunctions.executeQuery("select subCode from classPeriod where classCode = "+ClassPeriodViewForm.classCode+" and pconfigId IN(SELECT `pconfigId` FROM `periodconfig` WHERE `pType` != 3 and day = 'Monday')");
-            while(table_rs.next()) {
-                data[0][i] = table_rs.getString(1);
-                System.out.println(data[0][i]);
-                i++;
-            } */ 
            
         }
+            
+            data[k++] = values;
+        }
+            }
     
     @Override
         public int getColumnCount() {
@@ -272,7 +290,13 @@ class StaffScheduleTableModel extends AbstractTableModel {
     */
     @Override
         public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
+        Class cl=null;
+        try{
+          cl = getValueAt(0, c).getClass();
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(null,c);
+       }
+       return cl;
         }
 
     

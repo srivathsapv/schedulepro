@@ -397,7 +397,7 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                  */
                 
                 /**
-                 * filter #10 - reduce the assignable_periods to randomized set
+                 * filter #10 - reduce the assignable_periods to a randomized set
                  * of length = totalPPW of that subject
                  */
                 
