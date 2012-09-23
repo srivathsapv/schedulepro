@@ -16,6 +16,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.DateFormatSymbols;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -107,7 +110,8 @@ public class Utilfunctions {
             result = statement.executeQuery();
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+            Logger.getLogger(DayWisePeriodConfigChooseForm.class.getName()).log(Level.SEVERE, null, e);
         }
         
         return result;

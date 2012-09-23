@@ -4,6 +4,7 @@
  */
 package schedulepro;
 
+import java.awt.Color;
 import java.awt.print.PrinterException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class DashboardForm extends javax.swing.JFrame {
      */
     public DashboardForm() {
         initComponents();
-        
+        this.getContentPane().setBackground(Color.white);
         jMenu8.setVisible(false);
         jMenuItem4.setVisible(false);
         jMenu15.setVisible(false);
@@ -67,7 +68,7 @@ public class DashboardForm extends javax.swing.JFrame {
             jMenu7.setVisible(true);
             jMenuItem23.setVisible(true);
         }
-        jLabel1.setText("Welcome " + LoginForm.userSalutation + LoginForm.userName);
+        jLabel2.setText(LoginForm.userSalutation + LoginForm.userName);
         Utilfunctions.setClosePrompt(this);
     }
 
@@ -101,6 +102,7 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuItem31 = new javax.swing.JMenuItem();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
@@ -189,14 +191,19 @@ public class DashboardForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - Dashboard");
+        setBackground(java.awt.Color.white);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/schedulepro/logo.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tiltle.gif"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Welcome");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("w");
 
         jMenu1.setText("Courses");
 
@@ -339,6 +346,11 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenu17.add(jMenuItem21);
 
         jMenuItem22.setText("By Faculty");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
         jMenu17.add(jMenuItem22);
 
         jMenu16.add(jMenu17);
@@ -483,20 +495,24 @@ public class DashboardForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(jLabel3)
-                .addContainerGap())
+                .addGap(238, 238, 238)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addComponent(jLabel3)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
@@ -901,6 +917,18 @@ public class DashboardForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        try{
+            StaffPeriodViewForm spvf = new StaffPeriodViewForm();
+            Utilfunctions.setIconImage(spvf);
+            Utilfunctions.setLocation(spvf);
+            spvf.setVisible(true);
+        }
+        catch(Exception e){
+            Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -941,6 +969,7 @@ public class DashboardForm extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;

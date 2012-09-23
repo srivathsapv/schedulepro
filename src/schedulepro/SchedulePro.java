@@ -15,17 +15,17 @@ public class SchedulePro {
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        SplashForm sf = new SplashForm();        
+        /*SplashForm sf = new SplashForm();        
         Utilfunctions.setLocation(sf);
         Utilfunctions.setIconImage(sf);
-        sf.setVisible(true);
-        
+        sf.setVisible(true);*/
+        Thread.sleep(1000);
         LoginForm lf = new LoginForm();
         Utilfunctions.setLocation(lf);
         Utilfunctions.setIconImage(lf);
         
-        Thread.sleep(1000);
-        sf.setVisible(false);
+        //Thread.sleep(1000);
+        //sf.setVisible(false);
         lf.setVisible(true);
     }
 }

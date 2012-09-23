@@ -229,6 +229,8 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                 int k = Utilfunctions.executeUpdate("UPDATE classperiod SET subCode = '-' WHERE classCode = " + classCode);
                 
                 while(subclass.next()){    
+                    k=Utilfunctions.executeUpdate("DELETE FROM staffperiod WHERE classCode = " + classCode + " AND userCode = '" + subclass.getString(4) + "'");
+                    
                     /*
                     * Get the concerned subject's constraints
                     */
@@ -459,6 +461,7 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                     */
                     for(i=0;i<periods_set.size();i++){
                         int n = Utilfunctions.executeUpdate("UPDATE classperiod SET subCode = '" + subclass.getString(3) + "' WHERE classCode = " + classCode + " AND pconfigId = " + periods_set.get(i));
+                        n = Utilfunctions.executeUpdate("INSERT INTO staffperiod(userCode,pconfigId,classCode) VALUES('" + subclass.getString(4) + "'," + periods_set.get(i) + "," + classCode + ")"); 
                     }
                 }     
                 if(infinity) continue;
