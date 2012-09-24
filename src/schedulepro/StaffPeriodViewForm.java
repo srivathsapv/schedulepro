@@ -138,14 +138,9 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
         try {
             userCode = Utilfunctions.getWithinBrackets(staffComboBox.getSelectedItem().toString());
             //System.out.println(classCode);
-            if(userCode.equals("10070"))
+            
             jTable1.setModel(new StaffScheduleTableModel());
-            /*for(int i=0;i<model.getColumnCount();i++){
-                TableColumn col;
-                col = jTable1.getColumnModel().getColumn(i);
-                //col.setHeaderRenderer(new MyTableHeaderRenderer());
-               //col.setPreferredWidth(60);
-            }*/
+            
         } catch (SQLException ex) {
             Logger.getLogger(StaffPeriodViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -212,7 +207,7 @@ class StaffScheduleTableModel extends AbstractTableModel {
         
         public StaffScheduleTableModel() throws SQLException{
             ResultSet columncnt_rs = Utilfunctions.executeQuery("SELECT COUNT(DISTINCT(CONCAT(timeFrom,'-',timeTo))) FROM periodconfig"
-                    + " WHERE pconfigId IN(SELECT pconfigId FROM staffperiod WHERE userCode = '"+StaffPeriodViewForm.userCode+"') AND pType != 3");
+                    + " WHERE pconfigId IN(SELECT pconfigId FROM staffperiod WHERE userCode = '"+StaffPeriodViewForm.userCode+"')");
             columncnt_rs.next();
             
             int cols = columncnt_rs.getInt(1);
@@ -222,25 +217,25 @@ class StaffScheduleTableModel extends AbstractTableModel {
                     + " WHERE pconfigId IN(SELECT pconfigId FROM staffperiod WHERE userCode = '"+StaffPeriodViewForm.userCode+"') AND pType != 3");
             int i=1;
             while(column_rs.next()){
-                time.addElement(column_rs.getString(1));
+                time.add(column_rs.getString(1));
                 columnNames[i++] = column_rs.getString(1).substring(0, 5)+" - "+column_rs.getString(1).substring(9, 14);
             } 
             
             ResultSet daycnt_rs = Utilfunctions.executeQuery("select count(distinct(day)) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from staffperiod where userCode = "+StaffPeriodViewForm.userCode+") and pType != 3");
+                    + "pconfigId IN(select pconfigId from staffperiod where userCode = '"+StaffPeriodViewForm.userCode+"')");
             daycnt_rs.next();
             data = new Object[daycnt_rs.getInt(1)][columncnt_rs.getInt(1)+1];
             
             ResultSet day_rs = Utilfunctions.executeQuery("select distinct(day) from periodconfig where "
-                    + "pconfigId IN(select pconfigId from staffperiod where userCode = "+StaffPeriodViewForm.userCode+") and pType != 3");
+                    + "pconfigId IN(select pconfigId from staffperiod where userCode = '"+StaffPeriodViewForm.userCode+"')");
             int k=0;
             while(day_rs.next()){
             String[] values = new String[columncnt_rs.getInt(1)+1];
             values[0]="<html><body><b>"+day_rs.getString(1)+"</b></body></html>";
             for(i=0;i<time.size();i++){
-                ResultSet result_pf = Utilfunctions.executeQuery("select pconfigId from periodconfig where day = '"+day_rs.getString(1)+"' and CONCAT(timeFrom,'-',timeTo)='"+time.elementAt(i)+"'");
+                ResultSet result_pf = Utilfunctions.executeQuery("select pconfigId from periodconfig where day = '"+day_rs.getString(1)+"' and CONCAT(timeFrom,'-',timeTo)='"+time.get(i)+"'");
                 if(result_pf.next()){
-                    ResultSet periodcheck_rs = Utilfunctions.executeQuery("select classCode from staffperiod where pconfigId ="+result_pf.getString(1));
+                    ResultSet periodcheck_rs = Utilfunctions.executeQuery("select classCode from staffperiod where pconfigId ="+result_pf.getString(1) + " AND userCode = '" + StaffPeriodViewForm.userCode + "'");
                     if(periodcheck_rs.next())   {
                     ResultSet classname_rs = Utilfunctions.executeQuery("SELECT CONCAT(course,' ',dept,' ',year,' - ',section),roomId FROM class where classCode= "+periodcheck_rs.getString(1));
                     classname_rs.next();
@@ -248,10 +243,8 @@ class StaffScheduleTableModel extends AbstractTableModel {
                     room_rs.next();
                     String roomNo = room_rs.getString(1);
                     String classname = classname_rs.getString(1);
-                    System.out.println(classname+" "+roomNo);
                     values[i+1]="<html><body>" + classname + "<br>(" + roomNo + ")</body></html>";
                 }else{
-                        System.out.println("-");
                     values[i+1]="-----";
                 }
             }

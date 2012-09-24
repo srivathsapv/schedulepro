@@ -29,12 +29,24 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     public static int examCode;
     public static String examDate;
     private String userRole;
+    public static String timeTo;
+    public static String timeFrom;
 
     /**
      * Creates new form ExamScheduleViewForm
      */
     public ExamScheduleViewForm() throws SQLException {
         initComponents();
+        
+        String query = "";
+        
+        if(LoginForm.userRole.equals("sa"))
+            query = "SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class WHERE classCode IN(SELECT DISTINCT(classCode) FROM exam)";
+        else 
+            query = "SELECT CONCAT(course,' ',dept,' ',year,' - ',section) FROM class WHERE classCode IN(SELECT DISTINCT(classCode) FROM exam) AND dept = '" + LoginForm.userDept + "'";
+        
+        
+        Utilfunctions.populateComboBoxwithQuery(jComboBox1,query);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -111,6 +123,8 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
 
         assignFacultyMenuItem.setText("Assign/Change Faculty");
         assignFacultyMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -154,25 +168,43 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable1);
 
+        jLabel2.setText("Class");
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(375, 375, 375)
-                .addComponent(jLabel1)
-                .addContainerGap(374, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(358, 358, 358))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(302, 302, 302)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -207,6 +239,8 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
                 selectedColumn = source.columnAtPoint(evt.getPoint());
                 examCode = ExamTableModel.examCodes[selectedRow];
                 examDate = ExamTableModel.examDates[selectedRow];
+                timeFrom = ExamTableModel.timeFroms[selectedRow];
+                timeTo = ExamTableModel.timeTos[selectedRow];
                 if (!source.isRowSelected(selectedRow)) {
                     source.changeSelection(selectedRow, selectedColumn, false, false);
                 }
@@ -219,10 +253,17 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     private void assignFacultyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignFacultyMenuItemActionPerformed
         // TODO add your handling code here:
         AssignFacultytoExamForm.ChooseInvoker = this;
-        AssignFacultytoExamForm ef = new AssignFacultytoExamForm();
-        Utilfunctions.setIconImage(ef);
-        Utilfunctions.setLocation(ef);
-        ef.setVisible(true);
+        AssignFacultytoExamForm ef;
+        try {
+            ef = new AssignFacultytoExamForm();
+            Utilfunctions.setIconImage(ef);
+            Utilfunctions.setLocation(ef);
+            ef.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(ExamScheduleViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_assignFacultyMenuItemActionPerformed
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
@@ -239,6 +280,15 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        try {
+            classCode = Utilfunctions.getClassCode(jComboBox1.getSelectedItem().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(ExamScheduleViewForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,11 +339,14 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem assignFacultyMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+    public static int classCode;
 }
 class ExamTableModel extends AbstractTableModel {
         private String[] columnNames = {"Exam Name","Subject","Exam Date","Time Slot","Department","Course","Year","Section","Room No","Assigned Faculty"};
@@ -306,19 +359,19 @@ class ExamTableModel extends AbstractTableModel {
         private String[] pconfigIds;
         private String[] classCodes;
         private static int msgCount=0;
-        private String assignedFaculty="";
+        public static String[] timeFroms;
+        public static String[] timeTos;
         private String[] roomId;
         private String roomNo;
         private final String userRole;
         
         public ExamTableModel() throws SQLException{
+            
             userRole = LoginForm.userRole;
             String query;
-            if(userRole.equals("sa")){
-                query = query = "SELECT `examCode`,`examName`,`subCode`,`examDate`,`pconfigId`,`classCode`,`roomId` FROM exam ORDER BY examName,examDate";
-            }else{
-                query = "SELECT `examCode`,`examName`,`subCode`,`examDate`,`pconfigId`,`classCode`,`roomId` FROM exam where classCode = some (select classCode from class where dept='"+LoginForm.userDept+"') ORDER BY examName,examDate";
-            }
+            
+            query = query = "SELECT `examCode`,`examName`,`subCode`,`examDate`,`pconfigId`,`classCode`,`roomId` FROM exam WHERE classCode = " + ExamScheduleViewForm.classCode + " ORDER BY examName,examDate";
+            
             ResultSet rs = Utilfunctions.executeQuery(query);
             
             int cnt = 0;
@@ -334,10 +387,13 @@ class ExamTableModel extends AbstractTableModel {
             pconfigIds = new String[cnt];
             classCodes = new String[cnt];
             roomId = new String[cnt];
+            timeFroms = new String[cnt];
+            timeTos = new String[cnt];
             
             int i = 0;
             rs = Utilfunctions.executeQuery(query);
             while(rs.next()){
+                String assignedFaculty="";
                 query = "SELECT subName FROM subject WHERE subcode = '" + rs.getString(3) + "'";
                 ResultSet subResult = Utilfunctions.executeQuery(query);
                 subResult.next();
@@ -345,7 +401,8 @@ class ExamTableModel extends AbstractTableModel {
                 query = "SELECT day,timeFrom,timeTo FROM periodconfig WHERE pconfigId = '" + rs.getString(5) + "'";
                 ResultSet pconfigResult = Utilfunctions.executeQuery(query);
                 pconfigResult.next();
-                
+                timeFroms[i] = pconfigResult.getString(2);
+                timeTos[i] = pconfigResult.getString(3);
                 query = "SELECT dept,course,year,section FROM class WHERE classCode = '" + rs.getString(6) + "'";
                 ResultSet classResult = Utilfunctions.executeQuery(query);
                 classResult.next();

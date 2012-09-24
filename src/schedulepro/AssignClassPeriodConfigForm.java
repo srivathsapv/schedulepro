@@ -196,7 +196,7 @@ public class AssignClassPeriodConfigForm extends javax.swing.JFrame {
                 if(brk) break;
                 //end of overlap check
                 
-                String query = "INSERT INTO classperiod(classCode,pconfigId) VALUES(" + classCode + "," + pConfigIds.get(i) + ")";
+                String query = "INSERT INTO classperiod(classCode,subCode,pconfigId) VALUES(" + classCode + ",'-'," + pConfigIds.get(i) + ")";
                 int n = Utilfunctions.executeUpdate(query);
             } catch (SQLException ex) {
                 Logger.getLogger(AssignClassPeriodConfigForm.class.getName()).log(Level.SEVERE, null, ex);

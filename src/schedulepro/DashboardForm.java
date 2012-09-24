@@ -4,6 +4,7 @@
  */
 package schedulepro;
 
+import java.awt.Color;
 import java.awt.print.PrinterException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class DashboardForm extends javax.swing.JFrame {
      */
     public DashboardForm() {
         initComponents();
-        
+        this.getContentPane().setBackground(Color.white);
         jMenu8.setVisible(false);
         jMenuItem4.setVisible(false);
         jMenu15.setVisible(false);
@@ -190,6 +191,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SchedulePro - Dashboard");
+        setBackground(java.awt.Color.white);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
@@ -499,7 +501,7 @@ public class DashboardForm extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -908,7 +910,6 @@ public class DashboardForm extends javax.swing.JFrame {
             ClassPeriodViewForm cpvf = new ClassPeriodViewForm();
             Utilfunctions.setIconImage(cpvf);
             Utilfunctions.setLocation(cpvf);
-            this.setVisible(false);
             cpvf.setVisible(true);
         }
         catch(Exception e){
@@ -921,7 +922,6 @@ public class DashboardForm extends javax.swing.JFrame {
             StaffPeriodViewForm spvf = new StaffPeriodViewForm();
             Utilfunctions.setIconImage(spvf);
             Utilfunctions.setLocation(spvf);
-            this.setVisible(false);
             spvf.setVisible(true);
         }
         catch(Exception e){

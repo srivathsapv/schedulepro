@@ -6,6 +6,9 @@ package schedulepro;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,11 +31,18 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
     /**
      * Creates new form AssignFacultytoExamForm
      */
-    public AssignFacultytoExamForm() {
+    public AssignFacultytoExamForm() throws ParseException {
         initComponents();
-
+        //JOptionPane.showMessageDialog(null,ExamScheduleViewForm.timeFrom + " " + ExamScheduleViewForm.timeTo);
         examCode = ExamScheduleViewForm.examCode;
         examDate = ExamScheduleViewForm.examDate;
+        
+        SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date dt1 = sf1.parse(examDate);
+        
+        SimpleDateFormat sf2 = new SimpleDateFormat("EEEE");
+        String examDay = sf2.format(dt1);
+        JOptionPane.showMessageDialog(null,examDay);
         ResultSet result = Utilfunctions.executeQuery("select userCode from examinvigilation where examCode=" + examCode);
         try {
             if (result.next()) {
@@ -62,8 +72,6 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
                 assignedFaculty.addElement(result.getString(1));
             }
 
-            Query = "SELECT userCode, CONCAT(name,'(',userCode,')') FROM user WHERE order by name asc";
-
             userRole = LoginForm.userRole;
             if(userRole.equals("sa")){
                 Query = "SELECT userCode, CONCAT(name,'(',userCode,')') FROM user order by name asc";
@@ -72,6 +80,34 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             }
             r1 = Utilfunctions.executeQuery(Query);
             while(r1.next()){
+                
+                ResultSet p_exc = Utilfunctions.executeQuery("SELECT * FROM periodconfig WHERE pconfigId IN(SELECT pconfigId FROM staffperiodexception WHERE userCode = '" + r1.getString(1) + "')");
+                boolean clash = false;
+                while(p_exc.next()){
+                    String timeFrom = p_exc.getString(3);
+                    String timeTo = p_exc.getString(4);
+                    String day = p_exc.getString(2);
+                    if(day.equals(examDay)){
+                        if(ConstraintsCheck.isPeriodOverlap(timeFrom,timeTo,ExamScheduleViewForm.timeFrom,ExamScheduleViewForm.timeTo)){
+                            clash=true;
+                            break;
+                        }
+                    }
+                }
+                
+                ResultSet workhours = Utilfunctions.executeQuery("SELECT * FROM staffworkhour WHERE workHourConfigId IN(SELECT workHourConfigId FROM userworkid WHERE userCode = '" + r1.getString(1) + "')");
+                while(workhours.next()){
+                    int eTimeFrom = Integer.parseInt(ExamScheduleViewForm.timeFrom.replace(":",""));
+                    int eTimeTo = Integer.parseInt(ExamScheduleViewForm.timeTo.replace(":",""));
+                    int wTimeFrom = Integer.parseInt(workhours.getString(3).replace(":",""));
+                    int wTimeTo  = Integer.parseInt(workhours.getString(4).replace(":",""));
+                    
+                    if(!(eTimeFrom <= wTimeFrom && eTimeTo >= wTimeTo)){
+                        clash=true;
+                        break;
+                    }
+                }
+                if(clash) continue;
                 //System.out.println(r1.getString(1)+"\n"+r1.getString(2));
             if (assignedFaculty.contains(r1.getString(1))) {
                         changeFacultyComboBox.addItem("<html><font color=red>" + r1.getString(2) + "</font></html>");
@@ -80,6 +116,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
                     }
             }
         } catch (SQLException ex) {
+            
             Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -122,18 +159,20 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(changeFacultyComboBox, 0, 189, Short.MAX_VALUE)
-                    .addComponent(assignedFacultyTextField))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
-                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(changeFacultyComboBox, 0, 189, Short.MAX_VALUE)
+                            .addComponent(assignedFacultyTextField))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 120, Short.MAX_VALUE)
+                        .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,8 +270,13 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new AssignFacultytoExamForm().setVisible(true);
+                try {
+                    new AssignFacultytoExamForm().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(AssignFacultytoExamForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

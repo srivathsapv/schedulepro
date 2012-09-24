@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
  */
 public class StaffConstraintForm extends javax.swing.JFrame {
     private String workingPeriod="0";
-    private String minInterval="0";
     private boolean flag = false;
     private Vector workHourConfigId = new Vector();
     private Vector day = new Vector();
@@ -58,8 +57,6 @@ public class StaffConstraintForm extends javax.swing.JFrame {
                 if (result.next()) {
                     workingPeriod = result.getString(2);
                     workingPeriodsTextField.setText(workingPeriod);
-                    minInterval = result.getString(3);
-                    minimumIntervalTextField.setText(minInterval);
                     flag = true;
                 }
             } catch (SQLException ex) {
@@ -108,10 +105,6 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         workingPeriodsTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        minimumIntervalTextField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         workHourList = new javax.swing.JList();
@@ -140,18 +133,6 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         });
 
         jLabel2.setText("per week");
-
-        jLabel3.setText("Minimum interval between");
-
-        jLabel4.setText("working periods:");
-
-        minimumIntervalTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                minimumIntervalTextFieldFocusLost(evt);
-            }
-        });
-
-        jLabel5.setText("(in periods)");
 
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -235,41 +216,32 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(81, 81, 81)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(workingPeriodsTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                                            .addComponent(minimumIntervalTextField))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel5)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(facultyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox1))))
+                                .addComponent(workingPeriodsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addComponent(facultyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCheckBox1))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(177, 177, 177)
+                                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,24 +265,17 @@ public class StaffConstraintForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(workingPeriodsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(minimumIntervalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
+                        .addGap(44, 44, 44)
                         .addComponent(addButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeButton1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addComponent(jLabel6)
@@ -324,7 +289,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
                         .addComponent(addButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeButton)))
-                .addGap(20, 20, 20))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -345,27 +310,14 @@ public class StaffConstraintForm extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_workingPeriodsTextFieldFocusLost
 
-    private void minimumIntervalTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_minimumIntervalTextFieldFocusLost
-        // TODO add your handling code here:
-        if (!minimumIntervalTextField.getText().isEmpty()) {
-            if (!Validation.isNumber(minimumIntervalTextField.getText())) {
-                JOptionPane.showMessageDialog(null, "Please Enter a numeric value");
-                minimumIntervalTextField.setText(minInterval);
-                minimumIntervalTextField.requestFocus();
-            }else{
-                minInterval = minimumIntervalTextField.getText();
-            }
-        }
-    }//GEN-LAST:event_minimumIntervalTextFieldFocusLost
-
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
         int n;
         if (flag) {
-            n = Utilfunctions.executeUpdate("UPDATE `staffconstraint` SET `totalPPW`=" + workingPeriod + ",`minInterval`=" + minInterval + " WHERE userCode = '" + userCode + "'");
+            n = Utilfunctions.executeUpdate("UPDATE `staffconstraint` SET `totalPPW`=" + workingPeriod + " WHERE userCode = '" + userCode + "'");
             Utilfunctions.executeUpdate("DELETE FROM staffperiodexception WHERE userCode = '" + userCode + "'");
         } else {
-            n = Utilfunctions.executeUpdate("INSERT INTO `staffconstraint`(`userCode`, `totalPPW`, `minInterval`) VALUES ('" + userCode + "'," + workingPeriod + "," + minInterval + ")");
+            n = Utilfunctions.executeUpdate("INSERT INTO `staffconstraint`(`userCode`, `totalPPW`) VALUES ('" + userCode + "'," + workingPeriod + ")");
         }
         for(int i=0;i<pConfigs.size();i++){
             String query = "INSERT INTO staffperiodexception(userCode,pconfigId) VALUES('" + userCode + "'," + Integer.parseInt(pConfigs.get(i).toString()) + ")";
@@ -376,7 +328,6 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Saved");
             workingPeriodsTextField.setText(workingPeriod);
-            minimumIntervalTextField.setText(minInterval);
         }
         DashboardForm df = new DashboardForm();
         Utilfunctions.setIconImage(df);
@@ -421,12 +372,9 @@ public class StaffConstraintForm extends javax.swing.JFrame {
                 if (result.next()) {
                     workingPeriod = result.getString(2);
                     workingPeriodsTextField.setText(workingPeriod);
-                    minInterval = result.getString(3);
-                    minimumIntervalTextField.setText(minInterval);
                     flag = true;
                 }else{
                     workingPeriodsTextField.setText("");
-                    minimumIntervalTextField.setText("");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(StaffConstraintForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -562,16 +510,12 @@ public class StaffConstraintForm extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField minimumIntervalTextField;
     private javax.swing.JButton removeButton;
     private javax.swing.JButton removeButton1;
     private javax.swing.JButton saveButton;
