@@ -38,17 +38,21 @@
                       <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                       <Component id="saveButton" min="-2" pref="86" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="departmentLabel" max="32767" attributes="0"/>
-                          <Component id="equipmentNameLabel" max="32767" attributes="0"/>
-                          <Component id="equipmentIdLabel" min="-2" pref="84" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="departmentLabel" max="32767" attributes="0"/>
+                              <Component id="equipmentNameLabel" max="32767" attributes="0"/>
+                              <Component id="equipmentIdLabel" min="-2" pref="84" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="equipmentIdText" max="32767" attributes="0"/>
                           <Component id="equipmentNameText" max="32767" attributes="0"/>
                           <Component id="departmentComboBox" pref="112" max="32767" attributes="0"/>
+                          <Component id="smsTextField" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -64,19 +68,24 @@
                   <Component id="equipmentIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="equipmentIdText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="smsTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="equipmentNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="equipmentNameText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="departmentLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="departmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="saveButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -120,6 +129,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="SMS Id:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="smsTextField">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="smsTextFieldFocusLost"/>
       </Events>
     </Component>
   </SubComponents>
