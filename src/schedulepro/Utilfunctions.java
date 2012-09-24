@@ -115,7 +115,17 @@ public class Utilfunctions {
         
         return result;
     }
-
+    
+    public static Vector<Integer> getValuesInVector(String query) throws SQLException{
+        Vector<Integer> vc = new Vector<Integer>();
+        
+        ResultSet rs = Utilfunctions.executeQuery(query);
+        while(rs.next())
+            vc.add(rs.getInt(1));
+        
+        return vc;
+    }
+    
     public static BigInteger MD5(String input) throws NoSuchAlgorithmException {
         MessageDigest MD5 = MessageDigest.getInstance("MD5");
         MD5.update(input.getBytes());
@@ -211,7 +221,17 @@ public class Utilfunctions {
             fopen.setVisible(false);
         }
     }
-
+    
+    public static Vector<Integer> strToVector(String s){
+        String[] elements = s.substring(1,s.length()-1).split(",");
+        
+        Vector<Integer> vc = new Vector<Integer>();
+        for(String str:elements)
+            vc.add(Integer.parseInt(str.trim()));
+        
+        return vc;
+    }
+    
     public static void populateComboBoxwithQuery(JComboBox ComboBox, String Query) throws SQLException {
         ComboBox.removeAllItems();
         ResultSet result = Utilfunctions.executeQuery(Query);
