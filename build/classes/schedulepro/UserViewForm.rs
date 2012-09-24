@@ -1,2 +1,0 @@
-schedulepro.UserTableModel
-schedulepro.UserViewForm

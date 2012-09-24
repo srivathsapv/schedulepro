@@ -1,2 +1,0 @@
-schedulepro.ViewBookingDetailsForm
-schedulepro.BookingTableModel
