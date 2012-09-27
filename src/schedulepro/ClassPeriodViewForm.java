@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
@@ -326,7 +325,7 @@ class ClassScheduleTableModel extends AbstractTableModel {
         int cols = columncnt_rs.getInt(1);
         columnNames = new String[columncnt_rs.getInt(1) + 1];
         ResultSet column_rs = Utilfunctions.executeQuery("SELECT DISTINCT(CONCAT(timeFrom,'-',timeTo)),timeFrom,timeTo FROM periodconfig"
-                + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = " + ClassPeriodViewForm.classCode + ") AND pType != 3");
+                + " WHERE pconfigId IN(SELECT pconfigId FROM classperiod WHERE classcode = " + ClassPeriodViewForm.classCode + ") AND pType != 3 order by TIMEFROM(pconfigId)");
         int i = 1;
         while (column_rs.next()) {
             columnNames[i++] = "<html><body><b>" + column_rs.getString(1).substring(0, 5) + "-" + column_rs.getString(1).substring(9, 14) + "</b></body></html>";

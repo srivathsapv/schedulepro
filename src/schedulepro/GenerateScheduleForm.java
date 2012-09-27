@@ -220,6 +220,11 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                     return;
                 }
             }
+            
+            /*StatusForm sf = new StatusForm();
+            Thread sThread = new Thread(sf);
+            sThread.start();*/
+  
             while(true){
                 int infinite_count=0;
                 boolean infinity=false;
@@ -467,6 +472,8 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                 if(infinity) continue;
                 else break;
             }
+           // sf.setVisible(false);
+           // sThread.interrupt();
             JOptionPane.showMessageDialog(null,"Periods generated successfully");
             //end generate
         } catch (SQLException ex) {

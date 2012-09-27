@@ -14,12 +14,10 @@ import java.sql.SQLException;
 public class DataEntrySample {
     public static void main(String args[]) throws SQLException{
         
-        ResultSet rs = Utilfunctions.executeQuery("SELECT * FROM subject");
+        ResultSet rs = Utilfunctions.executeQuery("SELECT pconfigId FROM classperiod WHERE classCode = 1");
         while(rs.next()){
-            if(rs.getString(2).indexOf("Lab") >= 0){
-                int n = Utilfunctions.executeUpdate("UPDATE subjectconstraint SET subType = 2 WHERE subCode = '" + rs.getString(1) + "'");
-                System.out.println("Updated " + rs.getString(2));
-            }
+            int n = Utilfunctions.executeUpdate("INSERT INTO classperiod(classCode,pconfigId) VALUES(5," + rs.getInt(1) + ")");
+            System.out.println("INSERTED "+rs.getInt(1));
         }
         
     }

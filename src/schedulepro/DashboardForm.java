@@ -911,6 +911,7 @@ public class DashboardForm extends javax.swing.JFrame {
             Utilfunctions.setIconImage(cpvf);
             Utilfunctions.setLocation(cpvf);
             cpvf.setVisible(true);
+            this.setVisible(false);
         }
         catch(Exception e){
             Logger.getLogger(DashboardForm.class.getName()).log(Level.SEVERE, null, e);

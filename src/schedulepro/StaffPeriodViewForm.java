@@ -214,7 +214,7 @@ class StaffScheduleTableModel extends AbstractTableModel {
             columnNames = new String[columncnt_rs.getInt(1)+1];
             
             ResultSet column_rs = Utilfunctions.executeQuery("SELECT DISTINCT(CONCAT(timeFrom,'-',timeTo)) FROM periodconfig"
-                    + " WHERE pconfigId IN(SELECT pconfigId FROM staffperiod WHERE userCode = '"+StaffPeriodViewForm.userCode+"') AND pType != 3");
+                    + " WHERE pconfigId IN(SELECT pconfigId FROM staffperiod WHERE userCode = '"+StaffPeriodViewForm.userCode+"') AND pType != 3 order by TIMEFROM(pconfigId)");
             int i=1;
             while(column_rs.next()){
                 time.add(column_rs.getString(1));
