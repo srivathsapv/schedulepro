@@ -6,7 +6,7 @@ import java.awt.TextArea;
 import java.awt.event.*;
 import java.util.TooManyListenersException;
 import javax.swing.JOptionPane;
-
+//
 /**
 A class that handles the details of a serial connection. Reads from one
 TextArea and writes to a second TextArea.

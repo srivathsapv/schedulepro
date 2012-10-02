@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Sasi Praveen
  */
+//
 public class Reciever implements Runnable {
 
     private static final long STANDARD = 500;

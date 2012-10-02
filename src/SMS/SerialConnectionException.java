@@ -1,5 +1,5 @@
 package SMS;
-
+//
 /* @(#)SerialConnectionException.java	1.3 98/06/04 SMI
  *
  * Copyright (c) 1998 Sun Microsystems, Inc. All Rights Reserved.

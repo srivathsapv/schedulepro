@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package SMS;
-
+//
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;

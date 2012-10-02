@@ -5,7 +5,7 @@ package SMS;
  * and open the template in the editor.
  */
 
-
+//
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
