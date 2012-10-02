@@ -28,6 +28,7 @@ public class SubjectsHandledViewForm extends javax.swing.JFrame {
      * Creates new form SubjectsHandledViewForm
      */
     public SubjectsHandledViewForm() throws SQLException {
+        setTitle("Subjects Handled - SchedulePro");
         initComponents();
         subjectsHandledTable.setModel(new SubjectsHandledTableModel());
         subjectsHandledTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);

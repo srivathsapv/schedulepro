@@ -95,7 +95,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - View Equipments");
+        setTitle("View Equipments - SchedulePro");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N

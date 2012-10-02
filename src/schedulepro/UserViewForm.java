@@ -78,21 +78,12 @@ public class UserViewForm extends javax.swing.JFrame {
     private void initComponents() {
 
         userPopupMenu = new javax.swing.JPopupMenu();
-        changeRoleMenuItem = new javax.swing.JMenuItem();
         resetPasswordMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
         usersLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         usersTable = new javax.swing.JTable();
-
-        changeRoleMenuItem.setText("Change Role");
-        changeRoleMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeRoleMenuItemActionPerformed(evt);
-            }
-        });
-        userPopupMenu.add(changeRoleMenuItem);
 
         resetPasswordMenuItem.setText("Reset Password\n");
         resetPasswordMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +110,7 @@ public class UserViewForm extends javax.swing.JFrame {
         userPopupMenu.add(deleteMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - View Users");
+        setTitle("View Users - SchedulePro");
         setResizable(false);
 
         usersLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
@@ -153,7 +144,7 @@ public class UserViewForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(273, 273, 273)
                 .addComponent(usersLabel)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(86, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,15 +227,6 @@ public class UserViewForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_resetPasswordMenuItemActionPerformed
 
-    private void changeRoleMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeRoleMenuItemActionPerformed
-        // TODO add your handling code here:
-        ChangeRoleForm.temp=(String) usersTable.getValueAt(selectedRow, 0);
-        ChangeRoleForm cf = new ChangeRoleForm();
-        Utilfunctions.setIconImage(cf);
-        Utilfunctions.setLocation(cf);
-        cf.setVisible(true);
-    }//GEN-LAST:event_changeRoleMenuItemActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         UserTableModel model = (UserTableModel)usersTable.getModel();
@@ -299,7 +281,6 @@ public class UserViewForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem changeRoleMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;

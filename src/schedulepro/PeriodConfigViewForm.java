@@ -67,7 +67,7 @@ public class PeriodConfigViewForm extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Period Configuration");
+        setTitle("Period Configuration - SchedulePro");
 
         jTable1.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

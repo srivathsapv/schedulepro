@@ -64,7 +64,7 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
         jComboBox5 = new javax.swing.JComboBox();
         jComboBox6 = new javax.swing.JComboBox();
 
-        setTitle("Schedule Pro - Equipment Issue");
+        setTitle("Equipment Issue - SchedulePro");
         setResizable(false);
 
         jLabel1.setText("Period Slot");
@@ -128,7 +128,7 @@ public class EquipmentIssueForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(170, 170, 170)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

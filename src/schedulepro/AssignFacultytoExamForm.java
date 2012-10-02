@@ -137,7 +137,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         assignButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Change Faculty");
+        setTitle("Change Faculty - SchedulePro");
         setResizable(false);
 
         jLabel1.setText("Assigned Faculty:");
@@ -168,7 +168,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(changeFacultyComboBox, 0, 189, Short.MAX_VALUE)
                             .addComponent(assignedFacultyTextField))
-                        .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 120, Short.MAX_VALUE)
                         .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)

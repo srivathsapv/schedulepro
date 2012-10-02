@@ -21,6 +21,7 @@ public class ViewBookingDetailsForm extends javax.swing.JFrame {
      * Creates new form ViewBookingDetailsForm1
      */
     public ViewBookingDetailsForm() throws SQLException {
+        setTitle("Booking Details - SchedulePro");
         initComponents();
         bookingDetailsTable.setModel(new BookingTableModel());
     }

@@ -70,7 +70,7 @@ public class WorkHourForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Period Configuration");
+        setTitle("Period Configuration - SchedulePro");
         setResizable(false);
 
         jLabel1.setText("Time Slot:");

@@ -121,7 +121,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
         jList1 = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Faculty Constraints");
+        setTitle("Faculty Constraints - SchedulePro");
         setResizable(false);
 
         jLabel1.setText("Working Periods:");

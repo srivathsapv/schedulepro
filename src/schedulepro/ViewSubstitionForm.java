@@ -58,7 +58,7 @@ public class ViewSubstitionForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Substition");
+        setTitle("Substition - SchedulePro");
         setResizable(false);
 
         jScrollPane1.setViewportView(jList1);

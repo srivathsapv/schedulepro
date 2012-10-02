@@ -68,7 +68,7 @@ public class ClassDetailsForm extends javax.swing.JFrame {
         sectionComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Class Details");
+        setTitle("Class Details - SchedulePro");
         setResizable(false);
 
         roomNoLabel.setText("Room No.:");

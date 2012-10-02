@@ -62,7 +62,7 @@ public class PeriodConfigForm extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Period Configuration");
+        setTitle("Period Configuration - SchedulePro");
         setResizable(false);
 
         jLabel1.setText("Time Slot");

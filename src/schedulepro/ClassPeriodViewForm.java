@@ -78,7 +78,7 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Class Schedule");
+        setTitle("Class Schedule - SchedulePro");
 
         jLabel1.setText("Choose class:");
 
