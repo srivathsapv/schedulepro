@@ -4,6 +4,10 @@
  */
 package schedulepro;
 
+import com.jtattoo.plaf.hifi.HiFiLookAndFeel;
+import java.util.Properties;
+import javax.swing.UIManager;
+
 /**
  *
  * @author srivathsa
@@ -19,6 +23,10 @@ public class SchedulePro {
         Utilfunctions.setLocation(sf);
         Utilfunctions.setIconImage(sf);
         sf.setVisible(true);*/
+        Properties props = new Properties();
+        props.put("logoString","");
+        HiFiLookAndFeel.setCurrentTheme(props);
+        UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
         Thread.sleep(1000);
         LoginForm lf = new LoginForm();
         Utilfunctions.setLocation(lf);

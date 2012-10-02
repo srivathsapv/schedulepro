@@ -191,7 +191,6 @@ public class DashboardForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Dashboard - SchedulePro");
-        setBackground(java.awt.Color.white);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
@@ -205,10 +204,13 @@ public class DashboardForm extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("w");
 
-        jMenu1.setText("Courses");
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_courses.png"))); // NOI18N
+        jMenu1.setToolTipText("Courses");
 
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         jMenu8.setText("Add Course Details");
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/subject.png"))); // NOI18N
         jMenuItem5.setText("Manual");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,6 +219,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu8.add(jMenuItem5);
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/csv.png"))); // NOI18N
         jMenuItem6.setText("Upload CSV File");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,6 +230,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenu1.add(jMenu8);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         jMenuItem3.setText("View");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,6 +239,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/constraints.png"))); // NOI18N
         jMenuItem4.setText("Constraints");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,8 +250,10 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Faculty");
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_faculty.png"))); // NOI18N
+        jMenu2.setToolTipText("Faculty");
 
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/constraints.png"))); // NOI18N
         jMenuItem8.setText("Constraints");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,10 +264,13 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Classes");
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_classes.png"))); // NOI18N
+        jMenu3.setToolTipText("Classes");
 
+        jMenu15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         jMenu15.setText("Add Class Details");
 
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/subject.png"))); // NOI18N
         jMenuItem13.setText("Manual");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,6 +279,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu15.add(jMenuItem13);
 
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/csv.png"))); // NOI18N
         jMenuItem14.setText("Upload Class CSV");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,6 +288,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu15.add(jMenuItem14);
 
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/csv.png"))); // NOI18N
         jMenuItem12.setText("Upload Rooms CSV");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,6 +299,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenu3.add(jMenu15);
 
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         jMenuItem11.setText("View");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,8 +310,10 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("Periods");
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_periods.png"))); // NOI18N
+        jMenu4.setToolTipText("Periods");
 
+        jMenuItem25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         jMenuItem25.setText("Add Period Configuration");
         jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,6 +322,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem25);
 
+        jMenuItem26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         jMenuItem26.setText("View Period Configuration");
         jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,8 +333,10 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu16.setText("Academic Schedule");
+        jMenu16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_schedule.png"))); // NOI18N
+        jMenu16.setToolTipText("Academic Schedule");
 
+        jMenuItem23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/generate.png"))); // NOI18N
         jMenuItem23.setText("Generate");
         jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,6 +345,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu16.add(jMenuItem23);
 
+        jMenuItem28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adduser.png"))); // NOI18N
         jMenuItem28.setText("Assign Faculty");
         jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,8 +354,10 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu16.add(jMenuItem28);
 
+        jMenu17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         jMenu17.setText("View Schedule");
 
+        jMenuItem21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackboard.png"))); // NOI18N
         jMenuItem21.setText("By Class");
         jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,6 +366,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu17.add(jMenuItem21);
 
+        jMenuItem22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/faculty.png"))); // NOI18N
         jMenuItem22.setText("By Faculty");
         jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,8 +379,10 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu16);
 
-        jMenu6.setText("Exam Schedule");
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_exam.png"))); // NOI18N
+        jMenu6.setToolTipText("Exam Schedule");
 
+        jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         jMenuItem15.setText("Create New Schedule");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,6 +391,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem15);
 
+        jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         jMenuItem16.setText("View");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,10 +402,13 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
-        jMenu5.setText("Equipments");
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_equipment.png"))); // NOI18N
+        jMenu5.setToolTipText("Equipments");
 
+        jMenu12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         jMenu12.setText("Add Equipments Details");
 
+        addEquipmentManualMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/subject.png"))); // NOI18N
         addEquipmentManualMenu.setText("Manual");
         addEquipmentManualMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -389,6 +417,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu12.add(addEquipmentManualMenu);
 
+        addEquipmentsCSVUploadMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/csv.png"))); // NOI18N
         addEquipmentsCSVUploadMenu.setText("Upload CSV File");
         addEquipmentsCSVUploadMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -399,6 +428,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenu5.add(jMenu12);
 
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         jMenuItem10.setText("View");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -409,10 +439,13 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu7.setText("Manage Account");
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_manage.png"))); // NOI18N
+        jMenu7.setToolTipText("Manage Users");
 
+        jMenu18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/faculty.png"))); // NOI18N
         jMenu18.setText("Administer Accounts");
 
+        jMenuItem27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adduser.png"))); // NOI18N
         jMenuItem27.setText("Add User Manually");
         jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,8 +454,10 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu18.add(jMenuItem27);
 
+        jMenu19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/csv.png"))); // NOI18N
         jMenu19.setText("Upload CSV File");
 
+        jMenuItem29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login.png"))); // NOI18N
         jMenuItem29.setText("Login CSV File");
         jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,6 +466,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu19.add(jMenuItem29);
 
+        jMenuItem30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/faculty.png"))); // NOI18N
         jMenuItem30.setText("User CSV File");
         jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -441,6 +477,7 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenu18.add(jMenu19);
 
+        jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         jMenuItem17.setText("View Users");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -453,8 +490,10 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
-        jMenu21.setText("My Account");
+        jMenu21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/m_myacct.png"))); // NOI18N
+        jMenu21.setToolTipText("My Account");
 
+        jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/personaldetails.png"))); // NOI18N
         jMenuItem18.setText("Personal Details");
         jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -463,6 +502,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu21.add(jMenuItem18);
 
+        jMenuItem32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/subject2.png"))); // NOI18N
         jMenuItem32.setText("Subjects Handled");
         jMenuItem32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -471,6 +511,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu21.add(jMenuItem32);
 
+        jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/change.png"))); // NOI18N
         jMenuItem19.setText("Change Password");
         jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,6 +520,7 @@ public class DashboardForm extends javax.swing.JFrame {
         });
         jMenu21.add(jMenuItem19);
 
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoff.png"))); // NOI18N
         jMenuItem7.setText("Logout");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,7 +554,7 @@ public class DashboardForm extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
