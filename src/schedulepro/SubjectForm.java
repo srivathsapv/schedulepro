@@ -72,7 +72,7 @@ public class SubjectForm extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("ShedulePro - Add Subject");
+        setTitle("Add Subject - SchedulePro");
         setResizable(false);
         addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {

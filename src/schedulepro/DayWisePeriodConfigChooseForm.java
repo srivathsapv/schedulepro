@@ -43,7 +43,7 @@ public class DayWisePeriodConfigChooseForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Class Period Slots");
+        setTitle("Class Period Slots - SchedulePro");
         setResizable(false);
 
         jLabel1.setText("Day");

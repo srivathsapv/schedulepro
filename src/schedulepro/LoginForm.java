@@ -46,7 +46,7 @@ public class LoginForm extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Login");
+        setTitle("Login - SchedulePro");
         setResizable(false);
 
         usernameLabel.setText("Username:");

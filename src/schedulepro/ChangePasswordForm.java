@@ -55,7 +55,7 @@ public class ChangePasswordForm extends javax.swing.JFrame {
         changePasswordButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Change Password");
+        setTitle("Change Password - SchedulePro");
         setResizable(false);
 
         oldPasswordLabel.setText("Old Password");

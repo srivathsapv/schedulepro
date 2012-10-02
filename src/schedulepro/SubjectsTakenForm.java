@@ -50,7 +50,7 @@ public class SubjectsTakenForm extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Subjects Taken");
+        setTitle("Subjects Taken - SchedulePro");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N

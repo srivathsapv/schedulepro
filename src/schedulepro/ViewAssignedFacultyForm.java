@@ -85,7 +85,7 @@ public class ViewAssignedFacultyForm extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Assigned Faculty Form");
+        setTitle("Assigned Faculty Form - SchedulePro");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N

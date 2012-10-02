@@ -112,7 +112,7 @@ public class ClassViewForm extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Class View");
+        setTitle("Class View - SchedulePro");
         setResizable(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

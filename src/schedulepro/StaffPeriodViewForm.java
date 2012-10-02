@@ -60,7 +60,7 @@ public class StaffPeriodViewForm extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Class Schedule");
+        setTitle("Class Schedule - SchedulePro");
 
         jLabel1.setText("Choose Faculty:");
 

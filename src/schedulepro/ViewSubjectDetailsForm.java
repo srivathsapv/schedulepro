@@ -88,7 +88,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - View Subjects");
+        setTitle("View Subjects - SchedulePro");
         setResizable(false);
 
         SubjectDetailsTable.setModel(new javax.swing.table.DefaultTableModel(

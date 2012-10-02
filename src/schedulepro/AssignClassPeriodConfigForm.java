@@ -56,7 +56,7 @@ public class AssignClassPeriodConfigForm extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Schedule Pro - Assign Period Slots");
+        setTitle("Assign Period Slots - SchedulePro");
         setResizable(false);
 
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {

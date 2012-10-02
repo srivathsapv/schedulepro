@@ -65,7 +65,7 @@ public class AssignFacultyForm extends javax.swing.JFrame {
         selectCourseComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Assign Faculty");
+        setTitle("Assign Faculty - SchedulePro");
         setResizable(false);
 
         selectYearLabel.setText("Select Year:");
@@ -106,7 +106,6 @@ public class AssignFacultyForm extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(selectCourseLabel)
                                 .addComponent(selectYearLabel)))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(selectYearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(selectSectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -91,7 +91,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         departmentComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SchedulePro - Create Exam Schedule");
+        setTitle("Create Exam Schedule - SchedulePro");
         setResizable(false);
 
         jLabel1.setText("Exam Name:");
@@ -225,7 +225,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(195, 195, 195)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

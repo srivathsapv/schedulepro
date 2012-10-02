@@ -190,7 +190,7 @@ public class DashboardForm extends javax.swing.JFrame {
         jMenuItem31.setText("jMenuItem31");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SchedulePro - Dashboard");
+        setTitle("Dashboard - SchedulePro");
         setBackground(java.awt.Color.white);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
