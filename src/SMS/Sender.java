@@ -12,29 +12,43 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Sender implements Runnable {
 
     public static String recipient = null;
     public static String message = null;
-    private String csca = "+919840011003"; // the message center
-    private SerialParameters defaultParameters = new SerialParameters("COM5", 9600, 0, 0, 8, 1, 0);
+    private String csca = null; // the message center
+    private SerialParameters defaultParameters = new SerialParameters(SetPortForm.getPort(), 9600, 0, 0, 8, 1, 0);
     private boolean flag = false;
     public static boolean send_reply = false;
 
-    /*public Sender(String recipient, String message) {
-
-     this.recipient = recipient;
-     this.message = message;
-
-     }*/
-    /**
-     * connect to the port and start the dialogue thread
-     */
-    /**
-     * implement the dialogue thread, message / response via steps, handle time
-     * out
-     */
+   Sender(){
+        try {
+            SerialConnection intSerial = new SerialConnection(defaultParameters);
+             String result = "";
+             intSerial.openConnection();
+             intSerial.send("AT+CSCA?");
+             result = intSerial.getIncommingString();
+             while (result.equals("")) {
+                 result = intSerial.getIncommingString();
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Sender.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(null, "Error");
+                }
+             }
+             intSerial.closeConnection();
+             String[] recieved = result.split("\"");
+             csca = recieved[1];
+             //System.out.println(csca);
+        } catch (SerialConnectionException ex) {
+            Logger.getLogger(Sender.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, "Error");
+        }
+   }
+    
     public void run() {
         String current_time = "";
         String time = "10:29";
@@ -48,6 +62,7 @@ public class Sender implements Runnable {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Sender.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error");
                 }
                 cal = Calendar.getInstance();
                 current_time = dateFormat1.format(cal.getTime());
@@ -57,17 +72,18 @@ public class Sender implements Runnable {
             if (flag) {
                 Reciever.lock = true;
                 Reciever.stopConnection();
-                if (!send_reply) {
-                    time = "10:30";
-                }
                 try {
                     send();
                 } catch (SerialConnectionException ex) {
                     Logger.getLogger(Sender.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(null, "Error");
                 }
                 send_reply = false;
                 Reciever.startConnection();
                 Reciever.lock = false;
+                if (!send_reply) {
+                    //new time code
+                }
             }
         }
     }

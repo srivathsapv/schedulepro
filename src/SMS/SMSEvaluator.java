@@ -128,8 +128,6 @@ public class SMSEvaluator {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
                 //Logger.getLogger(SMSEvaluator.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(Message.contains("EXIT")){
-            System.exit(0);
         }
     }
 }

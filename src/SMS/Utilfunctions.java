@@ -4,8 +4,8 @@ package SMS;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,9 +33,9 @@ import javax.swing.JOptionPane;
  * @author Sasi Praveen
  */
 public class Utilfunctions {
-    
+
     public static ResultSet executeQuery(String query) {
-        
+
         try {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -42,20 +43,21 @@ public class Utilfunctions {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
             String dbpwd = Utilfunctions.getDbConfig("password");
-            if(con == null)
+            if (con == null) {
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
-            
+            }
+
             PreparedStatement statement = con.prepareStatement(query);
             result = statement.executeQuery();
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             //Logger.getLogger(DayWisePeriodConfigChooseForm.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
         return result;
     }
-    
+
     public static String getDbConfig(String field) {
         String value = "";
         try {
@@ -85,25 +87,25 @@ public class Utilfunctions {
 
         return value;
     }
-    
+
     public static int executeUpdate(String query) {
         int rowsAffected = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String dbpwd = Utilfunctions.getDbConfig("password");
-            if(con == null)
+            if (con == null) {
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulepro", "root", dbpwd);
+            }
             PreparedStatement statement;
             statement = con.prepareStatement(query);
-            
+
             rowsAffected = statement.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return rowsAffected;
     }
-    
-    
+
     public static String randomStringGenerator(int length) {
         Random rand = new Random();
         String password = "";
@@ -125,14 +127,44 @@ public class Utilfunctions {
         }
         return password;
     }
-    
+
     public static BigInteger MD5(String input) throws NoSuchAlgorithmException {
         MessageDigest MD5 = MessageDigest.getInstance("MD5");
         MD5.update(input.getBytes());
         BigInteger output = new BigInteger(1, MD5.digest());
         return output;
     }
-    
+
+    public static void setLocation(JFrame jf) {
+        toolkit = Toolkit.getDefaultToolkit();
+        dim = toolkit.getScreenSize();
+
+        width = dim.width;
+        height = dim.height;
+
+        Dimension dm = jf.getContentPane().getSize();
+
+        int x = (width - dm.width) / 2;
+        int y = (height - dm.height) / 2;
+
+        jf.setLocation(x, y);
+
+    }
+
+    public static void setIconImage(JFrame jf) {
+        File directory = new File(".");
+        try {
+            String path = directory.getCanonicalPath();
+            String s = File.separator;
+            jf.setIconImage(Toolkit.getDefaultToolkit().getImage(path + s + "src" + s + "images" + s + "logo.gif"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Unexpected Error. Exiting application");
+        }
+    }
+    private static Toolkit toolkit;
+    private static Dimension dim;
+    private static int width;
+    private static int height;
     private static ResultSet result;
     private static Connection con;
 }

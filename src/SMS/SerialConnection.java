@@ -5,6 +5,7 @@ import java.io.*;
 import java.awt.TextArea;
 import java.awt.event.*;
 import java.util.TooManyListenersException;
+import javax.swing.JOptionPane;
 
 /**
 A class that handles the details of a serial connection. Reads from one
@@ -71,11 +72,13 @@ public class SerialConnection implements SerialPortEventListener,
            //System.out.println(parameters.getPortName());
 	    portId = CommPortIdentifier.getPortIdentifier(parameters.getPortName());
 	} catch (NoSuchPortException e) {
+            JOptionPane.showMessageDialog(null, "Error");
            //System.out.println("Yes the problem is here 1 ");
             e.printStackTrace();
 	   // throw new SerialConnectionException(e.getMessage());
 	}catch(Exception e)
         {
+           JOptionPane.showMessageDialog(null, "Error");
           //  System.out.println("ErrorErrorErrorError");
             e.printStackTrace();
         }
@@ -88,7 +91,7 @@ public class SerialConnection implements SerialPortEventListener,
 	try {
 	    sPort = (SerialPort)portId.open("SMSConnector", 30000);
 	} catch (PortInUseException e) {
-            
+            JOptionPane.showMessageDialog(null, "Error");
 	    throw new SerialConnectionException(e.getMessage());
 	}
         //System.out.println("OK 2 ");
@@ -99,6 +102,7 @@ public class SerialConnection implements SerialPortEventListener,
 	try {
 	    setConnectionParameters();
 	} catch (SerialConnectionException e) {
+            JOptionPane.showMessageDialog(null, "Error");
 	    sPort.close();
 	    throw e;
 	}
@@ -169,7 +173,7 @@ public class SerialConnection implements SerialPortEventListener,
 				      parameters.getStopbits(),
 				      parameters.getParity());
 	} catch (UnsupportedCommOperationException e) {
-	    parameters.setBaudRate(oldBaudRate);
+            parameters.setBaudRate(oldBaudRate);
 	    parameters.setDatabits(oldDatabits);
 	    parameters.setStopbits(oldStopbits);
 	    parameters.setParity(oldParity);
@@ -181,6 +185,7 @@ public class SerialConnection implements SerialPortEventListener,
 	    sPort.setFlowControlMode(parameters.getFlowControlIn()
 			           | parameters.getFlowControlOut());
 	} catch (UnsupportedCommOperationException e) {
+            SetPortForm.jLabel5.setText("Error");
 	    throw new SerialConnectionException("Unsupported flow control");
 	}
     }
