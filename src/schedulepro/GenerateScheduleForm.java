@@ -83,6 +83,7 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel4.setText("Room");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/generate.png"))); // NOI18N
         jButton1.setText("Generate");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,8 +124,8 @@ public class GenerateScheduleForm extends javax.swing.JFrame {
                 .addGap(79, 79, 79))
             .addGroup(layout.createSequentialGroup()
                 .addGap(260, 260, 260)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

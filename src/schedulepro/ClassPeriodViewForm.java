@@ -91,6 +91,7 @@ public class ClassPeriodViewForm extends javax.swing.JFrame {
             }
         });
 
+        printButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print_small.png"))); // NOI18N
         printButton.setText("Print");
         printButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

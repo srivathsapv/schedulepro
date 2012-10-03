@@ -74,6 +74,7 @@ public class AssignFacultyForm extends javax.swing.JFrame {
 
         selectSubjectLabel.setText("Select Subject:");
 
+        saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save_small.png"))); // NOI18N
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

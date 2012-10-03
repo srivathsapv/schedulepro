@@ -146,7 +146,8 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
 
         jLabel2.setText("Change Faculty:");
 
-        assignButton.setText("Assign");
+        assignButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save_small.png"))); // NOI18N
+        assignButton.setText("Save");
         assignButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 assignButtonActionPerformed(evt);
@@ -168,7 +169,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(changeFacultyComboBox, 0, 189, Short.MAX_VALUE)
                             .addComponent(assignedFacultyTextField))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 120, Short.MAX_VALUE)
                         .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)

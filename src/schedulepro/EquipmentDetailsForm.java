@@ -84,6 +84,7 @@ public class EquipmentDetailsForm extends javax.swing.JFrame {
 
         departmentLabel.setText("Department:");
 
+        saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save_small.png"))); // NOI18N
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

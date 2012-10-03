@@ -134,6 +134,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
 
         jLabel2.setText("per week");
 
+        saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save_small.png"))); // NOI18N
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +151,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
 
         jLabel6.setText("Work Hours:");
 
+        addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add_small.png"))); // NOI18N
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +159,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             }
         });
 
+        removeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/remove_small.png"))); // NOI18N
         removeButton.setText("Remove");
         removeButton.setEnabled(false);
         removeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -187,6 +190,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
 
         jLabel8.setText("Period Exceptions:");
 
+        addButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add_small.png"))); // NOI18N
         addButton1.setText("Add");
         addButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +198,7 @@ public class StaffConstraintForm extends javax.swing.JFrame {
             }
         });
 
+        removeButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/remove_small.png"))); // NOI18N
         removeButton1.setText("Remove");
         removeButton1.setEnabled(false);
         removeButton1.addActionListener(new java.awt.event.ActionListener() {

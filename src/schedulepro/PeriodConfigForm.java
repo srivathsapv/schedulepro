@@ -75,6 +75,7 @@ public class PeriodConfigForm extends javax.swing.JFrame {
 
         jLabel5.setText("Type");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add_small.png"))); // NOI18N
         jButton1.setText("Create");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

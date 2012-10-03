@@ -78,6 +78,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        loginButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login.png"))); // NOI18N
         loginButton.setMnemonic('L');
         loginButton.setText("LOGIN");
         loginButton.setToolTipText("");
@@ -126,8 +127,8 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(loginButton)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();

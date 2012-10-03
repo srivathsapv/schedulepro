@@ -141,8 +141,9 @@ public class UserSignupForm extends javax.swing.JFrame {
             }
         });
 
+        submitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save_small.png"))); // NOI18N
         submitButton.setMnemonic('s');
-        submitButton.setText("Submit");
+        submitButton.setText("Save");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitButtonActionPerformed(evt);

@@ -49,6 +49,7 @@ public class NewCourseForm extends javax.swing.JFrame {
 
         jLabel3.setText("Short name(eg:CSE) :");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save_small.png"))); // NOI18N
         jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

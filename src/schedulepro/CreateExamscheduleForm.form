@@ -43,7 +43,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jTextField2" min="-2" pref="142" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="84" max="-2" attributes="0"/>
+                      <Component id="jButton2" min="-2" pref="134" max="-2" attributes="0"/>
                   </Group>
                   <Component id="roomNoComboBox" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
               </Group>
@@ -219,7 +219,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Create"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/save_small.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -236,6 +239,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/subject2.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Choose"/>
       </Properties>
       <Events>
