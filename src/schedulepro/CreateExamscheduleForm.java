@@ -76,8 +76,6 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         subjectComboBox = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        dateTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -89,6 +87,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         roomNoComboBox = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         departmentComboBox = new javax.swing.JComboBox();
+        calendarComboBox2 = new com.imagine.component.calendar.CalendarComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Exam Schedule - SchedulePro");
@@ -116,14 +115,6 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         jLabel4.setText("Subject:");
 
         jLabel5.setText("Date:");
-
-        jLabel6.setText("YYYY-MM-DD");
-
-        dateTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dateTextFieldFocusLost(evt);
-            }
-        });
 
         jLabel7.setText("Period:");
 
@@ -179,6 +170,8 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
             }
         });
 
+        calendarComboBox2.setDateFormat("yyyy-MM-dd");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,16 +185,14 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6))
                     .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roomNoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(roomNoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(calendarComboBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(47, 47, 47))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,10 +252,9 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(calendarComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -298,29 +288,9 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_yearComboBoxItemStateChanged
 
-    private void dateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateTextFieldFocusLost
-        // TODO add your handling code here:    
-        if (!dateTextField.getText().isEmpty()) {
-            String DayOfWeek = "";
-            String input = dateTextField.getText().toString();
-            int y = Integer.parseInt(input.substring(0, 4));
-            int m = Integer.parseInt(input.substring(5, 7));
-            int d = Integer.parseInt(input.substring(8));
-            if (!Validation.isValidDate(d, m, y)) {
-                JOptionPane.showMessageDialog(null, "Invalid date");
-                dateTextField.setText("");
-                dateTextField.requestFocus();
-                return;
-            } else {
-                DayOfWeek = Utilfunctions.getDayOFWeek(dateTextField.getText());
-            }
-        }
-        changeDate();
-    }//GEN-LAST:event_dateTextFieldFocusLost
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:PeriodConfigViewForm.pConfigChooseInvoker = this;
-        if (!dateTextField.getText().isEmpty()) {
+        
             PeriodConfigViewForm.pConfigChooseInvoker = this;
             PeriodConfigViewForm.pConfigTextField = jTextField2;
             PeriodConfigViewForm.source = "examschedule";
@@ -332,9 +302,6 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EquipmentIssueForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(subjectComboBox, "Please Enter a date");
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
@@ -356,8 +323,10 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         try {
             result.next();
             r.next();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String date = df.format(calendarComboBox2.getDate());
             
-            String query = "SELECT COUNT(*) FROM exam WHERE examDate = '" + dateTextField.getText()
+            String query = "SELECT COUNT(*) FROM exam WHERE examDate = '" + date
                     + "' AND pconfigId = " + PeriodConfigViewForm.pConfigId + " AND "
                     + " roomId = " + r.getInt(1);
             ResultSet countrs = Utilfunctions.executeQuery(query);
@@ -371,7 +340,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
             }
             if(cont){
                 classCode = Integer.parseInt(result.getString(1));
-                n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`, roomId) VALUES (NULL, '" + Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString()) + "', '" + dateTextField.getText() + "', " + PeriodConfigViewForm.pConfigId + ", " + classCode + ", '" + jTextField1.getText() + "', '"+r.getString(1)+"')");
+                n = Utilfunctions.executeUpdate("INSERT INTO `schedulepro`.`exam` (`examCode`, `subCode`, `examDate`, `pconfigId`, `classCode`, `examName`, roomId) VALUES (NULL, '" + Utilfunctions.getWithinBrackets(subjectComboBox.getSelectedItem().toString()) + "', '" + date + "', " + PeriodConfigViewForm.pConfigId + ", " + classCode + ", '" + jTextField1.getText() + "', '"+r.getString(1)+"')");
                 if(n >= 1) JOptionPane.showMessageDialog(null,"Exam added successfully");
             }
         } catch (SQLException ex) {
@@ -423,7 +392,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         if(jTextField2.getText().equals("")) return;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date dt = df.parse(dateTextField.getText());
+            Date dt = calendarComboBox2.getDate();
             Calendar cl = Calendar.getInstance();
             cl.setTime(dt);
             
@@ -433,7 +402,7 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
                 rs.next();
                 cl.set(Calendar.DAY_OF_WEEK,Utilfunctions.getDayNumber(rs.getString(1)));
                 String changedDate = df.format(cl.getTime());
-                dateTextField.setText(changedDate);
+                calendarComboBox2.setDate(df.parse(changedDate));
             } catch (SQLException ex) {
                 Logger.getLogger(CreateExamscheduleForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -476,8 +445,8 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.imagine.component.calendar.CalendarComboBox calendarComboBox2;
     private javax.swing.JComboBox courseComboBox;
-    private javax.swing.JTextField dateTextField;
     private javax.swing.JComboBox departmentComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -487,7 +456,6 @@ public class CreateExamscheduleForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

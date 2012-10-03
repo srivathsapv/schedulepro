@@ -4,6 +4,8 @@
  */
 package schedulepro;
 
+import com.imagine.component.calendar.CalendarComboBox;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
@@ -106,6 +108,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
         col = jTable1.getColumnModel().getColumn(7);
         col.setCellEditor(new DefaultCellEditor(sectionCombo));
         
+                
     }
 
     /**
@@ -184,8 +187,8 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
                 .addGap(75, 75, 75)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(358, 358, 358))
             .addGroup(layout.createSequentialGroup()
@@ -193,18 +196,17 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -233,6 +235,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
                         Logger.getLogger(ExamScheduleViewForm.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                
             } else if (SwingUtilities.isRightMouseButton(evt)) {
                 JTable source = (JTable) evt.getSource();
                 selectedRow = source.rowAtPoint(evt.getPoint());
@@ -485,7 +488,7 @@ class ExamTableModel extends AbstractTableModel {
         public boolean isCellEditable(int row, int col) {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
-            if(col == 3 || col == 9) return false;
+            if(col == 3 || col == 9 || col == 2) return false;
             else if(!LoginForm.userRole.equals("sa") && col == 4){
                 return false;
             }
