@@ -18,8 +18,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
-
-
 /**
  *
  * @author srivathsa
@@ -48,7 +46,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
                 
             }
         });
-        jTable1.setModel(new EquipmentTableModel());
+        jTable1.setModel(new EquipmentTableModel(""));
         TableColumn col = jTable1.getColumnModel().getColumn(1);
         col.setCellRenderer(new ToolTipRenderer());
     }
@@ -69,6 +67,8 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         jMenuItem5.setText("Book");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -116,27 +116,45 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel2.setText("Search");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(179, 179, 179)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,7 +182,7 @@ public class EquipmentViewForm extends javax.swing.JFrame {
             Utilfunctions.executeUpdate("DELETE FROM `equipmentissue` WHERE `equipId`='" + jTable1.getValueAt(selectedRow,0) + "'");
             EquipmentTableModel model = (EquipmentTableModel)jTable1.getModel();
             try {
-                jTable1.setModel(new EquipmentTableModel());
+                jTable1.setModel(new EquipmentTableModel(""));
             } catch (SQLException ex) {
                 Logger.getLogger(EquipmentViewForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -198,6 +216,15 @@ public class EquipmentViewForm extends javax.swing.JFrame {
         }
         vb.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        try {
+            jTable1.setModel(new EquipmentTableModel(jTextField1.getText()));
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jTextField1KeyTyped
     
     
     /**
@@ -247,12 +274,14 @@ public class EquipmentViewForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
     private int selectedRow;
     private int selectedColumn;
@@ -263,13 +292,13 @@ class EquipmentTableModel extends AbstractTableModel {
         private Object[][] data;
         private final String userRole;
 
-        public EquipmentTableModel() throws SQLException{
+        public EquipmentTableModel(String pattern) throws SQLException{
             userRole = LoginForm.userRole;
             String query;
             if(userRole.equals("sa")){
-                query = "SELECT equipId,equipName,dept,SMSid FROM equipment";
+                query = "SELECT equipId,equipName,dept,SMSid FROM equipment WHERE equipName LIKE '" + pattern + "%'";
             }else{
-                query = "SELECT equipId,equipName,dept,SMSid FROM equipment WHERE dept = '" + LoginForm.userDept + "'";
+                query = "SELECT equipId,equipName,dept,SMSid FROM equipment WHERE dept = '" + LoginForm.userDept + "' AND equipName LIKE '" + pattern + "%'";
             }
             ResultSet rs = Utilfunctions.executeQuery(query);
             int cnt = 0;

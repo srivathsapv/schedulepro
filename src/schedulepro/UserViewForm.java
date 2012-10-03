@@ -43,7 +43,7 @@ public class UserViewForm extends javax.swing.JFrame {
             }
         });
         
-        usersTable.setModel(new UserTableModel());
+        usersTable.setModel(new UserTableModel(""));
         TableColumn col = usersTable.getColumnModel().getColumn(2);
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("Head of the Department");
@@ -84,6 +84,8 @@ public class UserViewForm extends javax.swing.JFrame {
         usersLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         usersTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         resetPasswordMenuItem.setText("Reset Password\n");
         resetPasswordMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +139,14 @@ public class UserViewForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(usersTable);
 
+        jLabel2.setText("Search");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,20 +154,31 @@ public class UserViewForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(273, 273, 273)
                 .addComponent(usersLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(120, 120, 120))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(usersLabel)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         pack();
@@ -201,7 +222,7 @@ public class UserViewForm extends javax.swing.JFrame {
                 Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                usersTable.setModel(new UserTableModel());
+                usersTable.setModel(new UserTableModel(""));
             } catch (SQLException ex) {
                 Logger.getLogger(UserViewForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -241,6 +262,15 @@ public class UserViewForm extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        try {
+            usersTable.setModel(new UserTableModel(jTextField1.getText()));
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jTextField1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -282,8 +312,10 @@ public class UserViewForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem deleteMenuItem;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem resetPasswordMenuItem;
     private javax.swing.JPopupMenu userPopupMenu;
     private javax.swing.JLabel usersLabel;
@@ -297,13 +329,13 @@ class UserTableModel extends AbstractTableModel {
         private Object[][] data;
         private final String userRole;
 	
-        public UserTableModel() throws SQLException{
+        public UserTableModel(String pattern) throws SQLException{
             userRole = LoginForm.userRole;
             String query;
             if(userRole.equals("sa")){
-                query = "SELECT * FROM user ORDER BY name";
+                query = "SELECT * FROM user WHERE NAME LIKE '" + pattern + "%' ORDER BY name";
             }else{
-                query = "SELECT * FROM user WHERE dept = '" + LoginForm.userDept + "' ORDER BY name";
+                query = "SELECT * FROM user WHERE dept = '" + LoginForm.userDept + "' AND name LIKE '" + pattern + "%' ORDER BY name";
             }
             ResultSet rs = Utilfunctions.executeQuery(query);
             
@@ -321,7 +353,7 @@ class UserTableModel extends AbstractTableModel {
             rs = Utilfunctions.executeQuery(query);
             int i=0;
             while(rs.next()){
-                query = "SELECT * FROM login WHERE userCode = '" + rs.getString(1) + "'";
+                query = "SELECT * FROM login WHERE userCode = '" + rs.getString(1) + "' AND userCode IN(SELECT userCode FROM user WHERE name LIKE '" + pattern + "%')";
                 ResultSet rs2 = Utilfunctions.executeQuery(query);
                 rs2.next();
                 Object[] values = {rs2.getString(2),rs.getString(2),hm.get(rs2.getString(4)),rs.getString(4)};

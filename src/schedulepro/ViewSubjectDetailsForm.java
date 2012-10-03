@@ -152,7 +152,7 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,10 +214,11 @@ public class ViewSubjectDetailsForm extends javax.swing.JFrame {
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         try {
             SubjectDetailsTable.setModel(new SubjectTableModel(jTextField1.getText()));
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
-            e.printStackTrace();
+            SubjectDetailsTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+            SubjectDetailsTable.getColumnModel().getColumn(0).setPreferredWidth(85);
+            SubjectDetailsTable.getColumnModel().getColumn(2).setPreferredWidth(500);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_jTextField1KeyTyped
 
@@ -290,9 +291,9 @@ class SubjectTableModel extends AbstractTableModel {
             data = new Object[cnt][5];
 
             if(userRole.equals("sa")){
-                query1 = "SELECT `subcode`, `subName`,`subShortName`, `credits`,dept FROM `subject` order by `subName` asc";
+                query1 = "SELECT `subcode`, `subName`,`subShortName`, `credits`,dept FROM `subject` WHERE subName LIKE '" + pattern + "%' order by `subName` asc";
             }else{
-                query1 = "SELECT `subcode`, `subName`,`subShortName`, `credits`,dept FROM `subject` where `dept` = '" + LoginForm.userDept + "' order by `subName` asc";
+                query1 = "SELECT `subcode`, `subName`,`subShortName`, `credits`,dept FROM `subject` where `dept` = '" + LoginForm.userDept + "' AND subName LIKE '" + pattern + "' order by `subName` asc";
             }
             ResultSet result = Utilfunctions.executeQuery(query1);
             int i =0;
