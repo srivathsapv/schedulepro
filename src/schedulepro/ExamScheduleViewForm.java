@@ -284,6 +284,7 @@ public class ExamScheduleViewForm extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         try {
             classCode = Utilfunctions.getClassCode(jComboBox1.getSelectedItem().toString());
+            jTable1.setModel(new ExamTableModel());
         } catch (SQLException ex) {
             Logger.getLogger(ExamScheduleViewForm.class.getName()).log(Level.SEVERE, null, ex);
         }
