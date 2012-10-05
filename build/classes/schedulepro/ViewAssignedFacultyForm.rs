@@ -1,2 +1,0 @@
-schedulepro.FacultyTableModel
-schedulepro.ViewAssignedFacultyForm

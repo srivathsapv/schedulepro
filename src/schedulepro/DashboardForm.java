@@ -196,11 +196,11 @@ public class DashboardForm extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tiltle.gif"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Welcome");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("w");
 
@@ -554,7 +554,7 @@ public class DashboardForm extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -623,6 +623,7 @@ public class DashboardForm extends javax.swing.JFrame {
         EquipmentDetailsForm aedf = new EquipmentDetailsForm();
         Utilfunctions.setIconImage(aedf);
         Utilfunctions.setLocation(aedf);
+        this.setVisible(false);
         aedf.setVisible(true);
     }//GEN-LAST:event_addEquipmentManualMenuActionPerformed
 

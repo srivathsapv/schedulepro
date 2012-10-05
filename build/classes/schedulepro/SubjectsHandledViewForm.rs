@@ -1,2 +1,0 @@
-schedulepro.SubjectsHandledViewForm
-schedulepro.SubjectsHandledTableModel

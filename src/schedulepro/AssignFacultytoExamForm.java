@@ -42,7 +42,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
         
         SimpleDateFormat sf2 = new SimpleDateFormat("EEEE");
         String examDay = sf2.format(dt1);
-        JOptionPane.showMessageDialog(null,examDay);
+        //JOptionPane.showMessageDialog(null,examDay);
         ResultSet result = Utilfunctions.executeQuery("select userCode from examinvigilation where examCode=" + examCode);
         try {
             if (result.next()) {
@@ -112,7 +112,7 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             if (assignedFaculty.contains(r1.getString(1))) {
                         changeFacultyComboBox.addItem("<html><font color=red>" + r1.getString(2) + "</font></html>");
                     } else {
-                        changeFacultyComboBox.addItem("<html><font color=green>" + r1.getString(2) + "</font></html>");
+                        changeFacultyComboBox.addItem("<html><font color=yellow>" + r1.getString(2) + "</font></html>");
                     }
             }
         } catch (SQLException ex) {
@@ -148,6 +148,9 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
 
         assignButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save_small.png"))); // NOI18N
         assignButton.setText("Save");
+        assignButton.setMaximumSize(new java.awt.Dimension(85, 25));
+        assignButton.setMinimumSize(new java.awt.Dimension(85, 25));
+        assignButton.setPreferredSize(new java.awt.Dimension(85, 25));
         assignButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 assignButtonActionPerformed(evt);
@@ -160,20 +163,16 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(changeFacultyComboBox, 0, 189, Short.MAX_VALUE)
-                            .addComponent(assignedFacultyTextField))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 120, Short.MAX_VALUE)
-                        .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81))))
+                    .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(changeFacultyComboBox, 0, 189, Short.MAX_VALUE)
+                        .addComponent(assignedFacultyTextField)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,12 +181,12 @@ public class AssignFacultytoExamForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(assignedFacultyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(changeFacultyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(assignButton)
+                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

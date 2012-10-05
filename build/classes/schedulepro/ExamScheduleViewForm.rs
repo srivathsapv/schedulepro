@@ -1,2 +1,0 @@
-schedulepro.ExamTableModel
-schedulepro.ExamScheduleViewForm
